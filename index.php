@@ -8,15 +8,43 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('MOVED_VERSION', '1dev1');
 
 
-define('MOVED_DATA_PATH', $pth['folder']['plugin'] . 'data/data-' . basename($sl) . '.csv');
-define('MOVED_LOG_PATH', $pth['folder']['plugin'] . 'data/log404.csv');
-
 define('MOVED_URL', 'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
     . '://' . $_SERVER['SERVER_NAME']
     . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
     . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
 
+/**
+ * Returns the path of the data folder.
+ *
+ * @return string
+ *
+ * @global array The paths of system files and folders.
+ */
+function Moved_dataFolder()
+{
+    global $pth, $plugin_cf;
+
+    $pcf = $plugin_cf['moved'];
+    if ($pcf['folder_data'] != '') {
+	$filename = $pth['folder']['base'] . $pcf['folder_data'];
+	if ($filename[strlen($filename) - 1] != '/') {
+	    $filename .= '/';
+	}
+    } else {
+	$filename = $pth['folder']['plugins'] . 'moved/data/';
+    }
+    if (file_exists($filename)) {
+	if (!is_dir($filename)) {
+	    e('cntopen', 'folder', $filename);
+	}
+    } else {
+	if (!mkdir($filename, 0777)) {
+	    e('cntwriteto', 'folder', $filename);
+	}
+    }
+    return $filename;
+}
 
 /**
  * Returns the records of moved pages as associative array,
@@ -26,7 +54,11 @@ define('MOVED_URL', 'http'
  */
 function Moved_data()
 {
-    $lines = file(MOVED_DATA_PATH);
+    $filename = Moved_dataFolder() . 'data.csv';
+    if (!file_exists($filename)) {
+        touch($filename);
+    }
+    $lines = file($filename);
     if ($lines === false) {
         return false;
     }
@@ -51,7 +83,8 @@ function Moved_log404()
         : time();
     $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
     $line = $time . "\t" . $sl . "\t" . $su . "\t" . $referrer;
-    $fp = fopen(MOVED_LOG_PATH, 'a');
+    $filename = Moved_dataFolder() . 'log.csv';
+    $fp = fopen($filename, 'a');
     fwrite($fp, $line . PHP_EOL);
     fclose($fp);
 }

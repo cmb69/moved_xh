@@ -24,11 +24,14 @@ function Moved_admin()
 {
     global $sn, $action;
 
-    $filename = MOVED_DATA_PATH;
+    $filename = Moved_dataFolder() . 'data.csv';
     if ($action == 'plugin_textsave') {
         $contents = stsl($_POST['plugin_text']);
         file_put_contents($filename, $contents);
     } else {
+        if (!file_exists($filename)) {
+            touch($filename);
+        }
         $contents = file_get_contents($filename);
     }
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
