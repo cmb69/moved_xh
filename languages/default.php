@@ -6,6 +6,9 @@ $plugin_tx['moved']['title_gone']="Page is gone";
 $plugin_tx['moved']['desc_notfound']="Sorry. The page \"{{URL}}\" you're looking for does not exist.";
 $plugin_tx['moved']['desc_gone']="Sorry. The page \"{{URL}}\" you're looking for has been removed.";
 
+$plugin_tx['moved']['save_success']="The file \"%s\" was saved successfully.";
+$plugin_tx['moved']['save_failure']="The file \"%s\" couldn't be saved.";
+
 $plugin_tx['moved']['syscheck']="System check";
 $plugin_tx['moved']['syscheck_phpversion']="PHP version &ge; %s";
 $plugin_tx['moved']['syscheck_extension']="Extension '%s' loaded";

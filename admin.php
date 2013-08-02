@@ -23,29 +23,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * Writes a file and returns whether that succeeded.
- *
- * @param string $filename A file path.
- * @param string $string   A string to write as file contents.
- *
- * @return bool
- */
-function Moved_writeFile($filename, $string)
-{
-    $func = 'file_put_contents';
-    if (function_exists($func)) {
-        return (bool) $func($filename, $string);
-    } else {
-        $ok = (($fp = fopen($filename, 'w')) !== false
-            && fwrite($fp, $string) !== false);
-        if ($fp !== false) {
-            fclose($fp);
-        }
-        return $ok;
-    }
-}
-
-/**
  * Returns the plugin information view.
  *
  * @return string (X)HTML.
@@ -108,22 +85,35 @@ function Moved_admin()
     $filename = Moved_dataFolder() . 'data.csv';
     if ($action == 'plugin_textsave') {
         $contents = stsl($_POST['plugin_text']);
-        Moved_lock(LOCK_EX);
-        Moved_writeFile($filename, $contents);
-    } else {
-        if (!file_exists($filename)) {
-            touch($filename);
+        $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
+        if (($handle = fopen($filename, 'c')) !== false) {
+            flock($handle, LOCK_EX);
+            ftruncate($handle, 0);
+            fwrite($handle, $contents);
+            flock($handle, LOCK_UN);
+            fclose($handle);
+            $message = Moved_message('success', 'save_success', $filename);
+        } else {
+            $message = Moved_message('failure', 'save_failure', $filename);
         }
-        Moved_lock(LOCK_SH);
-        $contents = file_get_contents($filename);
+    } else {
+        $contents = '';
+        if (($handle = fopen($filename, 'r')) !== false) {
+            flock($handle, LOCK_SH);
+            while (($line = fgets($handle, 4096)) !== false) {
+                $contents .= $line;
+            }
+            flock($handle, LOCK_UN);
+            fclose($handle);
+        }
+        $message = '';
     }
-    Moved_lock(LOCK_UN);
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
     $action = $sn . '?&moved';
     $label = array(
         'save' => ucfirst($tx['action']['save'])
     );
-    $bag = compact('action', 'contents', 'label');
+    $bag = compact('action', 'contents', 'label', 'message');
     return Moved_render('admin', $bag);
 }
 

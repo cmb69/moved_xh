@@ -57,54 +57,23 @@ function Moved_dataFolder()
 }
 
 /**
- * Locks resp. unlocks the data file. Returns whether that succeeded.
- *
- * @param int $operation A LOCK_* constant.
- *
- * @return bool
- */
-function Moved_lock($operation)
-{
-    static $handle;
-
-    $filename = Moved_dataFolder() . '.lock';
-    if (!isset($handle)) {
-        $handle = fopen($filename, 'c');
-    }
-    $ok = flock($handle, $operation);
-    if ($operation == LOCK_UN) {
-        fclose($handle);
-        $handle = null;
-    }
-    return $ok;
-}
-
-/**
- * Returns the records of moved pages as associative array,
- * <var>false</var> on failure reading the file.
+ * Returns the records of moved pages as associative array.
  *
  * @return array
  */
 function Moved_data()
 {
     $filename = Moved_dataFolder() . 'data.csv';
-    if (!file_exists($filename)) {
-        touch($filename);
-    }
-    Moved_lock(LOCK_SH);
-    $lines = file($filename);
-    Moved_lock(LOCK_UN);
-    if ($lines === false) {
-        return false;
-    }
     $records = array();
-    foreach ($lines as $line) {
-        if (trim($line) != '') {
-            $fields = explode('->', $line);
-            $key = trim($fields[0]);
-            $value = isset($fields[1]) ? trim($fields[1]) : '';
+    if (($handle = fopen($filename, 'r')) !== false) {
+        flock($handle, LOCK_SH);
+        while (($fields = fgetcsv($handle, 4096, '=')) !== false) {
+            $key = $fields[0];
+            $value = count($fields) > 1 ? $fields[1] : '';
             $records[$key] = $value;
         }
+        flock($handle, LOCK_UN);
+        fclose($handle);
     }
     return $records;
 }
@@ -163,6 +132,30 @@ function Moved_statusHeader($status)
 function Moved_isUtf8($str)
 {
     return preg_match('/^.{1}/us', $str) == 1;
+}
+
+function Moved_message($type, $key)
+{
+    global $plugin_tx;
+
+    switch ($type) {
+    case 'success':
+        $style = 'background: #e1f8cb; color: #37620d; border: 1px solid #c6d880;';
+        break;
+    case 'failure':
+        $style = 'background: #fbe5e2; color: #992213; border: 1px solid #f2a197;';
+        break;
+    default:
+        $style = 'background: #e9f5fb; color: #16597a; border: 1px solid #84c7e9';
+    }
+    $style .= '-moz-border-radius: 7px; -webkit-border-radius: 7px;'
+        . ' border-radius: 7px; padding: 0.5em';
+    $varargs = array_slice(func_get_args(), 2);
+    //var_dump($varargs);
+    $string = vsprintf($plugin_tx['moved'][$key], $varargs);
+    $o = '<p style="' . $style . '">'
+        . htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8') . '</p>' . PHP_EOL;
+    return $o;
 }
 
 /**
