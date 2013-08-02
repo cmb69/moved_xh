@@ -1,2 +1,12 @@
+Version 1beta1 - released 2013-08-03
+cmb     added plugin administration
+cmb     changed to store data and log in the content/ folder
+cmb     added English and German user manual
+cmb     added README and LICENSE
+cmb     added views
+cmb     added locking of data files
+cmb     added PHPDoc blocks
+cmb     cleaned up code
+
 Version 1dev1 - internally released 2013-04-23
 cmb     initial release
