@@ -18,15 +18,26 @@ define('MOVED_URL', 'http'
     . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
 
 
+/**
+ * Returns the records of moved pages as associative array,
+ * <var>false</var> on failure reading the file.
+ *
+ * @return array
+ */
 function Moved_data()
 {
     $lines = file(MOVED_DATA_PATH);
+    if ($lines === false) {
+        return false;
+    }
     $records = array();
     foreach ($lines as $line) {
-        $fields = explode("\t", $line);
-        $key = trim($fields[0]);
-        $value = isset($fields[1]) ? trim($fields[1]) : '';
-        $records[$key] = $value;
+        if (trim($line) != '') {
+            $fields = explode('->', $line);
+            $key = trim($fields[0]);
+            $value = isset($fields[1]) ? trim($fields[1]) : '';
+            $records[$key] = $value;
+        }
     }
     return $records;
 }
