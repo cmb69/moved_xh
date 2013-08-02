@@ -23,6 +23,53 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
+ * Returns the plugin information view.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ * @global array The localization of the plugins.
+ */
+function Moved_info() // RELEASE-TODO: syscheck
+{
+    global $pth, $tx, $plugin_tx;
+
+    $ptx = $plugin_tx['moved'];
+    $phpVersion = '4.3.0';
+    foreach (array('ok', 'warn', 'fail') as $state) {
+        $images[$state] = "{$pth['folder']['plugins']}moved/images/$state.png";
+    }
+    $checks = array();
+    $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
+        version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+    foreach (array('pcre', 'session') as $ext) {
+	$checks[sprintf($ptx['syscheck_extension'], $ext)] =
+            extension_loaded($ext) ? 'ok' : 'fail';
+    }
+    $checks[$ptx['syscheck_magic_quotes']] =
+        !get_magic_quotes_runtime() ? 'ok' : 'fail';
+    $checks[$ptx['syscheck_encoding']] =
+        strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
+    foreach (array('languages/') as $folder) {
+	$folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
+    }
+    $folders[] = Moved_dataFolder();
+    foreach ($folders as $folder) {
+	$checks[sprintf($ptx['syscheck_writable'], $folder)] =
+            is_writable($folder) ? 'ok' : 'warn';
+    }
+    $bag = array(
+        'ptx' => $ptx,
+        'images' => $images,
+        'checks' => $checks,
+        'icon' => $pth['folder']['plugins'] . 'moved/moved.png',
+        'version' => MOVED_VERSION
+    );
+    return Moved_render('info', $bag);
+}
+
+/**
  * Handles editing of the moved pages files.
  *
  * @return string (X)HTML.
@@ -66,7 +113,7 @@ if (isset($moved) && $moved == 'true') {
     $o .= print_plugin_admin('on');
     switch ($admin) {
     case '':
-        $o .= 'INFO';
+        $o .= Moved_info();
         break;
     case 'plugin_main':
         $o .= Moved_admin();
