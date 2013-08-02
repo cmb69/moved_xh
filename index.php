@@ -67,9 +67,9 @@ function Moved_lock($operation)
 {
     static $handle;
 
-    $filename = Moved_dataFolder() . 'data.csv';
+    $filename = Moved_dataFolder() . '.lock';
     if (!isset($handle)) {
-        $handle = fopen($filename, 'r+');
+        $handle = fopen($filename, 'c');
     }
     $ok = flock($handle, $operation);
     if ($operation == LOCK_UN) {
