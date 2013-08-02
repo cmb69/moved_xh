@@ -12,7 +12,13 @@
 
 <h1>Moved_XH&mdash;a CMSimple_XH Plugin</h1>
 <img src="../moved.png" style="float:left; margin-right: 1em">
-<p style="text-align:justify"></p>
+<p style="text-align:justify">Moved_XH facilitates to cater for pages which have
+been renamed. Direkt links to those pages will normally result in a 404 Page Not
+Found error, but Moved_XH makes it possible to redirect incoming requests to
+another page or to flag them as gone. Appropriate information is returned that
+informs bots about the change, what is particularly important regarding search
+engines, which can change the URL of the page resp. remove it from the
+index.</p>
 
 <ul id="nav">
 <li><a href="#notice">Important Notice</a></li>
@@ -32,7 +38,7 @@ problems!</strong></p>
 
 <h2><a name="notice">Important Notice</a></h2>
 <p><strong>Moved_XH couldn't be tested so far in various environments. It is a
-so called ALPHA version. Use with utmost caution!</strong></p>
+so called BETA version. Use with caution!</strong></p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="requirements">Requirements</a></h2>
@@ -48,8 +54,8 @@ wiki</a> for further details.</p>
 <li>Unzip the distribution on your computer.</li>
 <li>Upload the whole directory moved/ to your server into CMSimple_XH's plugins
 directory.</li>
-<li>Set write permissions to the subdirectories config/, languages/ and the
-plugin's content folder.</li>
+<li>Set write permissions to the subdirectory languages/ and the
+plugin's content folders (/content/moved/).</li>
 <li><strong>Switch to "Moved" in the back-end to check if all requirements are
 fulfilled.</strong></li>
 </ol>
@@ -58,14 +64,58 @@ fulfilled.</strong></li>
 <h2><a name="settings">Settings</a></h2>
 <p>The plugin's configuration is done as with many other CMSimple_XH plugins in
 the website's back-end. Select "Moved" from "Plugins".</p>
-<p>You can change the default settings of Moved_XH in "Config". Hints for
+<!--<p>You can change the default settings of Moved_XH in "Config". Hints for
 the options will be displayed when hovering over the help icon with your
 mouse.</p>
-<p>Localization is done in "Language". You can translate the character
+--><p>Localization is done in "Language". You can translate the character
 strings to your own language, or customize them according to your needs.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="usage">Usage</a></h2>
+<p>Moved_XH stores its data separately for each language resp. subsite of the
+CMSimple_XH installation in a subfolder moved/ of the respective content/ folder.
+The rules regarding the renamed pages are stored in data.csv; incoming request
+to pages that do not exist and do not have a rule in data.csv are logged in log.csv.</p>
+<p>The rules can be edited in the plugin administration under "Main Settings".
+Each line of the file constitutes a rule. Rules consist of one resp. two so
+called page URLs. Technically speaking, a page URL is the name of the first
+parameter of the query string, i.e. everything between the question mark (?) and
+the first ampersand (&amp;) resp. the end of the URL, if there's no ampersand.
+It is recommended to copy the page URLs from the address of the browser instead
+of entering them manually, because there'll be some surprises. For instance, the
+page URL of the fictious page <a
+href="http://www.example.com/?Fahrvergn%3C%BCgen">Fahrvergn&uuml;gen</a> is
+Fahrvergn%3C%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
+<p>There are two different types of rules:</p>
+<dl>
+    <dt>Redirects</dt>
+    <dd>Redirect rules will redirect incoming requests for an old page URL to a
+    new page URL. Both page URLs are seperated by an equal sign (=).
+    <h5>Example</h5>
+    <p>You are restructuring your site and want to move the toplevel page "Oaks"
+    to the second level below "Trees", so add the following rule:</p>
+    <pre>Oaks=Trees:Oaks</pre>
+    <h5>Example</h5>
+    <p>You have upgraded from an ISO-8859-1 encoded CMSimple version to a
+    UTF-8 encoded CMSimple_XH installation, and you have a page
+    "Fahrvergn&uuml;gen", so add the following rule:</p>
+    <pre>Fahrverg%FCgen=Fahrvergn%3C%BCgen</pre>
+    </dd>
+    <dt>Gone</dt>
+    <dd>Gone rules will inform visitors that a page does not exists anymore.
+    They consist of the page URL of the removed page.
+    <h5>Example</h5>
+    <p>You have removed the page "Temporary Information" because it is no more
+    needed, so add the following rule:</p>
+    <pre>Temporary_Information</pre>
+    </dd>
+</dl>
+<p>The log files are useful to check if there have been requests to pages which
+do not exist. Each line of the log file contains the timestamp of the request
+and the requested page URL; if available the referrer is logged also. Currently
+it is not possible to view the log files from the plugin administration; you
+have to download it via FTP. You may consider importing the log file to a spread
+sheet application for an better overview.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
@@ -75,9 +125,9 @@ strings to your own language, or customize them according to your needs.</p>
     hook</a>, so it doesn't work if the hook is alread defined. In this case
     you'll get a blank browser window when you browse to your website. Either
     uninstall Moved_XH or remove the existing custom_404() hook.</li>
-    <li>Moved_XH doesn't work when you're logged to the CMSimple_XH
+    <li>Moved_XH's rules don't work when you're logged in to the CMSimple_XH
     installation, as the custom_404() hook funktion is not called by CMSimple_XH
-    in this case. If you want to test the moved pages without login out, you
+    in this case. If you want to test the moved pages without logging out, you
     have to use a second browser.</li>
 </ul>
 <div class="toplink"><a href="#">back to top</a></div>
