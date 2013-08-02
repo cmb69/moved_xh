@@ -93,17 +93,8 @@ function Moved_admin()
     }
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
     $action = $sn . '?&moved';
-    $o = '<div class="pluginedit">'
-        . '<form action="' . $action . '" method="post">'
-        . '<div class="plugineditcaption">Moved</div>'
-        . tag('input type="hidden" name="admin" value="plugin_main"')
-        . tag('input type="hidden" name="action" value="plugin_textsave"')
-        . '<textarea class="plugintextarea" name="plugin_text" cols="80" rows="25">'
-        . $contents . '</textarea>'
-        . tag('br')
-        . tag('input type="submit" class="submit" value="Save"')
-        . '</form></div>';
-    return $o;
+    $bag = compact('action', 'contents');
+    return Moved_render('admin', $bag);
 }
 
 /*
