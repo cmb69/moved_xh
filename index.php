@@ -57,6 +57,29 @@ function Moved_dataFolder()
 }
 
 /**
+ * Locks resp. unlocks the data file. Returns whether that succeeded.
+ *
+ * @param int $operation A LOCK_* constant.
+ *
+ * @return bool
+ */
+function Moved_lock($operation)
+{
+    static $handle;
+
+    $filename = Moved_dataFolder() . 'data.csv';
+    if (!isset($handle)) {
+        $handle = fopen($filename, 'r+');
+    }
+    $ok = flock($handle, $operation);
+    if ($operation == LOCK_UN) {
+        fclose($handle);
+        $handle = null;
+    }
+    return $ok;
+}
+
+/**
  * Returns the records of moved pages as associative array,
  * <var>false</var> on failure reading the file.
  *
@@ -68,7 +91,9 @@ function Moved_data()
     if (!file_exists($filename)) {
         touch($filename);
     }
+    Moved_lock(LOCK_SH);
     $lines = file($filename);
+    Moved_lock(LOCK_UN);
     if ($lines === false) {
         return false;
     }

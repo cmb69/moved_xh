@@ -108,13 +108,16 @@ function Moved_admin()
     $filename = Moved_dataFolder() . 'data.csv';
     if ($action == 'plugin_textsave') {
         $contents = stsl($_POST['plugin_text']);
+        Moved_lock(LOCK_EX);
         Moved_writeFile($filename, $contents);
     } else {
         if (!file_exists($filename)) {
             touch($filename);
         }
+        Moved_lock(LOCK_SH);
         $contents = file_get_contents($filename);
     }
+    Moved_lock(LOCK_UN);
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
     $action = $sn . '?&moved';
     $label = array(
