@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Moved_XH Manual</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Moved_XH&mdash;a CMSimple_XH Plugin</h1>
+<img src="../extedit.png" style="float:left; margin-right: 1em">
+<p style="text-align:justify"></p>
+
+<ul id="nav">
+<li><a href="#notice">Important Notice</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#credits">Credits</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Please do read this documentation, <em>before</em> you encounter any
+problems!</strong></p>
+
+<h2><a name="notice">Important Notice</a></h2>
+<p><strong>Moved_XH couldn't be tested so far in various environments. It is a
+so called ALPHA version. Use with utmost caution!</strong></p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="requirements">Requirements</a></h2>
+<p>Moved_XH is a plugin for CMSimple_XH &ge; 1.5.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="installation">Installation</a></h2>
+<p>The installation is done as with many other CMSimple_XH plugins. See the <a
+href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH
+wiki</a> for further details.</p>
+<ol>
+<li><strong>Backup the data on your server.</strong></li>
+<li>Unzip the distribution on your computer.</li>
+<li>Upload the whole directory moved/ to your server into CMSimple_XH's plugins
+directory.</li>
+<li>Set write permissions to the subdirectories config/, languages/ and the
+plugin's content folder.</li>
+<li><strong>Switch to "Moved" in the back-end to check if all requirements are
+fulfilled.</strong></li>
+</ol>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="settings">Settings</a></h2>
+<p>The plugin's configuration is done as with many other CMSimple_XH plugins in
+the website's back-end. Select "Moved" from "Plugins".</p>
+<p>You can change the default settings of Moved_XH in "Config". Hints for
+the options will be displayed when hovering over the help icon with your
+mouse.</p>
+<p>Localization is done in "Language". You can translate the character
+strings to your own language, or customize them according to your needs.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="usage">Usage</a></h2>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="limitations">Limitations</a></h2>
+<ul>
+    <li>Moved_XH uses the <a
+    href="http://www.cmsimple-xh.org/wiki/doku.php/tips_and_tricks#custom_404_error_page">custom_404()
+    hook</a>, so it doesn't work if the hook is alread defined. In this case
+    you'll get a blank browser window when you browse to your website. Either
+    uninstall Moved_XH or remove the existing custom_404() hook.</li>
+    <li>Moved_XH doesn't work when you're logged to the CMSimple_XH
+    installation, as the custom_404() hook funktion is not called by CMSimple_XH
+    in this case. If you want to test the moved pages without login out, you
+    have to use a second browser.</li>
+</ul>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="license">License</a></h2>
+<p>Moved_XH is licensed under <a
+href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2013 Christoph M. Becker</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="credits">Credits</a></h2>
+<p>The plugin icon is designed by <a href="http://www.mentalrey.it/">Alessandro
+Rei</a>. Many thanks for publishing this icon under GPL.</p>
+<p>This plugin uses free applications icons from <a
+href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons
+freely available.</p>
+<!--<p>Many thanks to the community at the <a-->
+<!--href="http://www.cmsimpleforum.com">CMSimple_XH forum</a> for tips, suggestions-->
+<!--and testing.</p>-->
+<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
+Harteg</a>, the "father" of CMSimple, and to all developers of <a
+href="http://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing CMS
+wouldn't exist.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+</div>
+
+</body>
+
+</html>
