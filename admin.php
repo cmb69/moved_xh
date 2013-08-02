@@ -74,12 +74,13 @@ function Moved_info() // RELEASE-TODO: syscheck
  *
  * @return string (X)HTML.
  *
- * @global string $sn     The script name.
- * @global string $action The requested action.
+ * @global string The script name.
+ * @global string The requested action.
+ * @global array  The localization of the core.
  */
 function Moved_admin()
 {
-    global $sn, $action;
+    global $sn, $action, $tx;
 
     $filename = Moved_dataFolder() . 'data.csv';
     if ($action == 'plugin_textsave') {
@@ -93,7 +94,10 @@ function Moved_admin()
     }
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
     $action = $sn . '?&moved';
-    $bag = compact('action', 'contents');
+    $label = array(
+        'save' => ucfirst($tx['action']['save'])
+    );
+    $bag = compact('action', 'contents', 'label');
     return Moved_render('admin', $bag);
 }
 
