@@ -36,14 +36,14 @@ function Moved_info() // RELEASE-TODO: syscheck
     global $pth, $tx, $plugin_tx;
 
     $ptx = $plugin_tx['moved'];
-    $phpVersion = '4.3.0';
+    $phpVersion = '4.3.10';
     foreach (array('ok', 'warn', 'fail') as $state) {
         $images[$state] = "{$pth['folder']['plugins']}moved/images/$state.png";
     }
     $checks = array();
     $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
         version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-    foreach (array('pcre', 'session') as $ext) {
+    foreach (array('date', 'pcre') as $ext) {
 	$checks[sprintf($ptx['syscheck_extension'], $ext)] =
             extension_loaded($ext) ? 'ok' : 'fail';
     }
