@@ -23,6 +23,29 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
+ * Writes a file and returns whether that succeeded.
+ *
+ * @param string $filename A file path.
+ * @param string $string   A string to write as file contents.
+ *
+ * @return bool
+ */
+function Moved_writeFile($filename, $string)
+{
+    $func = 'file_put_contents';
+    if (function_exists($func)) {
+        return (bool) $func($filename, $string);
+    } else {
+        $ok = (($fp = fopen($filename, 'w')) !== false
+            && fwrite($fp, $string) !== false);
+        if ($fp !== false) {
+            fclose($fp);
+        }
+        return $ok;
+    }
+}
+
+/**
  * Returns the plugin information view.
  *
  * @return string (X)HTML.
@@ -85,7 +108,7 @@ function Moved_admin()
     $filename = Moved_dataFolder() . 'data.csv';
     if ($action == 'plugin_textsave') {
         $contents = stsl($_POST['plugin_text']);
-        file_put_contents($filename, $contents);
+        Moved_writeFile($filename, $contents);
     } else {
         if (!file_exists($filename)) {
             touch($filename);
