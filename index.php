@@ -134,30 +134,6 @@ function Moved_isUtf8($str)
     return preg_match('/^.{1}/us', $str) == 1;
 }
 
-function Moved_message($type, $key)
-{
-    global $plugin_tx;
-
-    switch ($type) {
-    case 'success':
-        $style = 'background: #e1f8cb; color: #37620d; border: 1px solid #c6d880;';
-        break;
-    case 'failure':
-        $style = 'background: #fbe5e2; color: #992213; border: 1px solid #f2a197;';
-        break;
-    default:
-        $style = 'background: #e9f5fb; color: #16597a; border: 1px solid #84c7e9';
-    }
-    $style .= '-moz-border-radius: 7px; -webkit-border-radius: 7px;'
-        . ' border-radius: 7px; padding: 0.5em';
-    $varargs = array_slice(func_get_args(), 2);
-    //var_dump($varargs);
-    $string = vsprintf($plugin_tx['moved'][$key], $varargs);
-    $o = '<p style="' . $style . '">'
-        . htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8') . '</p>' . PHP_EOL;
-    return $o;
-}
-
 /**
  * Renders a view template.
  *

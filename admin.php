@@ -92,9 +92,11 @@ function Moved_admin()
             fwrite($handle, $contents);
             flock($handle, LOCK_UN);
             fclose($handle);
-            $message = Moved_message('success', 'save_success', $filename);
+            $url = MOVED_URL . '?&moved&admin=plugin_main&action=plugin_text';
+            header('Location: ' . $url, true, 303);
+            exit();
         } else {
-            $message = Moved_message('failure', 'save_failure', $filename);
+            e('cntsave', 'file', $filename);
         }
     } else {
         $contents = '';
@@ -106,14 +108,13 @@ function Moved_admin()
             flock($handle, LOCK_UN);
             fclose($handle);
         }
-        $message = '';
     }
     $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
     $action = $sn . '?&moved';
     $label = array(
         'save' => ucfirst($tx['action']['save'])
     );
-    $bag = compact('action', 'contents', 'label', 'message');
+    $bag = compact('action', 'contents', 'label');
     return Moved_render('admin', $bag);
 }
 
