@@ -23,27 +23,15 @@ define('MOVED_URL', 'http'
  */
 function Moved_dataFolder()
 {
-    global $pth, $plugin_cf;
+    global $pth;
 
-    $pcf = $plugin_cf['moved'];
-    if ($pcf['folder_data'] != '') {
-	$filename = $pth['folder']['base'] . $pcf['folder_data'];
-	if ($filename[strlen($filename) - 1] != '/') {
-	    $filename .= '/';
-	}
-    } else {
-	$filename = $pth['folder']['plugins'] . 'moved/data/';
+    $dirname = $pth['folder']['content'] . 'moved/';
+    if (!file_exists($dirname)) {
+        if (!mkdir($dirname)) {
+            e('cntwriteto', 'folder', $dirname);
+        }
     }
-    if (file_exists($filename)) {
-	if (!is_dir($filename)) {
-	    e('cntopen', 'folder', $filename);
-	}
-    } else {
-	if (!mkdir($filename, 0777)) {
-	    e('cntwriteto', 'folder', $filename);
-	}
-    }
-    return $filename;
+    return $dirname;
 }
 
 /**
@@ -76,13 +64,13 @@ function Moved_data()
 
 function Moved_log404()
 {
-    global $su, $sl;
+    global $su;
 
     $time = isset($_SERVER['REQUEST_TIME'])
         ? $_SERVER['REQUEST_TIME']
         : time();
     $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-    $line = $time . "\t" . $sl . "\t" . $su . "\t" . $referrer;
+    $line = $time . "\t" . $su . "\t" . $referrer;
     $filename = Moved_dataFolder() . 'log.csv';
     $fp = fopen($filename, 'a');
     fwrite($fp, $line . PHP_EOL);
