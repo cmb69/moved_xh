@@ -1,13 +1,35 @@
 <?php
 
+/**
+ * Front-end functionality of Moved_XH.
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Moved
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Moved_XH
+ */
+
+/*
+ * Prevent direct access.
+ */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
+/**
+ * The plugin version.
+ */
 define('MOVED_VERSION', '1dev1');
 
-
+/**
+ * The fully qualified base URL for redirections.
+ */
 define('MOVED_URL', 'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
     . '://' . $_SERVER['HTTP_HOST']
@@ -62,6 +84,13 @@ function Moved_data()
     return $records;
 }
 
+/**
+ * Logs a page not found error. Returns whether that succeeded.
+ *
+ * @return bool
+ *
+ * @global string The URL of the requested page.
+ */
 function Moved_log404()
 {
     global $su;
@@ -69,15 +98,28 @@ function Moved_log404()
     $time = isset($_SERVER['REQUEST_TIME'])
         ? $_SERVER['REQUEST_TIME']
         : time();
+    $time = date('Y-m-d H:i:s', $time);
     $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
     $line = $time . "\t" . $su . "\t" . $referrer;
     $filename = Moved_dataFolder() . 'log.csv';
-    $fp = fopen($filename, 'a');
-    fwrite($fp, $line . PHP_EOL);
-    fclose($fp);
+    $ok = (($fp = fopen($filename, 'a')) !== false
+        &&  fwrite($fp, $line . PHP_EOL) !== false);
+    if ($fp !== false) {
+        fclose($fp);
+    }
+    return $ok
 }
 
-
+/**
+ * Sends a status header.
+ *
+ * @param string $status The HTTP status header.
+ *
+ * @return void
+ *
+ * @global bool Whether PHP runs as (F)CGI.
+ * @global bool Whether the server is IIS.
+ */
 function Moved_statusHeader($status)
 {
     global $cgi, $iis;
@@ -86,11 +128,27 @@ function Moved_statusHeader($status)
     header($header);
 }
 
+/**
+ * Returns whether a string is a valid UTF-8 string.
+ *
+ * @param string $str A string.
+ *
+ * @return bool
+ */
 function Moved_isUtf8($str)
 {
     return preg_match('/^.{1}/us', $str) == 1;
 }
 
+/**
+ * Hook function for not existing pages. Redirects to new page or gives
+ * appropriate response.
+ *
+ * @global string The URL of the requested page.
+ * @global string The title of the page.
+ * @global string The (X)HTML output of the contents area.
+ * @global array  The localization of the plugins.
+ */
 function custom_404()
 {
     global $su, $title, $o, $plugin_tx;
