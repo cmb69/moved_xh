@@ -58,6 +58,13 @@ directory.</li>
 plugin's content folders (/content/moved/).</li>
 <li><strong>Switch to "Moved" in the back-end to check if all requirements are
 fulfilled.</strong></li>
+<li>If you want to have the appropriate messages for redirected and removed
+pages in CMSimple_XH &lt; 1.5.8, you have to edit cmsimple/cms.php. Look for
+function shead(), and replace:
+<pre>    $title = $tx['error'][$s];</pre> with:
+<pre>    if (!isset($title)) {
+        $title = $tx['error'][$s];
+    }</pre></li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
 
