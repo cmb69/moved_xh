@@ -141,6 +141,35 @@ function Moved_isUtf8($str)
 }
 
 /**
+ * Renders a view template.
+ *
+ * @param string $_template The path of the template file.
+ * @param array  $_bag      The variables.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
+ */
+function Moved_render($_template, $_bag)
+{
+    global $pth, $cf;
+
+    $_template = $pth['folder']['plugins'] . 'moved/views/' . $_template
+        . '.htm';
+    $_xhtml = strtolower($cf['xhtml']['endtags']) == 'true';
+    unset($pth, $cf);
+    extract($_bag);
+    ob_start();
+    include $_template;
+    $view = ob_get_clean();
+    if (!$_xhtml) {
+        $view = str_replace(' />', '>', $view);
+    }
+    return $view;
+}
+
+/**
  * Hook function for not existing pages. Redirects to new page or gives
  * appropriate response.
  *
