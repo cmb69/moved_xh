@@ -11,7 +11,7 @@
 <body>
 
 <h1>Moved_XH&mdash;a CMSimple_XH Plugin</h1>
-<img src="../moved.png" style="float:left; margin-right: 1em">
+<img src="../moved.png" alt="Plugin Icon" style="float:left; margin-right: 1em">
 <p style="text-align:justify">Moved_XH facilitates to cater for pages which have
 been renamed. Direkt links to those pages will normally result in a 404 Page Not
 Found error, but Moved_XH makes it possible to redirect incoming requests to
@@ -74,7 +74,7 @@ strings to your own language, or customize them according to your needs.</p>
 <h2><a name="usage">Usage</a></h2>
 <p>Moved_XH stores its data separately for each language resp. subsite of the
 CMSimple_XH installation in a subfolder moved/ of the respective content/ folder.
-The rules regarding the renamed pages are stored in data.csv; incoming request
+The rules regarding the renamed pages are stored in data.csv; incoming requests
 to pages that do not exist and do not have a rule in data.csv are logged in log.csv.</p>
 <p>The rules can be edited in the plugin administration under "Main Settings".
 Each line of the file constitutes a rule. Rules consist of one resp. two so
@@ -89,8 +89,8 @@ Fahrvergn%3C%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
 <p>There are two different types of rules:</p>
 <dl>
     <dt>Redirects</dt>
-    <dd>Redirect rules will redirect incoming requests for an old page URL to a
-    new page URL. Both page URLs are seperated by an equal sign (=).
+    <dd><p>Redirect rules will redirect incoming requests for an old page URL to a
+    new page URL. Both page URLs are seperated by an equal sign (=).</p>
     <h5>Example</h5>
     <p>You are restructuring your site and want to move the toplevel page "Oaks"
     to the second level below "Trees", so add the following rule:</p>
@@ -102,8 +102,8 @@ Fahrvergn%3C%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
     <pre>Fahrverg%FCgen=Fahrvergn%3C%BCgen</pre>
     </dd>
     <dt>Gone</dt>
-    <dd>Gone rules will inform visitors that a page does not exists anymore.
-    They consist of the page URL of the removed page.
+    <dd><p>Gone rules will inform visitors that a page does not exists anymore.
+    They consist of the page URL of the removed page.</p>
     <h5>Example</h5>
     <p>You have removed the page "Temporary Information" because it is no more
     needed, so add the following rule:</p>
@@ -114,8 +114,8 @@ Fahrvergn%3C%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
 do not exist. Each line of the log file contains the timestamp of the request
 and the requested page URL; if available the referrer is logged also. Currently
 it is not possible to view the log files from the plugin administration; you
-have to download it via FTP. You may consider importing the log file to a spread
-sheet application for an better overview.</p>
+have to download it via FTP. You may consider importing the log files to a
+spread sheet application for an better overview.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
@@ -127,8 +127,8 @@ sheet application for an better overview.</p>
     uninstall Moved_XH or remove the existing custom_404() hook.</li>
     <li>Moved_XH's rules don't work when you're logged in to the CMSimple_XH
     installation, as the custom_404() hook funktion is not called by CMSimple_XH
-    in this case. If you want to test the moved pages without logging out, you
-    have to use a second browser.</li>
+    in this case. If you want to test the rules without logging out, you have to
+    use a second browser.</li>
 </ul>
 <div class="toplink"><a href="#">back to top</a></div>
 

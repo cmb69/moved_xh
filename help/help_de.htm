@@ -1,0 +1,168 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Moved_XH Handbuch</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Moved_XH &ndash; ein CMSimple_XH Plugin</h1>
+<img src="../moved.png" alt="Plugin Icon" style="float:left; margin-right: 1em">
+<p style="text-align:justify">Moved_XH ermöglicht die Behandlung von Seiten die
+umbenannt wurden. Direkte Links zu solchen Seiten ergeben normalerweise einen
+404 Not found (nicht gefunden) Fehler, aber Moved_XH macht es möglich eingehende
+Anfragen auf eine andere Seite weiter zu leiten, oder die Seite als entfernt zu
+kennzeichnen. Es wird entsprechende Information zurück geliefert, die Bots über
+die Änderung informiert, was besonders wichtig bezüglich Suchmaschinen ist, die
+dann die URL der Seite ändern bzw. sie aus dem Index entfernen können.</p>
+
+<ul id="nav">
+<li><a href="#notice">Wichtiger Hinweis</a></li>
+<li><a href="#requirements">Vorraussetzungen</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Einstellungen</a></li>
+<li><a href="#usage">Verwendung</a></li>
+<li><a href="#limitations">Beschränkungen</a></li>
+<li><a href="#license">Lizenz</a></li>
+<li><a href="#credits">Danksagung</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Bitte lesen Sie diese Dokumentation, <em>bevor</em> Sie auf Probleme
+stoßen!</strong></p>
+
+<h2><a name="notice">Wichtiger Hinweis</a></h2>
+<p><strong>Moved_XH konnte bislang noch keinen ausführlichen Tests in
+diversen Umgebungen unterzogen werden. Es handelt sich also um eine so genannte
+BETA-Version. Vorsicht bei der Verwendung!</strong></p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="requirements">Vorraussetzungen</a></h2>
+<p>Moved_XH ist ein Plugin für CMSimple_XH &ge; 1.5.</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="installation">Installation</a></h2>
+<p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch.
+Im <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
+CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.</p>
+<ol>
+<li><strong>Sichern Sie die Daten auf Ihrem Server.</strong></li>
+<li>Entpacken Sie die ZIP-Datei auf Ihrem Computer.</li>
+<li>Laden Sie das gesamte Verzeichnis moved/ auf Ihren Server in das CMSimple_XH
+Plugin Verzeichnis hoch.</li>
+<li>Vergeben Sie Schreibrechte für das Unterverzeichnis languages/ und die
+Content Ordner des Plugins (/content/moved/).</li>
+<li><strong>Wählen Sie "Moved" im Administrationsbereich, um zu prüfen, ob alle
+Voraussetzungen erfüllt sind.</strong></li>
+</ol>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="settings">Einstellungen</a></h2>
+<p>Die Konfiguration des Plugins erfolgt wie bei vielen anderen
+CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie
+unter "Plugins" "Moved" aus.</p>
+<p>Die Lokalisierung wird unter Plugin-Sprache vorgenommen. Sie können die
+Sprachtexte in Ihre eigene Sprache übersetzen, oder sie entsprechend Ihren
+Anforderungen anpassen.</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="usage">Usage</a></h2>
+<p>Moved_XH speichert seine Daten separat für jede Sprache bzw. Subsite der
+CMSimple_XH Installation in einem Unterordner moved/ des jeweiligen content/
+Ordners. Die Regeln bezüglich der umbenannten Seiten werden in data.csv
+gespeichert; eingehende Anfragen zu Seiten, die nicht existieren und für die
+keine Regel in data.csv angegeben wurde, werden in log.csv protokolliert.</p>
+<p>Die Regeln können in der Plugin-Administration unter "Einstellungen"
+bearbeitet werden. Jede Zeile der Datei stellt eine Regel dar. Regeln bestehen
+aus einer bzw. zwei so genannten Seiten-URLs. Technisch ausgedrückt ist eine
+Seiten-URL der Name des ersten Parameters des Query-Strings, d.h. alles zwischen
+dem Fragezeichen (?) und dem ersten Kaufmanns-Und (&amp;) bzw. dem Ende der URL,
+wenn darin kein Kaufmanns-Und vorkommt. Es wird empfohlen die Seiten-URLs aus
+der Adressleiste des Browsers zu kopieren anstatt sie manuell einzugeben, da es
+einige Überraschungen gibt. Zum Beispiel ist die Seiten-URL der erfundenen Seite
+<a href="http://www.example.com/?Fahrvergn%3C%BCgen">Fahrvergn&uuml;gen</a>
+Fahrvergn%3C%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
+<p>Es gibt zwei verschiedene Regeltypen:</p>
+<dl>
+    <dt>Weiterleitungen</dt>
+    <dd><p>Weiterleitungs-Regeln leiten eingehende Anfragen für eine alte
+    Seiten-URL auf eine neue Seiten-URL um. Beide Seiten-URLs werden durch ein
+    Gleichheitszeichen (=) getrennt.</p>
+    <h5>Beispiel</h5>
+    <p>Sie bauen Ihre Website um und möchten die Seite "Eichen" von der obersten
+    Ebene auf die zweite Ebene unter "Bäume" verschieben; also ergänzen Sie
+    folgende Regel:</p>
+    <pre>Eichen=B%C3%A4ume:Eichen</pre>
+    <h5>Beispiel</h5>
+    <p>Sie haben ein Upgrade von einer ISO-8859-1 kodierten CMSimple Version auf
+    eine UTF-8 kodierte CMSimple_XH Installation durchgeführt, und Sie haben
+    eine Seite "Fahrvergnügen"; also ergänzen Sie folgende Regel:</p>
+    <pre>Fahrverg%FCgen=Fahrvergn%3C%BCgen</pre>
+    </dd>
+    <dt>Entfernt</dt>
+    <dd><p>Entfernt-Regeln informieren Besucher, dass eine Seite nicht mehr
+    existiert. Sie bestehen aus der Seiten-URL der entfernten Seite.</p>
+    <h5>Beispiel</h5>
+    <p>Sie haben die Seite "Vorübergehende Information" entfernt, weil Sie nicht
+    mehr gebraucht wird; also ergänzen Sie folgende Regel:</p>
+    <pre>Vor%3C%BCbergehende_Information</pre>
+    </dd>
+</dl>
+<p>Die Protokolldateien sind nützlich, um zu überprüfen, ob es Anfragen für
+Seiten gab, die es nicht gibt. Jede Zeile der Protokolldatei enthält den
+Zeitstempel der Anfrage und die angefragte Seiten-URL; falls verfügbar, wird der
+Referrer ebenfalls protokolliert. Zur Zeit ist es nicht möglich die
+Protokolldateien aus der Plugin- Administration heraus einzusehen; Sie müssen
+diese per FTP herunter laden. Sie können die Protokolldateien in ein
+Tabellenkalkulationsprogramm importieren, um einen besseren Überblick zu
+erhalten.</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="limitations">Beschränkungen</a></h2>
+<ul>
+    <li>Moved_XH verwendet den <a
+    href="http://www.cmsimple-xh.org/wiki/doku.php/de:tips_and_tricks#eigene_404_fehler-seite">custom_404()
+    Hook</a>, so dass es nicht funktioniert, wenn der Hook bereits definiert
+    ist. In diesem Fall erhalten Sie ein leeres Browserfenster, wenn Sie Ihre
+    Website aufrufen. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen
+    den bestehenden custom_404() Hook.</li>
+    <li>Die Regeln von Moved_XH funktionieren nicht, wenn Sie in die CMSimple_XH
+    Installation eingeloggt sind, da dann die custom_404() Hook-Funktion von
+    CMSimple_XH nicht aufgerufen wird. Wenn Sie die Regeln testen wollen ohne
+    sich zunächst auszuloggen, dann müssen Sie einen zweiten Browser
+    verwenden.</li>
+</ul>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="license">Lizenz</a></h2>
+<p>Moved_XH kann unter Einhaltung der
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.</p>
+<p>&copy; 2013 Christoph M. Becker</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+<h2><a name="credits">Danksagung</a></h2>
+<p>Das Plugin Icon wurde von <a href="http://www.mymovingreviews.com/">World
+Media Group LLC</a> entworfen. Vielen Dank für die Veröffentlichung unter einer
+liberalen Lizenz.</p>
+<p>Dieses Plugin verwendet "free application icons" von <a
+href="http://www.aha-soft.com/">Aha-Soft</a>. Vielen Dank für die freie
+Verwendbarkeit dieser Icons.</p>
+<!--<p>Vielen Dank an die Community im <a
+href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps, Anregungen
+und das Testen.</p>
+--><p>Zu guter letzt vielen Dank an <a href="http://www.harteg.dk/">Peter
+Harteg</a> und alle Entwickler von <a
+href="http://www.cmsimple-xh.org/">CMSimple_XH</a>, ohne die dieses fantastische
+CMS nicht existieren würde.</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
+
+</div>
+
+</body>
+
+</html>
