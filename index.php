@@ -107,7 +107,7 @@ function Moved_log404()
     if ($fp !== false) {
         fclose($fp);
     }
-    return $ok
+    return $ok;
 }
 
 /**
