@@ -92,8 +92,8 @@ dem Fragezeichen (?) und dem ersten Kaufmanns-Und (&amp;) bzw. dem Ende der URL,
 wenn darin kein Kaufmanns-Und vorkommt. Es wird empfohlen die Seiten-URLs aus
 der Adressleiste des Browsers zu kopieren anstatt sie manuell einzugeben, da es
 einige Überraschungen gibt. Zum Beispiel ist die Seiten-URL der erfundenen Seite
-<a href="http://www.example.com/?Fahrvergn%3C%BCgen">Fahrvergn&uuml;gen</a>
-Fahrvergn%3C%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
+<a href="http://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergn&uuml;gen</a>
+Fahrvergn%C3%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
 <p>Es gibt zwei verschiedene Regeltypen:</p>
 <dl>
     <dt>Weiterleitungen</dt>
@@ -109,7 +109,7 @@ Fahrvergn%3C%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
     <p>Sie haben ein Upgrade von einer ISO-8859-1 kodierten CMSimple Version auf
     eine UTF-8 kodierte CMSimple_XH Installation durchgeführt, und Sie haben
     eine Seite "Fahrvergnügen"; also ergänzen Sie folgende Regel:</p>
-    <pre>Fahrverg%FCgen=Fahrvergn%3C%BCgen</pre>
+    <pre>Fahrverg%FCgen=Fahrvergn%C3%BCgen</pre>
     </dd>
     <dt>Entfernt</dt>
     <dd><p>Entfernt-Regeln informieren Besucher, dass eine Seite nicht mehr
@@ -117,7 +117,7 @@ Fahrvergn%3C%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
     <h5>Beispiel</h5>
     <p>Sie haben die Seite "Vorübergehende Information" entfernt, weil Sie nicht
     mehr gebraucht wird; also ergänzen Sie folgende Regel:</p>
-    <pre>Vor%3C%BCbergehende_Information</pre>
+    <pre>Vor%C3%BCbergehende_Information</pre>
     </dd>
 </dl>
 <p>Die Protokolldateien sind nützlich, um zu überprüfen, ob es Anfragen für
