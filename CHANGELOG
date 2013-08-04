@@ -1,3 +1,6 @@
+Version 1beta2 - released 2013-08-04
+cmb     added possibility to redirect to an external URL (sugg. by snafu)
+
 Version 1beta1 - released 2013-08-03
 cmb     added plugin administration
 cmb     changed to store data and log in the content/ folder

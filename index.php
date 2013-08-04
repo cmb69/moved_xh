@@ -25,7 +25,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * The plugin version.
  */
-define('MOVED_VERSION', '1beta1');
+define('MOVED_VERSION', '1beta2');
 
 /**
  * The fully qualified base URL for redirections.
