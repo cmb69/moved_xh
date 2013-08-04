@@ -32,9 +32,7 @@ define('MOVED_VERSION', '1beta2');
  */
 define('MOVED_URL', 'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['HTTP_HOST']
-    . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
-    . preg_replace('/index.php$/', '', $sn));
+    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn));
 
 /**
  * Returns the path of the data folder.
