@@ -55,7 +55,9 @@ class MovedTest extends PHPUnit_Framework_TestCase
     public function dataForIsUtf8()
     {
         return array(
-            array('foo', true)
+            array('foo', true),
+            array("Fahrvergn\xC3\xBCgen", true),
+            array("Fahrvergn\xFCgen", false)
         );
     }
 
