@@ -1,5 +1,28 @@
 <?php
 
+/**
+ * Handling the functionality of Moved_XH.
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Moved
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Moved_XH
+ */
+
+/**
+ * A class for handling the functionality of Moved_XH.
+ *
+ * @category CMSimple_XH
+ * @package  Moved
+ * @author   Christoph M. Becker <cmbecker69@gmx.de>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link      http://3-magi.net/?CMSimple_XH/Moved_XH
+ */
 class Moved
 {
     /**
