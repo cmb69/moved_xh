@@ -74,6 +74,25 @@ class MovedTest extends PHPUnit_Framework_TestCase
         $actual = $this->moved->isUtf8($string);
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * Testing Moved::successIcons().
+     *
+     * @return void
+     *
+     * @global array The paths of system files and folders.
+     */
+    public function testSuccessIcons()
+    {
+        global $pth;
+
+        $pth = array('folder' => array('plugins' => '../'));
+        $icons = $this->moved->successIcons();
+        $this->assertCount(3, $icons);
+        foreach ($icons as $icon) {
+            $this->assertTrue(file_exists($icon));
+        }
+    }
 }
 
 ?>

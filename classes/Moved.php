@@ -155,6 +155,23 @@ class Moved
     }
 
     /**
+     * Returns an array of success icon file paths.
+     *
+     * @return array
+     */
+    function successIcons()
+    {
+        global $pth;
+
+        $icons = array();
+        foreach (array('ok', 'warn', 'fail') as $state) {
+            $icons[$state] = $pth['folder']['plugins'] . 'moved/images/'
+                . $state . '.png';
+        }
+        return $icons;
+    }
+
+    /**
      * Returns the plugin information view.
      *
      * @return string (X)HTML.
@@ -169,9 +186,6 @@ class Moved
 
         $ptx = $plugin_tx['moved'];
         $phpVersion = '4.3.10';
-        foreach (array('ok', 'warn', 'fail') as $state) {
-            $images[$state] = "{$pth['folder']['plugins']}moved/images/$state.png";
-        }
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
@@ -193,7 +207,7 @@ class Moved
         }
         $bag = array(
             'ptx' => $ptx,
-            'images' => $images,
+            'images' => $this->successIcons(),
             'checks' => $checks,
             'icon' => $pth['folder']['plugins'] . 'moved/moved.png',
             'version' => MOVED_VERSION
