@@ -88,20 +88,26 @@ Each line of the file constitutes a rule. Rules consist of one resp. two so
 called page URLs. Technically speaking, a page URL is the name of the first
 parameter of the query string, i.e. everything between the question mark (?) and
 the first ampersand (&amp;) resp. the end of the URL, if there's no ampersand.
-It is recommended to copy the page URLs from the address of the browser instead
-of entering them manually, because there'll be some surprises. For instance, the
-page URL of the fictious page <a
+It is recommended to copy the page URLs from the address bar of the browser
+instead of entering them manually, because there'll be some surprises. For
+instance, the page URL of the fictious page <a
 href="http://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergn&uuml;gen</a> is
 Fahrvergn%C3%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
 <p>There are two different types of rules:</p>
 <dl>
     <dt>Redirects</dt>
-    <dd><p>Redirect rules will redirect incoming requests for an old page URL to a
-    new page URL. Both page URLs are seperated by an equal sign (=).</p>
+    <dd><p>Redirect rules will redirect incoming requests for an old page URL to
+    a new page URL or an external URL (which has to be fully qualified, i.e.
+    starting with the protocol, e.g. http://). Both URLs are seperated by
+    an equal sign (=).</p>
     <h5>Example</h5>
     <p>You are restructuring your site and want to move the toplevel page "Oaks"
     to the second level below "Trees", so add the following rule:</p>
     <pre>Oaks=Trees:Oaks</pre>
+    <h5>Example</h5>
+    <p>You have moved the page "Oaks" to another CMSimple_XH installation, so
+    add the following rule:</p>
+    <pre>Oaks=http://www.example.com/trees/?Oaks</pre>
     <h5>Example</h5>
     <p>You have upgraded from an ISO-8859-1 encoded CMSimple version to a
     UTF-8 encoded CMSimple_XH installation, and you have a page

@@ -98,13 +98,19 @@ Fahrvergn%C3%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
 <dl>
     <dt>Weiterleitungen</dt>
     <dd><p>Weiterleitungs-Regeln leiten eingehende Anfragen für eine alte
-    Seiten-URL auf eine neue Seiten-URL um. Beide Seiten-URLs werden durch ein
-    Gleichheitszeichen (=) getrennt.</p>
+    Seiten-URL auf eine neue Seiten-URL oder eine externe URL (diese muss
+    vollständig qualifiziert sein, d.h. mit der Angabe des Protokolls, z.B.
+    http://, beginnen) um. Beide URLs werden durch ein Gleichheitszeichen (=)
+    getrennt.</p>
     <h5>Beispiel</h5>
     <p>Sie bauen Ihre Website um und möchten die Seite "Eichen" von der obersten
     Ebene auf die zweite Ebene unter "Bäume" verschieben; also ergänzen Sie
     folgende Regel:</p>
     <pre>Eichen=B%C3%A4ume:Eichen</pre>
+    <h5>Beispiel</h5>
+    <p>Sie haben die Seite "Eichen" in eine andere CMSimple_XH installation
+    verschoben; also ergänzen Sie folgende Regel:</p>
+    <pre>Eichen=http://www.example.com/baeume/?Eichen</pre>
     <h5>Beispiel</h5>
     <p>Sie haben ein Upgrade von einer ISO-8859-1 kodierten CMSimple Version auf
     eine UTF-8 kodierte CMSimple_XH Installation durchgeführt, und Sie haben
