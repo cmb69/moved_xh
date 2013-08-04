@@ -41,10 +41,20 @@ class MovedTest extends PHPUnit_Framework_TestCase
      * Set up the next test.
      *
      * @return void
+     *
+     * @global array The paths of system files and folders.
      */
     public function setUp()
     {
+        global $pth;
+
         $this->moved = new Moved();
+        $pth = array(
+            'folder' => array(
+                'content' => '../../content/',
+                'plugins' => '../'
+            )
+        );
     }
 
     /**
@@ -81,18 +91,27 @@ class MovedTest extends PHPUnit_Framework_TestCase
      * Testing Moved::successIcons().
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     public function testSuccessIcons()
     {
-        global $pth;
-
-        $pth = array('folder' => array('plugins' => '../'));
         $icons = $this->moved->successIcons();
         $this->assertCount(3, $icons);
         foreach ($icons as $icon) {
-            $this->assertTrue(file_exists($icon));
+            $this->assertTrue(is_file($icon));
+        }
+    }
+
+    /**
+     * Testing Moved::writableFolders().
+     *
+     * @return void
+     */
+    public function testWritableFolders()
+    {
+        $folders = $this->moved->writableFolders();
+        $this->assertCount(2, $folders);
+        foreach ($folders as $folder) {
+            $this->assertTrue(is_dir($folder));
         }
     }
 }

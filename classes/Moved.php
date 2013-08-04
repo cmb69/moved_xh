@@ -158,6 +158,8 @@ class Moved
      * Returns an array of success icon file paths.
      *
      * @return array
+     *
+     * @global array The paths of system files and folders.
      */
     function successIcons()
     {
@@ -169,6 +171,25 @@ class Moved
                 . $state . '.png';
         }
         return $icons;
+    }
+
+    /**
+     * Returns an array of paths of writable folders.
+     *
+     * @return array
+     *
+     * @global array The paths of system files and folders.
+     */
+    function writableFolders()
+    {
+        global $pth;
+
+        $folders = array();
+        foreach (array('languages/') as $folder) {
+            $folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
+        }
+        $folders[] = $this->dataFolder();
+        return $folders;
     }
 
     /**
@@ -197,10 +218,7 @@ class Moved
             = !get_magic_quotes_runtime() ? 'ok' : 'fail';
         $checks[$ptx['syscheck_encoding']]
             = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
-        foreach (array('languages/') as $folder) {
-            $folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
-        }
-        $folders[] = $this->dataFolder();
+        $folders = $this->writableFolders();
         foreach ($folders as $folder) {
             $checks[sprintf($ptx['syscheck_writable'], $folder)]
                 = is_writable($folder) ? 'ok' : 'warn';
