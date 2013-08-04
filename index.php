@@ -180,10 +180,15 @@ function custom_404()
     $records = Moved_data();
     if (isset($records[$su])) {
         if ($records[$su]) {
-            $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
-                ? substr($_SERVER['QUERY_STRING'], strlen($su))
-                : '';
-            $url = MOVED_URL . '?' . $records[$su] . $qs;
+            $parts = parse_url($records[$su]);
+            if (isset($parts['scheme'])) {
+                $url = $records[$su];
+            } else {
+                $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
+                    ? substr($_SERVER['QUERY_STRING'], strlen($su))
+                    : '';
+                $url = MOVED_URL . '?' . $records[$su] . $qs;
+            }
             header('Location: ' . $url, true, 301);
             exit;
         } else {
