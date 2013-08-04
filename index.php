@@ -30,9 +30,12 @@ define('MOVED_VERSION', '1beta2');
 /**
  * The fully qualified base URL for redirections.
  */
-define('MOVED_URL', 'http'
+define(
+    'MOVED_URL',
+    'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn));
+    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn)
+);
 
 /**
  * Returns the path of the data folder.
@@ -164,6 +167,8 @@ function Moved_render($_template, $_bag)
 /**
  * Hook function for not existing pages. Redirects to new page or gives
  * appropriate response.
+ *
+ * @return void
  *
  * @global string The URL of the requested page.
  * @global string The title of the page.

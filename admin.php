@@ -41,23 +41,23 @@ function Moved_info() // RELEASE-TODO: syscheck
         $images[$state] = "{$pth['folder']['plugins']}moved/images/$state.png";
     }
     $checks = array();
-    $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
-        version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+    $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
+        = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
     foreach (array('date', 'pcre') as $ext) {
-	$checks[sprintf($ptx['syscheck_extension'], $ext)] =
-            extension_loaded($ext) ? 'ok' : 'fail';
+        $checks[sprintf($ptx['syscheck_extension'], $ext)]
+            = extension_loaded($ext) ? 'ok' : 'fail';
     }
-    $checks[$ptx['syscheck_magic_quotes']] =
-        !get_magic_quotes_runtime() ? 'ok' : 'fail';
-    $checks[$ptx['syscheck_encoding']] =
-        strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
+    $checks[$ptx['syscheck_magic_quotes']]
+        = !get_magic_quotes_runtime() ? 'ok' : 'fail';
+    $checks[$ptx['syscheck_encoding']]
+        = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
     foreach (array('languages/') as $folder) {
-	$folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
+        $folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
     }
     $folders[] = Moved_dataFolder();
     foreach ($folders as $folder) {
-	$checks[sprintf($ptx['syscheck_writable'], $folder)] =
-            is_writable($folder) ? 'ok' : 'warn';
+        $checks[sprintf($ptx['syscheck_writable'], $folder)]
+            = is_writable($folder) ? 'ok' : 'warn';
     }
     $bag = array(
         'ptx' => $ptx,

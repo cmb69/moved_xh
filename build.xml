@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Moved_XH" default="test">
+    <fileset id="sources" dir=".">
+        <include name="index.php"/>
+        <include name="admin.php"/>
+    </fileset>
+    <target name="doc">
+        <phpdoc title="Moved_XH" destdir="doc" output="HTML:frames:default"
+                defaultpackagename="Moved" undocumentedelements="true">
+            <fileset refid="sources"/>
+            <projdocfileset dir=".">
+                <include name="README"/>
+                <include name="CHANGELOG"/>
+            </projdocfileset>
+        </phpdoc>
+    </target>
+    <target name="sniff">
+        <phpcodesniffer standard="PEAR">
+            <fileset refid="sources"/>
+        </phpcodesniffer>
+    </target>
+</project>
