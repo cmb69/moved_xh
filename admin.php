@@ -25,8 +25,8 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * Handles the plugin administration.
  *
- * @param string Requested admin section.
- * @param string Requested admin action.
+ * @param string $admin  Requested admin section.
+ * @param string $action Requested admin action.
  *
  * @return void
  *

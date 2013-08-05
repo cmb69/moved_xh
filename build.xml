@@ -4,6 +4,7 @@
     <fileset id="sources" dir=".">
         <include name="index.php"/>
         <include name="admin.php"/>
+        <include name="classes/**.php"/>
     </fileset>
     <target name="doc">
         <phpdoc title="Moved_XH" destdir="doc" output="HTML:frames:default"
@@ -29,5 +30,8 @@
                 </fileset>
             </batchtest>
         </phpunit>
+    </target>
+    <target name="coverage">
+        <exec command="phpunit --coverage-html tests/coverage tests"/>
     </target>
 </project>
