@@ -63,7 +63,7 @@ Voraussetzungen erfüllt sind.</strong></li>
 in CMSimple_XH &lt; 1.5.8 haben möchten, müssen Sie cmsimple/cms.php anpassen.
 Suchen Sie function shead(), und ersetzen Sie:
 <pre>    $title = $tx['error'][$s];</pre> durch:
-<pre>    if (!isset($title)) {
+<pre>    if ($title == '') {
         $title = $tx['error'][$s];
     }</pre></li>
 </ol>

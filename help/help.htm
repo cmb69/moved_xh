@@ -62,7 +62,7 @@ fulfilled.</strong></li>
 pages in CMSimple_XH &lt; 1.5.8, you have to edit cmsimple/cms.php. Look for
 function shead(), and replace:
 <pre>    $title = $tx['error'][$s];</pre> with:
-<pre>    if (!isset($title)) {
+<pre>    if ($title == '') {
         $title = $tx['error'][$s];
     }</pre></li>
 </ol>
