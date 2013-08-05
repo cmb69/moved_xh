@@ -26,6 +26,24 @@
 class Moved
 {
     /**
+     * Returns a localized string.
+     *
+     * @param string $key A key of a language string of the plugin.
+     *
+     * @return string
+     *
+     * @global array The localization of the plugins.
+     */
+    function l10n($key)
+    {
+        global $plugin_tx;
+
+        $args = array_slice(func_get_args(), 1);
+        $o = vsprintf($plugin_tx['moved'][$key], $args);
+        return $o;
+    }
+
+    /**
      * Returns the path of the data folder.
      *
      * @return string
@@ -205,26 +223,25 @@ class Moved
     {
         global $pth, $tx, $plugin_tx;
 
-        $ptx = $plugin_tx['moved'];
         $phpVersion = '4.3.10';
         $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
+        $checks[$this->l10n('syscheck_phpversion', $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
         foreach (array('date', 'pcre') as $ext) {
-            $checks[sprintf($ptx['syscheck_extension'], $ext)]
+            $checks[$this->l10n('syscheck_extension', $ext)]
                 = extension_loaded($ext) ? 'ok' : 'fail';
         }
-        $checks[$ptx['syscheck_magic_quotes']]
+        $checks[$this->l10n('syscheck_magic_quotes')]
             = !get_magic_quotes_runtime() ? 'ok' : 'fail';
-        $checks[$ptx['syscheck_encoding']]
+        $checks[$this->l10n('syscheck_encoding')]
             = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
         $folders = $this->writableFolders();
         foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)]
+            $checks[$this->l10n('syscheck_writable', $folder)]
                 = is_writable($folder) ? 'ok' : 'warn';
         }
         $bag = array(
-            'ptx' => $ptx,
+            'ptx' => $plugin_tx['moved'],
             'images' => $this->successIcons(),
             'checks' => $checks,
             'icon' => $pth['folder']['plugins'] . 'moved/moved.png',
