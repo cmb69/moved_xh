@@ -1,37 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Moved_XH" default="test">
-    <fileset id="sources" dir=".">
+<!-- $Id$ -->
+
+<project name="Moved" default="test">
+
+    <!-- Properties -->
+
+    <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
+
+    <!-- Filesets -->
+
+    <fileset id="php-sources" dir=".">
         <include name="index.php"/>
         <include name="admin.php"/>
-        <include name="classes/**.php"/>
+        <include name="classes/*.php"/>
     </fileset>
-    <target name="doc">
-        <phpdoc title="Moved_XH" destdir="doc" output="HTML:frames:default"
-                defaultpackagename="Moved" undocumentedelements="true">
-            <fileset refid="sources"/>
+
+    <fileset id="unit-tests" dir="tests/unit">
+        <include name="*Test.php"/>
+    </fileset>
+
+    <!-- Checks -->
+
+    <target name="sniff">
+        <phpcodesniffer standard="PEAR" format="full">
+            <fileset refid="php-sources"/>
+            <fileset refid="unit-tests"/>
+        </phpcodesniffer>
+    </target>
+
+    <!-- Tests -->
+
+    <target name="unit-tests">
+        <phpunit haltonerror="true" haltonfailure="true">
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset refid="unit-tests"/>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <!-- Code coverage -->
+
+    <target name="coverage">
+        <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
+    </target>
+
+    <!-- Documentation -->
+
+    <target name="php-doc">
+        <phpdoc title="Moved_XH Developer Documentation" destdir="doc/php"
+                output="HTML:Smarty:HandS" defaultpackagename="Moved"
+                defaultcategoryname="CMSimple_XH">
+            <fileset refid="php-sources"/>
             <projdocfileset dir=".">
                 <include name="README"/>
                 <include name="CHANGELOG"/>
             </projdocfileset>
         </phpdoc>
     </target>
-    <target name="sniff">
-        <phpcodesniffer standard="PEAR">
-            <fileset refid="sources"/>
-        </phpcodesniffer>
-    </target>
-    <target name="tests">
-        <phpunit>
-            <formatter type="plain" usefile="false"/>
-            <batchtest>
-                <fileset dir="tests">
-                    <include name="**/*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
-    </target>
-    <target name="coverage">
-        <exec command="phpunit --coverage-html tests/coverage tests"/>
-    </target>
+
 </project>
