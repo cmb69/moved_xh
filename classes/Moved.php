@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Moved_XH
  */
 
+namespace Moved;
+
 /**
  * A class for handling the functionality of Moved_XH.
  *
@@ -222,7 +224,7 @@ class Moved
     {
         global $pth, $tx, $plugin_tx;
 
-        $phpVersion = '4.3.10';
+        $phpVersion = '5.4.0';
         $checks = array();
         $checks[$this->l10n('syscheck_phpversion', $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';

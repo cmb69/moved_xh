@@ -37,7 +37,7 @@
     <!-- Tests -->
 
     <target name="unit-tests">
-        <phpunit haltonerror="true" haltonfailure="true">
+        <phpunit  bootstrap="tests/unit/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset refid="unit-tests"/>

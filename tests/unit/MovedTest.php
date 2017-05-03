@@ -14,11 +14,6 @@
  */
 
 /**
- * The class under test.
- */
-require_once './classes/Moved.php';
-
-/**
  * A class for testing the Moved class.
  *
  * @category Testing

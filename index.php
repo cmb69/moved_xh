@@ -35,12 +35,10 @@ define('MOVED_VERSION', '1beta2');
  */
 function Moved_instance()
 {
-    global $pth;
     static $instance;
 
-    include_once $pth['folder']['plugins'] . 'moved/classes/Moved.php';
     if (!isset($instance)) {
-        $instance = new Moved();
+        $instance = new Moved\Moved();
     }
     return $instance;
 }
