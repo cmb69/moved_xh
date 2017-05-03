@@ -52,7 +52,7 @@ function Moved_admin($admin, $action)
 /*
  * Handle the plugin administration.
  */
-if (isset($moved) && $moved == 'true') {
+if (XH_wantsPluginAdministration('moved')) {
     initvar('admin');
     Moved_admin($admin, $action);
 }
