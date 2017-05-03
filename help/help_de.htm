@@ -61,13 +61,6 @@ Plugin Verzeichnis hoch.</li>
 Content Ordner des Plugins (/content/moved/).</li>
 <li><strong>Wählen Sie "Moved" im Administrationsbereich, um zu prüfen, ob alle
 Voraussetzungen erfüllt sind.</strong></li>
-<li>Wenn Sie die passenden Meldungen für weitergeleitete und entfernte Seiten
-in CMSimple_XH &lt; 1.5.8 haben möchten, müssen Sie cmsimple/cms.php anpassen.
-Suchen Sie function shead(), und ersetzen Sie:
-<pre>    $title = $tx['error'][$s];</pre> durch:
-<pre>    if ($title == '') {
-        $title = $tx['error'][$s];
-    }</pre></li>
 </ol>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
