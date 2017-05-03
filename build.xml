@@ -2,7 +2,7 @@
 
 <!-- $Id$ -->
 
-<project name="Moved" default="test">
+<project name="Moved" default="help">
 
     <!-- Properties -->
 
@@ -20,9 +20,14 @@
         <include name="*Test.php"/>
     </fileset>
 
+    <target name="help" description="lists available targets">
+        <exec command="phing -l" outputProperty="help"/>
+        <echo>${help}</echo>
+    </target>
+
     <!-- Checks -->
 
-    <target name="sniff">
+    <target name="sniff" description="checks adherence to the coding standards">
         <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
             <fileset refid="unit-tests"/>
@@ -36,7 +41,7 @@
 
     <!-- Tests -->
 
-    <target name="unit-tests">
+    <target name="unit-tests" description="runs all unit tests">
         <phpunit  bootstrap="tests/unit/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
@@ -47,7 +52,7 @@
 
     <!-- Code coverage -->
 
-    <target name="coverage">
+    <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
