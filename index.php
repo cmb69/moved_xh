@@ -27,16 +27,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('MOVED_VERSION', '1beta2');
 
 /**
- * The fully qualified base URL for redirections.
- */
-define(
-    'MOVED_URL',
-    'http'
-    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn)
-);
-
-/**
  * Returns the unique instance of the Moved class.
  *
  * @return object
@@ -83,7 +73,7 @@ function custom_404()
                 $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
                     ? substr($_SERVER['QUERY_STRING'], strlen($su))
                     : '';
-                $url = MOVED_URL . '?' . $records[$su] . $qs;
+                $url = CMSIMPLE_URL . '?' . $records[$su] . $qs;
             }
             header('Location: ' . $url, true, 301);
             exit;

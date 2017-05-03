@@ -272,7 +272,7 @@ class Moved
                 fwrite($handle, $contents);
                 flock($handle, LOCK_UN);
                 fclose($handle);
-                $url = MOVED_URL . '?&moved&admin=plugin_main&action=plugin_text';
+                $url = CMSIMPLE_URL . '?&moved&admin=plugin_main&action=plugin_text';
                 header('Location: ' . $url, true, 303);
                 exit();
             } else {
