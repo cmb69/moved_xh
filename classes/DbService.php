@@ -24,27 +24,13 @@ namespace Moved;
 class DbService
 {
     /**
-     * @return string
-     */
-    public function dataFolder()
-    {
-        global $pth;
-
-        $dirname = $pth['folder']['content'] . 'moved/';
-        if (!file_exists($dirname)) {
-            if (!mkdir($dirname)) {
-                e('cntwriteto', 'folder', $dirname);
-            }
-        }
-        return $dirname;
-    }
-
-    /**
      * @return array
      */
     public function data()
     {
-        $filename = $this->dataFolder() . 'data.csv';
+        global $pth;
+
+        $filename = "{$pth['folder']['content']}moved.csv";
         $records = array();
         if (($handle = fopen($filename, 'r')) !== false) {
             flock($handle, LOCK_SH);

@@ -23,9 +23,21 @@ namespace Moved;
 
 class MainAdminController
 {
+    /**
+     * @var string
+     */
+    private $contentFolder;
+
+    public function __construct()
+    {
+        global $pth;
+
+        $this->contentFolder = $pth['folder']['content'];
+    }
+
     public function defaultAction()
     {
-        $filename = (new DbService)->dataFolder() . 'data.csv';
+        $filename = "{$this->contentFolder}moved.csv";
         $contents = '';
         if (($handle = fopen($filename, 'r')) !== false) {
             flock($handle, LOCK_SH);
@@ -40,7 +52,7 @@ class MainAdminController
 
     public function saveAction()
     {
-        $filename = (new DbService)->dataFolder() . 'data.csv';
+        $filename = "{$this->contentFolder}moved.csv";
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
         if (($handle = fopen($filename, 'c')) !== false) {
