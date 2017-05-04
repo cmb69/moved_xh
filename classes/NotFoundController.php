@@ -61,9 +61,9 @@ class NotFoundController
                 if (!$moved->isUtf8($url)) {
                     $url = $su;
                 }
-                $desc = str_replace('{{URL}}', $url, $this->lang['desc_gone']);
-                $desc = htmlspecialchars($desc, ENT_COMPAT, 'UTF-8');
-                echo '<p>' . $desc . '</p>';
+                $view = new View('gone');
+                $view->url = $url;
+                $view->render();
             }
         } else {
             $moved->statusHeader('404 Not found');
@@ -72,9 +72,9 @@ class NotFoundController
             if (!$moved->isUtf8($url)) {
                 $url = $su;
             }
-            $desc = str_replace('{{URL}}', $url, $this->lang['desc_notfound']);
-            $desc = htmlspecialchars($desc, ENT_COMPAT, 'UTF-8');
-            echo '<p>' . $desc . '</p>';
+            $view = new View('not-found');
+            $view->url = $url;
+            $view->render();
             $moved->log404();
         }
     }
