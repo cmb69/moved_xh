@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id$ -->
-
 <project name="Moved" default="help">
 
-    <!-- Properties -->
-
     <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
-
-    <!-- Filesets -->
 
     <fileset id="php-sources" dir=".">
         <include name="index.php"/>
@@ -23,8 +17,6 @@
         <exec command="phing -l" outputProperty="help"/>
         <echo>${help}</echo>
     </target>
-
-    <!-- Checks -->
 
     <target name="sniff" description="checks adherence to the coding standards">
         <phpcodesniffer standard="PSR2" format="full">
@@ -45,8 +37,6 @@
         <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
 
-    <!-- Tests -->
-
     <target name="unit-tests" description="runs all unit tests">
         <phpunit  bootstrap="tests/unit/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
@@ -55,8 +45,6 @@
             </batchtest>
         </phpunit>
     </target>
-
-    <!-- Code coverage -->
 
     <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
