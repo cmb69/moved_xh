@@ -113,7 +113,7 @@ class Moved
         $view = new View('info');
         $view->checks = (new SystemCheckService)->getChecks();
         $view->logo = "{$pth['folder']['plugins']}moved/moved.png";
-        $view->version = MOVED_VERSION;
+        $view->version = Plugin::VERSION;
         return (string) $view;
     }
 

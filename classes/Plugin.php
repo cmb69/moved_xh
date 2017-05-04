@@ -19,13 +19,36 @@
  * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function custom_404()
+namespace Moved;
+
+class Plugin
 {
-    global $o;
+    const VERSION = '@MOVED_VERSION@';
 
-    ob_start();
-    (new Moved\NotFoundController)->defaultAction();
-    $o .= ob_get_clean();
+    public function run()
+    {
+        if (XH_ADM) {
+            if (XH_wantsPluginAdministration('moved')) {
+                $this->handleAdministration();
+            }
+        }
+    }
+
+    private function handleAdministration()
+    {
+        global $o, $admin, $action;
+    
+        $moved = new Moved;
+        $o .= print_plugin_admin('on');
+        switch ($admin) {
+            case '':
+                $o .= $moved->info();
+                break;
+            case 'plugin_main':
+                $o .= $moved->admin();
+                break;
+            default:
+                $o .= plugin_admin_common($action, $admin, 'moved');
+        }
+    }
 }
-
-(new Moved\Plugin)->run();

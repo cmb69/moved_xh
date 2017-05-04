@@ -12,7 +12,6 @@
 
     <fileset id="php-sources" dir=".">
         <include name="index.php"/>
-        <include name="admin.php"/>
         <include name="classes/*.php"/>
     </fileset>
 
@@ -63,7 +62,7 @@
         <delete file="export.tar"/>
         <move todir="dist">
             <fileset dir="export">
-                <include name="index.php"/>
+                <include name="classes/Plugin.php"/>
                 <include name="version.nfo"/>
             </fileset>
             <filterchain>
