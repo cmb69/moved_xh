@@ -28,6 +28,7 @@ class Plugin
     public function run()
     {
         if (XH_ADM) {
+            XH_registerStandardPluginMenuItems(true);
             if (XH_wantsPluginAdministration('moved')) {
                 $this->handleAdministration();
             }
