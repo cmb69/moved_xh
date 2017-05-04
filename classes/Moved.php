@@ -106,20 +106,6 @@ class Moved
     /**
      * @return string
      */
-    public function info()
-    {
-        global $pth;
-
-        $view = new View('info');
-        $view->checks = (new SystemCheckService)->getChecks();
-        $view->logo = "{$pth['folder']['plugins']}moved/moved.png";
-        $view->version = Plugin::VERSION;
-        return (string) $view;
-    }
-
-    /**
-     * @return string
-     */
     public function admin()
     {
         global $action;

@@ -43,7 +43,9 @@ class Plugin
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $o .= $moved->info();
+                ob_start();
+                (new InfoController)->defaultAction();
+                $o .= ob_get_clean();
                 break;
             case 'plugin_main':
                 $o .= $moved->admin();
