@@ -78,7 +78,10 @@ Anforderungen anpassen.</p>
 CMSimple_XH Installation in einem Unterordner moved/ des jeweiligen content/
 Ordners. Die Regeln bezüglich der umbenannten Seiten werden in data.csv
 gespeichert; eingehende Anfragen zu Seiten, die nicht existieren und für die
-keine Regel in data.csv angegeben wurde, werden in log.csv protokolliert.</p>
+keine Regel in data.csv angegeben wurde, werden in der Protokolldatei von
+CMSimple_XH protokolliert. Die Beschreibung des Protokolleintrags enthält
+die angefragte Seite und den Referrer, falls bekannt.
+</p>
 <p>Die Regeln können in der Plugin-Administration unter "Einstellungen"
 bearbeitet werden. Jede Zeile der Datei stellt eine Regel dar. Regeln bestehen
 aus einer bzw. zwei so genannten Seiten-URLs. Technisch ausgedrückt ist eine
@@ -121,14 +124,6 @@ Fahrvergn%C3%BCgen, und nicht Fahrvergnügen wie man erwarten könnte.</p>
     <pre>Vor%C3%BCbergehende_Information</pre>
     </dd>
 </dl>
-<p>Die Protokolldateien sind nützlich, um zu überprüfen, ob es Anfragen für
-Seiten gab, die es nicht gibt. Jede Zeile der Protokolldatei enthält den
-Zeitstempel der Anfrage und die angefragte Seiten-URL; falls verfügbar, wird der
-Referrer ebenfalls protokolliert. Zur Zeit ist es nicht möglich die
-Protokolldateien aus der Plugin- Administration heraus einzusehen; Sie müssen
-diese per FTP herunter laden. Sie können die Protokolldateien in ein
-Tabellenkalkulationsprogramm importieren, um einen besseren Überblick zu
-erhalten.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2><a name="limitations">Beschränkungen</a></h2>

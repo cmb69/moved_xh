@@ -66,21 +66,10 @@ class Moved
     {
         global $su;
 
-        $time = isset($_SERVER['REQUEST_TIME'])
-            ? $_SERVER['REQUEST_TIME']
-            : time();
-        $time = date('Y-m-d H:i:s', $time);
         $referrer = isset($_SERVER['HTTP_REFERER'])
             ? $_SERVER['HTTP_REFERER']
-            : '';
-        $line = $time . "\t" . $su . "\t" . $referrer;
-        $filename = $this->dataFolder() . 'log.csv';
-        $ok = (($fp = fopen($filename, 'a')) !== false
-            &&  fwrite($fp, $line . PHP_EOL) !== false);
-        if ($fp !== false) {
-            fclose($fp);
-        }
-        return $ok;
+            : 'unknown';
+        return XH_logMessage('warning', 'moved', 'not found', "$su from $referrer");
     }
 
     /**

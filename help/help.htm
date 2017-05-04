@@ -77,7 +77,10 @@ strings to your own language, or customize them according to your needs.</p>
 <p>Moved_XH stores its data separately for each language resp. subsite of the
 CMSimple_XH installation in a subfolder moved/ of the respective content/ folder.
 The rules regarding the renamed pages are stored in data.csv; incoming requests
-to pages that do not exist and do not have a rule in data.csv are logged in log.csv.</p>
+to pages that do not exist and do not have a rule in data.csv are logged in the
+log file of CMSimple_XH. The log entry's description contains the requested page
+and the referrer, if known.
+</p>
 <p>The rules can be edited in the plugin administration under "Main Settings".
 Each line of the file constitutes a rule. Rules consist of one resp. two so
 called page URLs. Technically speaking, a page URL is the name of the first
@@ -118,12 +121,6 @@ Fahrvergn%C3%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
     <pre>Temporary_Information</pre>
     </dd>
 </dl>
-<p>The log files are useful to check if there have been requests to pages which
-do not exist. Each line of the log file contains the timestamp of the request
-and the requested page URL; if available the referrer is logged also. Currently
-it is not possible to view the log files from the plugin administration; you
-have to download it via FTP. You may consider importing the log files to a
-spread sheet application for an better overview.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
