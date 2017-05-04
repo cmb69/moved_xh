@@ -58,37 +58,4 @@ class Moved
         }
         return $records;
     }
-
-    /**
-     * @return bool
-     */
-    public function log404()
-    {
-        global $su;
-
-        $referrer = isset($_SERVER['HTTP_REFERER'])
-            ? $_SERVER['HTTP_REFERER']
-            : 'unknown';
-        return XH_logMessage('warning', 'moved', 'not found', "$su from $referrer");
-    }
-
-    /**
-     * @param string $status
-     * @return void
-     */
-    public function statusHeader($status)
-    {
-        global $cgi, $iis;
-
-        $header = ($cgi || $iis ? 'Status: ' : 'HTTP/1.1 ') . $status;
-        header($header);
-    }
-
-    /**
-     * @param string $str
-     */
-    public function isUtf8($str)
-    {
-        return preg_match('/^.{1}/us', $str) == 1;
-    }
 }

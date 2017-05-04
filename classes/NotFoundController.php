@@ -39,8 +39,7 @@ class NotFoundController
     {
         global $su, $title;
     
-        $moved = new Moved;
-        $records = $moved->data();
+        $records = (new Moved)->data();
         if (isset($records[$su])) {
             if ($records[$su]) {
                 $parts = parse_url($records[$su]);
@@ -55,10 +54,10 @@ class NotFoundController
                 header('Location: ' . $url, true, 301);
                 exit;
             } else {
-                $moved->statusHeader('410 Gone');
+                $this->statusHeader('410 Gone');
                 $title = $this->lang['title_gone'];
                 $url = urldecode($su);
-                if (!$moved->isUtf8($url)) {
+                if (!$this->isUtf8($url)) {
                     $url = $su;
                 }
                 $view = new View('gone');
@@ -66,16 +65,49 @@ class NotFoundController
                 $view->render();
             }
         } else {
-            $moved->statusHeader('404 Not found');
+            $this->statusHeader('404 Not found');
             $title = $this->lang['title_notfound'];
             $url = urldecode($su);
-            if (!$moved->isUtf8($url)) {
+            if (!$this->isUtf8($url)) {
                 $url = $su;
             }
             $view = new View('not-found');
             $view->url = $url;
             $view->render();
-            $moved->log404();
+            $this->log404();
         }
+    }
+
+    /**
+     * @param string $status
+     * @return void
+     */
+    private function statusHeader($status)
+    {
+        global $cgi, $iis;
+
+        $header = ($cgi || $iis ? 'Status: ' : 'HTTP/1.1 ') . $status;
+        header($header);
+    }
+
+    /**
+     * @param string $str
+     */
+    private function isUtf8($str)
+    {
+        return preg_match('/^.{1}/us', $str) == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    private function log404()
+    {
+        global $su;
+
+        $referrer = isset($_SERVER['HTTP_REFERER'])
+            ? $_SERVER['HTTP_REFERER']
+            : 'unknown';
+        return XH_logMessage('warning', 'moved', 'not found', "$su from $referrer");
     }
 }
