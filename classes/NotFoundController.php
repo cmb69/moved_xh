@@ -42,8 +42,7 @@ class NotFoundController
         $redirect = (new DbService)->findRedirectFor($su);
         if (isset($redirect)) {
             if ($redirect) {
-                $parts = parse_url($redirect);
-                if (isset($parts['scheme'])) {
+                if (strpos($redirect, '://') !== false) {
                     $url = $redirect;
                 } else {
                     $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
