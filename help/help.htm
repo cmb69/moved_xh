@@ -1,162 +1,232 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Moved_XH Manual</title>
+<title>Moved_XH – User Manual</title>
 <link rel="stylesheet" type="text/css" href="./stylesheet.css">
 </head>
 
 <body>
 
-<h1>Moved_XH&mdash;a CMSimple_XH Plugin</h1>
-<img src="../moved.png" alt="Plugin Icon" style="float:left; margin-right: 1em">
-<p style="text-align:justify">Moved_XH facilitates to cater for pages which have
-been renamed. Direkt links to those pages will normally result in a 404 Page Not
-Found error, but Moved_XH makes it possible to redirect incoming requests to
-another page or to flag them as gone. Appropriate information is returned that
-informs bots about the change, what is particularly important regarding search
-engines, which can change the URL of the page resp. remove it from the
-index.</p>
+<article>
+<h1>Moved_XH – User Manual</h1>
+<img src="../moved.png" alt="Dolly with Moving Boxes" style="float:left; margin: 0.5em 1.5em 0.5em 0">
+<p>
+    Moved_XH facilitates to cater to pages which have been renamed. Direkt links
+    to those pages will normally result in a 404 Page Not Found error, but
+    Moved_XH makes it possible to redirect incoming requests to another page or
+    to flag them as gone. Appropriate information is returned that informs bots
+    about the change, what is particularly important regarding search engines,
+    which can change the URL of the page resp. remove it from the index.
+</p>
 
-<ul id="nav">
+<nav id="nav">
+<h2>Table of Contents</h2>
+<ul>
 <li><a href="#notice">Important Notice</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
-<li><a href="#usage">Usage</a></li>
+<li>
+    <a href="#usage">Usage</a>
+    <ul>
+        <li><a href="#usage-redirects">Redirects</a></li>
+        <li><a href="#usage-gone">Gone</a></li>
+    </ul>
+</li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
 </ul>
+</nav>
 
-<div id="body">
+<section id="notice">
+<h2>Important Notice</h2>
+<p class="important">
+    Moved_XH couldn't be tested so far in various environments. It is a so
+    called beta version. Use with caution!
+</p>
+</section>
 
-<p><strong>Please do read this documentation, <em>before</em> you encounter any
-problems!</strong></p>
-
-<h2><a name="notice">Important Notice</a></h2>
-<p><strong>Moved_XH couldn't be tested so far in various environments. It is a
-so called BETA version. Use with caution!</strong></p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h2><a name="requirements">Requirements</a></h2>
+<section id="requirements">
+<h2>Requirements</h2>
 <p>
-        Moved_XH requires CMSimple_XH ≥ 1.6.3 and PHP ≥ 5.4.0.
+    Moved_XH requires CMSimple_XH ≥ 1.6.3 and PHP ≥ 5.4.0.
 </p>
-<div class="toplink"><a href="#">back to top</a></div>
+</section>
 
-<h2><a name="installation">Installation</a></h2>
-<p>The installation is done as with many other CMSimple_XH plugins. See the <a
-href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH
-wiki</a> for further details.</p>
+<section id="installation">
+<h2>Installation</h2>
+<p>
+    The installation is done as with many other CMSimple_XH plugins. See the <a
+    href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH
+    wiki</a> for further details.
+</p>
 <ol>
-<li><strong>Backup the data on your server.</strong></li>
-<li>Unzip the distribution on your computer.</li>
-<li>Upload the whole directory moved/ to your server into CMSimple_XH's plugins
-directory.</li>
-<li>Set write permissions to the subdirectory languages/ and the
-plugin's content folders (/content/moved/).</li>
-<li><strong>Switch to "Moved" in the back-end to check if all requirements are
-fulfilled.</strong></li>
+<li class="important">
+    Backup the data on your server.
+</li>
+<li>
+    Unzip the distribution on your computer.
+</li>
+<li>
+    Upload the whole directory <code>moved/</code> to your server into
+    CMSimple_XH's plugins directory.
+</li>
+<li>
+    Set write permissions to the subfolders <code>css/</code> and
+    <code>languages/</code>.
+</li>
+<li class="important">
+    Browse to <i>Plugins</i> → <i>Moved</i> to check if all requirements are
+    fulfilled.
+</li>
 </ol>
-<div class="toplink"><a href="#">back to top</a></div>
+</section>
 
-<h2><a name="settings">Settings</a></h2>
-<p>The plugin's configuration is done as with many other CMSimple_XH plugins in
-the website's back-end. Select "Moved" from "Plugins".</p>
-<!--<p>You can change the default settings of Moved_XH in "Config". Hints for
-the options will be displayed when hovering over the help icon with your
-mouse.</p>
---><p>Localization is done in "Language". You can translate the character
-strings to your own language, or customize them according to your needs.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h2><a name="usage">Usage</a></h2>
-<p>Moved_XH stores its data separately for each language of the
-CMSimple_XH installation in a file moved.csv in the respective content/ folder.
-Incoming requests
-to pages that do not exist and do not have a rule in moved.csv are logged in the
-log file of CMSimple_XH. The log entry's description contains the requested page
-and the referrer, if known.
+<section id="settings">
+<h2>Settings</h2>
+<p>
+    The plugin's configuration is done as with many other CMSimple_XH plugins in
+    the website's back-end. Select <i>Plugins</i> → <i>Moved</i>.
 </p>
-<p>The rules can be edited in the plugin administration under "Main Settings".
-Each line of the file constitutes a rule. Rules consist of one resp. two so
-called page URLs. Technically speaking, a page URL is the name of the first
-parameter of the query string, i.e. everything between the question mark (?) and
-the first ampersand (&amp;) resp. the end of the URL, if there's no ampersand.
-It is recommended to copy the page URLs from the address bar of the browser
-instead of entering them manually, because there'll be some surprises. For
-instance, the page URL of the fictious page <a
-href="http://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergn&uuml;gen</a> is
-Fahrvergn%C3%BCgen and not Fahrvergn&uuml;gen as one might expect.</p>
+<!--
+<p>
+    You can change the default settings of Moved_XH under <i>Config</i>. Hints
+    for the options will be displayed when hovering over the help icon with your
+    mouse.
+</p>
+-->
+<p>
+    Localization is done under <i>Language</i>. You can translate the character
+    strings to your own language if there is no appropriate language file available,
+    or customize them according to your needs.
+</p>
+<p>
+    The look of Moved_XH can be customized under <i>Stylesheet</i>.
+</p>
+</section>
+
+<section id="usage">
+<h2>Usage</h2>
+<p>
+    Moved_XH stores its data separately for each language of the CMSimple_XH
+    installation in a file <code>moved.csv</code> in the respective
+    <code>content/</code> folder. Incoming requests to pages that do not exist
+    and do not have a rule in <code>moved.csv</code> are logged in the log file
+    of CMSimple_XH. The log entry's description contains the requested page and
+    the referrer, if known.
+</p>
+<p>
+    The rules can be edited in the plugin administration under <i>Main
+    Settings</i>. Each line of the file constitutes a rule. Rules consist of one
+    resp. two so called <i>page URL</i>s. Technically speaking, a <i>page
+    URL</i> is the name of the first parameter of the query string, i.e.
+    everything between the question mark (<code>?</code>) and the first
+    ampersand (<code>&amp;</code>) resp. the end of the URL, if there's no
+    ampersand. It is recommended to copy the <i>page URL</i>s from the address
+    bar of the browser instead of entering them manually, because there'll be
+    some surprises. For instance, the <i>page URL</i> of the fictious page <a
+    href="http://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergn&uuml;gen</a> is
+    <code>Fahrvergn%C3%BCgen</code> and not <code>Fahrvergnügen</code> as one
+    might expect.
+</p>
 <p>There are two different types of rules:</p>
-<dl>
-    <dt>Redirects</dt>
-    <dd><p>Redirect rules will redirect incoming requests for an old page URL to
-    a new page URL or an external URL (which has to be fully qualified, i.e.
-    starting with the protocol, e.g. http://). Both URLs are seperated by
-    an equal sign (=).</p>
-    <h5>Example</h5>
-    <p>You are restructuring your site and want to move the toplevel page "Oaks"
-    to the second level below "Trees", so add the following rule:</p>
-    <pre>Oaks=Trees:Oaks</pre>
-    <h5>Example</h5>
-    <p>You have moved the page "Oaks" to another CMSimple_XH installation, so
-    add the following rule:</p>
-    <pre>Oaks=http://www.example.com/trees/?Oaks</pre>
-    <h5>Example</h5>
-    <p>You have upgraded from an ISO-8859-1 encoded CMSimple version to a
-    UTF-8 encoded CMSimple_XH installation, and you have a page
-    "Fahrvergn&uuml;gen", so add the following rule:</p>
-    <pre>Fahrverg%FCgen=Fahrvergn%C3%BCgen</pre>
-    </dd>
-    <dt>Gone</dt>
-    <dd><p>Gone rules will inform visitors that a page does not exists anymore.
-    They consist of the page URL of the removed page.</p>
-    <h5>Example</h5>
-    <p>You have removed the page "Temporary Information" because it is no more
-    needed, so add the following rule:</p>
-    <pre>Temporary_Information</pre>
-    </dd>
-</dl>
-<div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="limitations">Limitations</a></h2>
-<ul>
-    <li>Moved_XH uses the <a
-    href="http://www.cmsimple-xh.org/wiki/doku.php/tips_and_tricks#custom_404_error_page">custom_404()
-    hook</a>, so it doesn't work if the hook is alread defined. In this case
-    you'll get a blank browser window when you browse to your website. Either
-    uninstall Moved_XH or remove the existing custom_404() hook.</li>
-    <li>Moved_XH's rules don't work when you're logged in to the CMSimple_XH
-    installation, as the custom_404() hook funktion is not called by CMSimple_XH
-    in this case. If you want to test the rules without logging out, you have to
-    use a second browser.</li>
-</ul>
-<div class="toplink"><a href="#">back to top</a></div>
+<section id="usage-redirects">
+<h3>Redirects</h3>
+<p>
+    Redirect rules will redirect incoming requests for an old <i>page URL</i> to
+    a new <i>page URL</i> or an external URL (which has to be fully qualified,
+    i.e. starting with the protocol, e.g. <code>http://</code>). Both URLs are
+    seperated by an equal sign (<code>=</code>).
+</p>
+<h4>Example #1</h4>
+<p>
+    You are restructuring your site and want to move the toplevel page
+    "Oaks" to the second level below "Trees", so add the following rule:
+</p>
+<pre>Oaks=Trees:Oaks</pre>
+<h4>Example #2</h4>
+<p>
+    You have moved the page "Oaks" to another CMSimple_XH installation,
+    so add the following rule:
+</p>
+<pre>Oaks=http://www.example.com/trees/?Oaks</pre>
+<h4>Example #3</h4>
+<p>
+    You have upgraded from an <i>ISO-8859-1</i> encoded CMSimple version
+    to a <i>UTF-8</i> encoded CMSimple_XH installation, and you have a
+    page "Fahrvergn&uuml;gen", so add the following rule:
+</p>
+<pre>Fahrverg%FCgen=Fahrvergn%C3%BCgen</pre>
+</section>
 
-<h2><a name="license">License</a></h2>
-<p>Moved_XH is licensed under <a
-href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
-<p>&copy; 2013-2017 Christoph M. Becker</p>
-<div class="toplink"><a href="#">back to top</a></div>
+<section id="usage-gone">
+<h3>Gone</h3>
+<p>
+    Gone rules will inform visitors that a page does not exists anymore.
+    They consist of the <i>page URL</i> of the removed page.
+</p>
+<h4>Example #4</h4>
+<p>
+    You have removed the page "Temporary Information" because it is no
+    more needed, so add the following rule:
+</p>
+<pre>Temporary_Information</pre>
+</section>
 
-<h2><a name="credits">Credits</a></h2>
-<p>The plugin icon is designed by <a
-href="http://www.mymovingreviews.com/">World Media Group LLC</a>. Many thanks
-for publishing this icon under a liberal license.</p>
-<p>Many thanks to the community at the <a
-href="http://www.cmsimpleforum.com">CMSimple_XH forum</a> for tips, suggestions
-and testing.</p>
-<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
-Harteg</a>, the "father" of CMSimple, and to all developers of <a
-href="http://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing CMS
-wouldn't exist.</p>
-<div class="toplink"><a href="#">back to top</a></div>
+</section>
 
-</div>
+<section id="limitations">
+<h2>Limitations</h2>
+<p>
+    Moved_XH uses the <a
+    href="http://www.cmsimple-xh.org/wiki/doku.php/tips_and_tricks#custom_404_error_page"><code>custom_404()
+    hook</code></a>, so it doesn't work if the hook is alread defined. In this
+    case you'll get a blank browser window when you browse to your website.
+    Either uninstall Moved_XH or remove the existing <code>custom_404()</code>
+    hook.
+</p>
+<p>
+    Moved_XH's rules don't work when you're logged in to the CMSimple_XH
+    installation, as the <code>custom_404()</code> hook funktion is not called
+    by CMSimple_XH in this case. If you want to test the rules without logging
+    out, you have to use a second browser.
+</p>
+</section>
+
+<section id="license">
+<h2>License</h2>
+<p>
+    Moved_XH is licensed under <a
+    href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.
+</p>
+<p>Copyright © 2013-2017 Christoph M. Becker</p>
+</section>
+
+<section id="credits">
+<h2>Credits</h2>
+<p>
+    The plugin logo is designed by <a
+    href="http://www.mymovingreviews.com/">World Media Group LLC</a>. Many
+    thanks for publishing this icon under a liberal license.
+</p>
+<p>
+    Many thanks to the community at the <a
+    href="http://www.cmsimpleforum.com">CMSimple_XH forum</a> for tips,
+    suggestions and testing.
+</p>
+<p>
+    And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
+    Harteg</a>, the "father" of CMSimple, and to all developers of <a
+    href="http://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing
+    CMS wouldn't exist.
+</p>
+</section>
+
+</article>
 
 </body>
 
