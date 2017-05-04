@@ -21,7 +21,7 @@
 
 namespace Moved;
 
-class Moved
+class DbService
 {
     /**
      * @return string

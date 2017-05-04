@@ -39,7 +39,6 @@ class Plugin
     {
         global $o, $admin, $action;
     
-        $moved = new Moved;
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':

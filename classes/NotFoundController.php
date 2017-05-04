@@ -39,7 +39,7 @@ class NotFoundController
     {
         global $su, $title;
     
-        $records = (new Moved)->data();
+        $records = (new DbService)->data();
         if (isset($records[$su])) {
             if ($records[$su]) {
                 $parts = parse_url($records[$su]);
