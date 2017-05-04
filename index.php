@@ -27,7 +27,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
 }
 
-define('MOVED_VERSION', '1beta2');
+define('MOVED_VERSION', '@MOVED_VERSION@');
 
 /**
  * @return object
