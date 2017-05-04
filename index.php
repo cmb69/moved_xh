@@ -44,45 +44,9 @@ function Moved_instance()
 
 function custom_404()
 {
-    global $pth, $su, $title, $o, $plugin_tx;
+    global $o;
 
-    $moved = Moved_instance();
-    $ptx = $plugin_tx['moved'];
-    $records = $moved->data();
-    if (isset($records[$su])) {
-        if ($records[$su]) {
-            $parts = parse_url($records[$su]);
-            if (isset($parts['scheme'])) {
-                $url = $records[$su];
-            } else {
-                $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
-                    ? substr($_SERVER['QUERY_STRING'], strlen($su))
-                    : '';
-                $url = CMSIMPLE_URL . '?' . $records[$su] . $qs;
-            }
-            header('Location: ' . $url, true, 301);
-            exit;
-        } else {
-            $moved->statusHeader('410 Gone');
-            $title = $ptx['title_gone'];
-            $url = urldecode($su);
-            if (!$moved->isUtf8($url)) {
-                $url = $su;
-            }
-            $desc = str_replace('{{URL}}', $url, $ptx['desc_gone']);
-            $desc = htmlspecialchars($desc, ENT_COMPAT, 'UTF-8');
-            $o .= '<p>' . $desc . '</p>';
-        }
-    } else {
-        $moved->statusHeader('404 Not found');
-        $title = $ptx['title_notfound'];
-        $url = urldecode($su);
-        if (!$moved->isUtf8($url)) {
-            $url = $su;
-        }
-        $desc = str_replace('{{URL}}', $url, $ptx['desc_notfound']);
-        $desc = htmlspecialchars($desc, ENT_COMPAT, 'UTF-8');
-        $o .= '<p>' . $desc . '</p>';
-        $moved->log404();
-    }
+    ob_start();
+    (new Moved\NotFoundController)->defaultAction();
+    $o .= ob_get_clean();
 }

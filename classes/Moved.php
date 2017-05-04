@@ -122,39 +122,16 @@ class Moved
      */
     public function admin()
     {
-        global $sn, $action, $tx;
+        global $action;
 
-        $filename = $this->dataFolder() . 'data.csv';
+        $controller = new MainAdminController;
         if ($action == 'plugin_textsave') {
-            $contents = $_POST['plugin_text'];
-            $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
-            if (($handle = fopen($filename, 'c')) !== false) {
-                flock($handle, LOCK_EX);
-                ftruncate($handle, 0);
-                fwrite($handle, $contents);
-                flock($handle, LOCK_UN);
-                fclose($handle);
-                $url = CMSIMPLE_URL . '?&moved&admin=plugin_main&action=plugin_text';
-                header('Location: ' . $url, true, 303);
-                exit();
-            } else {
-                e('cntsave', 'file', $filename);
-            }
+            $act = 'saveAction';
         } else {
-            $contents = '';
-            if (($handle = fopen($filename, 'r')) !== false) {
-                flock($handle, LOCK_SH);
-                while (($line = fgets($handle, 4096)) !== false) {
-                    $contents .= $line;
-                }
-                flock($handle, LOCK_UN);
-                fclose($handle);
-            }
+            $act = 'defaultAction';
         }
-        $view = new View('admin');
-        $view->contents = $contents;
-        $view->actionUrl = "$sn?&moved";
-        $view->saveLabel = ucfirst($tx['action']['save']);
-        return (string) $view;
+        ob_start();
+        $controller->{$act}();
+        return ob_get_clean();
     }
 }
