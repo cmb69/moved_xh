@@ -23,7 +23,6 @@ spl_autoload_register(
     function ($class) {
         $parts = explode('\\', $class, 2);
         if ($parts[0] == 'Moved') {
-            var_dump($class);
             include_once dirname(__FILE__) . '/' . $parts[1] . '.php';
         }
     }
