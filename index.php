@@ -29,19 +29,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 define('MOVED_VERSION', '@MOVED_VERSION@');
 
-/**
- * @return object
- */
-function Moved_instance()
-{
-    static $instance;
-
-    if (!isset($instance)) {
-        $instance = new Moved\Moved();
-    }
-    return $instance;
-}
-
 function custom_404()
 {
     global $o;

@@ -25,7 +25,7 @@ class MainAdminController
 {
     public function defaultAction()
     {
-        $filename = Moved_instance()->dataFolder() . 'data.csv';
+        $filename = (new Moved)->dataFolder() . 'data.csv';
         $contents = '';
         if (($handle = fopen($filename, 'r')) !== false) {
             flock($handle, LOCK_SH);
@@ -40,7 +40,7 @@ class MainAdminController
 
     public function saveAction()
     {
-        $filename = Moved_instance()->dataFolder() . 'data.csv';
+        $filename = (new Moved)->dataFolder() . 'data.csv';
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
         if (($handle = fopen($filename, 'c')) !== false) {

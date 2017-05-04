@@ -35,7 +35,7 @@ function Moved_admin($admin, $action)
 {
     global $o;
 
-    $moved = Moved_instance();
+    $moved = new Moved\Moved;
     $o .= print_plugin_admin('on');
     switch ($admin) {
         case '':

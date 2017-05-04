@@ -39,7 +39,7 @@ class NotFoundController
     {
         global $su, $title;
     
-        $moved = Moved_instance();
+        $moved = new Moved;
         $records = $moved->data();
         if (isset($records[$su])) {
             if ($records[$su]) {
