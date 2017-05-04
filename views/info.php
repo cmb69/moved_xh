@@ -1,14 +1,10 @@
 <h1>Moved_XH</h1>
-<h4><?=$this->text('syscheck');?></h4>
-<ul style="list-style: none">
-<?php foreach ($this->checks as $check => $state):?>
-    <li>
-        <img src="<?=$this->escape($this->images[$state])?>" alt="<?=$this->escape($state)?>" style="padding-right: 1em"/>
-        <?=$check?>
-    </li>
+<div class="moved_syscheck">
+    <h2><?php echo $this->text('syscheck_title')?></h2>
+<?php foreach ($this->checks as $check):?>
+    <p class="xh_<?php echo $this->escape($check->state)?>"><?php echo $this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
 <?php endforeach?>
-</ul>
-<hr />
+</div>
 <h4><?=$this->text('about')?></h4>
 <img src="<?=$this->logo()?>" style="float: left; margin: 1.5em 0.5em 0 0" alt="Plugin Icon">
 <p>Version: <?=$this->version()?></p>

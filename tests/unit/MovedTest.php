@@ -65,22 +65,4 @@ class MovedTest extends PHPUnit_Framework_TestCase
         $actual = $this->moved->isUtf8($string);
         $this->assertEquals($expected, $actual);
     }
-
-    public function testSuccessIcons()
-    {
-        $icons = $this->moved->successIcons();
-        $this->assertCount(3, $icons);
-        foreach ($icons as $icon) {
-            $this->assertTrue(is_file($icon));
-        }
-    }
-
-    public function testWritableFolders()
-    {
-        $folders = $this->moved->writableFolders();
-        $this->assertCount(2, $folders);
-        foreach ($folders as $folder) {
-            $this->assertTrue(is_dir($folder));
-        }
-    }
 }

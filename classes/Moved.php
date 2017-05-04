@@ -24,19 +24,6 @@ namespace Moved;
 class Moved
 {
     /**
-     * @param string $key
-     * @return string
-     */
-    public function l10n($key)
-    {
-        global $plugin_tx;
-
-        $args = array_slice(func_get_args(), 1);
-        $o = vsprintf($plugin_tx['moved'][$key], $args);
-        return $o;
-    }
-
-    /**
      * @return string
      */
     public function dataFolder()
@@ -117,62 +104,14 @@ class Moved
     }
 
     /**
-     * @return array
-     */
-    public function successIcons()
-    {
-        global $pth;
-
-        $icons = array();
-        foreach (array('ok', 'warn', 'fail') as $state) {
-            $icons[$state] = $pth['folder']['plugins'] . 'moved/images/'
-                . $state . '.png';
-        }
-        return $icons;
-    }
-
-    /**
-     * @return array
-     */
-    public function writableFolders()
-    {
-        global $pth;
-
-        $folders = array();
-        foreach (array('languages/') as $folder) {
-            $folders[] = $pth['folder']['plugins'] . 'moved/' . $folder;
-        }
-        $folders[] = $this->dataFolder();
-        return $folders;
-    }
-
-    /**
      * @return string
      */
-    public function info() // RELEASE-TODO: syscheck
+    public function info()
     {
-        global $pth, $tx, $plugin_tx;
+        global $pth;
 
-        $phpVersion = '5.4.0';
-        $checks = array();
-        $checks[$this->l10n('syscheck_phpversion', $phpVersion)]
-            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-        foreach (array('date', 'pcre') as $ext) {
-            $checks[$this->l10n('syscheck_extension', $ext)]
-                = extension_loaded($ext) ? 'ok' : 'fail';
-        }
-        $checks[$this->l10n('syscheck_magic_quotes')]
-            = !get_magic_quotes_runtime() ? 'ok' : 'fail';
-        $checks[$this->l10n('syscheck_encoding')]
-            = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
-        $folders = $this->writableFolders();
-        foreach ($folders as $folder) {
-            $checks[$this->l10n('syscheck_writable', $folder)]
-                = is_writable($folder) ? 'ok' : 'warn';
-        }
         $view = new View('info');
-        $view->images = $this->successIcons();
-        $view->checks = $checks;
+        $view->checks = (new SystemCheckService)->getChecks();
         $view->logo = "{$pth['folder']['plugins']}moved/moved.png";
         $view->version = MOVED_VERSION;
         return (string) $view;
