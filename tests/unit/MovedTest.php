@@ -1,43 +1,35 @@
 <?php
 
 /**
- * Testing the Moved class.
+ * Copyright 2013-2017 Christoph M. Becker
  *
- * PHP versions 4 and 5
+ * This file is part of Moved_XH.
  *
- * @category  Testing
- * @package   Moved
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2013-2017 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Moved_XH
+ * Moved_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Moved_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * A class for testing the Moved class.
- *
- * @category Testing
- * @package  Moved
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Moved_XH
- */
+namespace Moved;
+
+use PHPUnit_Framework_TestCase;
+
 class MovedTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * The test instance.
-     *
      * @var object
      */
     private $moved;
 
-    /**
-     * Set up the next test.
-     *
-     * @return void
-     *
-     * @global array The paths of system files and folders.
-     */
     public function setUp()
     {
         global $pth;
@@ -52,8 +44,6 @@ class MovedTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test data for the Moved::isUtf8() method.
-     *
      * @return array
      */
     public function dataForIsUtf8()
@@ -66,14 +56,9 @@ class MovedTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing the Moved::isUtf8() method.
-     *
-     * @param string $string   A string.
-     * @param string $expected Expected result.
-     *
-     * @return void
-     *
      * @dataProvider dataForIsUtf8
+     * @param string $string
+     * @param string $expected
      */
     public function testIsUtf8($string, $expected)
     {
@@ -81,11 +66,6 @@ class MovedTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Testing Moved::successIcons().
-     *
-     * @return void
-     */
     public function testSuccessIcons()
     {
         $icons = $this->moved->successIcons();
@@ -95,11 +75,6 @@ class MovedTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * Testing Moved::writableFolders().
-     *
-     * @return void
-     */
     public function testWritableFolders()
     {
         $folders = $this->moved->writableFolders();
@@ -109,5 +84,3 @@ class MovedTest extends PHPUnit_Framework_TestCase
         }
     }
 }
-
-?>

@@ -28,7 +28,7 @@
     <!-- Checks -->
 
     <target name="sniff" description="checks adherence to the coding standards">
-        <phpcodesniffer standard="PEAR" format="full">
+        <phpcodesniffer standard="PSR2" format="full">
             <fileset refid="php-sources"/>
             <fileset refid="unit-tests"/>
         </phpcodesniffer>
