@@ -117,29 +117,6 @@ class Moved
     }
 
     /**
-     * @param string $_template
-     * @param array  $_bag
-     * @return string
-     */
-    public function render($_template, $_bag)
-    {
-        global $pth, $cf;
-
-        $_template = $pth['folder']['plugins'] . 'moved/views/' . $_template
-            . '.htm';
-        $_xhtml = strtolower($cf['xhtml']['endtags']) == 'true';
-        unset($pth, $cf);
-        extract($_bag);
-        ob_start();
-        include $_template;
-        $view = ob_get_clean();
-        if (!$_xhtml) {
-            $view = str_replace(' />', '>', $view);
-        }
-        return $view;
-    }
-
-    /**
      * @return array
      */
     public function successIcons()
@@ -193,14 +170,12 @@ class Moved
             $checks[$this->l10n('syscheck_writable', $folder)]
                 = is_writable($folder) ? 'ok' : 'warn';
         }
-        $bag = array(
-            'ptx' => $plugin_tx['moved'],
-            'images' => $this->successIcons(),
-            'checks' => $checks,
-            'icon' => $pth['folder']['plugins'] . 'moved/moved.png',
-            'version' => MOVED_VERSION
-        );
-        return $this->render('info', $bag);
+        $view = new View('info');
+        $view->images = $this->successIcons();
+        $view->checks = $checks;
+        $view->logo = "{$pth['folder']['plugins']}moved/moved.png";
+        $view->version = MOVED_VERSION;
+        return (string) $view;
     }
 
     /**
@@ -237,12 +212,10 @@ class Moved
                 fclose($handle);
             }
         }
-        $contents = htmlspecialchars($contents, ENT_NOQUOTES, 'UTF-8');
-        $action = $sn . '?&moved';
-        $label = array(
-            'save' => ucfirst($tx['action']['save'])
-        );
-        $bag = compact('action', 'contents', 'label');
-        return $this->render('admin', $bag);
+        $view = new View('admin');
+        $view->contents = $contents;
+        $view->actionUrl = "$sn?&moved";
+        $view->saveLabel = ucfirst($tx['action']['save']);
+        return (string) $view;
     }
 }
