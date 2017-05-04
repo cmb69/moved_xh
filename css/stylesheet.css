@@ -1,3 +1,7 @@
+.moved_main textarea {
+    width: 99%;
+    height: 25em;
+}
 .moved_logo {
     float: left;
     margin: 0.5em 1.5em 0.5em 0;
