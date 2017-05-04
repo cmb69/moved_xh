@@ -28,11 +28,17 @@ class MainAdminController
      */
     private $contentFolder;
 
+    /**
+     * @var XH_CSRFProtection
+     */
+    private $csrfProtector;
+
     public function __construct()
     {
-        global $pth;
+        global $pth, $_XH_csrfProtection;
 
         $this->contentFolder = $pth['folder']['content'];
+        $this->csrfProtector = $_XH_csrfProtection;
     }
 
     public function defaultAction()
@@ -52,6 +58,7 @@ class MainAdminController
 
     public function saveAction()
     {
+        $this->csrfProtector->check();
         $filename = "{$this->contentFolder}moved.csv";
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
@@ -79,6 +86,7 @@ class MainAdminController
         global $sn, $tx;
 
         $view = new View('admin');
+        $view->csrfTokenInput = new HtmlString($this->csrfProtector->tokenInput());
         $view->contents = $contents;
         $view->actionUrl = "$sn?&moved";
         $view->saveLabel = ucfirst($tx['action']['save']);
