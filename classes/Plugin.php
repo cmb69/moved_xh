@@ -48,7 +48,15 @@ class Plugin
                 $o .= ob_get_clean();
                 break;
             case 'plugin_main':
-                $o .= $moved->admin();
+                $controller = new MainAdminController;
+                if ($action == 'plugin_textsave') {
+                    $act = 'saveAction';
+                } else {
+                    $act = 'defaultAction';
+                }
+                ob_start();
+                $controller->{$act}();
+                $o .= ob_get_clean();
                 break;
             default:
                 $o .= plugin_admin_common($action, $admin, 'moved');

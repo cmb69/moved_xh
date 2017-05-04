@@ -102,22 +102,4 @@ class Moved
     {
         return preg_match('/^.{1}/us', $str) == 1;
     }
-
-    /**
-     * @return string
-     */
-    public function admin()
-    {
-        global $action;
-
-        $controller = new MainAdminController;
-        if ($action == 'plugin_textsave') {
-            $act = 'saveAction';
-        } else {
-            $act = 'defaultAction';
-        }
-        ob_start();
-        $controller->{$act}();
-        return ob_get_clean();
-    }
 }
