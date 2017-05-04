@@ -39,17 +39,17 @@ class NotFoundController
     {
         global $su, $title;
     
-        $records = (new DbService)->data();
-        if (isset($records[$su])) {
-            if ($records[$su]) {
-                $parts = parse_url($records[$su]);
+        $redirect = (new DbService)->findRedirectFor($su);
+        if (isset($redirect)) {
+            if ($redirect) {
+                $parts = parse_url($redirect);
                 if (isset($parts['scheme'])) {
-                    $url = $records[$su];
+                    $url = $redirect;
                 } else {
                     $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
                         ? substr($_SERVER['QUERY_STRING'], strlen($su))
                         : '';
-                    $url = CMSIMPLE_URL . '?' . $records[$su] . $qs;
+                    $url = CMSIMPLE_URL . '?' . $redirect . $qs;
                 }
                 header('Location: ' . $url, true, 301);
                 exit;

@@ -43,36 +43,22 @@ class MainAdminController
 
     public function defaultAction()
     {
-        $filename = "{$this->contentFolder}moved.csv";
-        $contents = '';
-        if (($handle = fopen($filename, 'r')) !== false) {
-            flock($handle, LOCK_SH);
-            while (($line = fgets($handle, 4096)) !== false) {
-                $contents .= $line;
-            }
-            flock($handle, LOCK_UN);
-            fclose($handle);
-        }
+        $contents = (new DbService)->readTextContent();
         $this->prepareView($contents)->render();
     }
 
     public function saveAction()
     {
         $this->csrfProtector->check();
-        $filename = "{$this->contentFolder}moved.csv";
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
-        if (($handle = fopen($filename, 'c')) !== false) {
-            flock($handle, LOCK_EX);
-            ftruncate($handle, 0);
-            fwrite($handle, $contents);
-            flock($handle, LOCK_UN);
-            fclose($handle);
+        $dbService = new DbService;
+        if ($dbService->storeTextContent($contents)) {
             $url = CMSIMPLE_URL . '?&moved&admin=plugin_main&action=plugin_text';
             header('Location: ' . $url, true, 303);
             exit();
         } else {
-            e('cntsave', 'file', $filename);
+            e('cntsave', 'file', $dbService->getFilename());
         }
         $this->prepareView($contents)->render();
     }

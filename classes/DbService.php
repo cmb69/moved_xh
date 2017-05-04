@@ -24,24 +24,75 @@ namespace Moved;
 class DbService
 {
     /**
-     * @return array
+     * @var string
      */
-    public function data()
+    private $filename;
+
+    public function __construct()
     {
         global $pth;
 
-        $filename = "{$pth['folder']['content']}moved.csv";
-        $records = array();
-        if (($handle = fopen($filename, 'r')) !== false) {
+        $this->filename = "{$pth['folder']['content']}moved.csv";
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string
+     * @return ?string
+     */
+    public function findRedirectFor($su)
+    {
+        $result = null;
+        if (($handle = fopen($this->filename, 'r')) !== false) {
             flock($handle, LOCK_SH);
             while (($fields = fgetcsv($handle, 4096, '=')) !== false) {
-                $key = $fields[0];
-                $value = count($fields) > 1 ? $fields[1] : '';
-                $records[$key] = $value;
+                if ($fields[0] === $su) {
+                    $result = isset($fields[1]) ? $fields[1] : '';
+                    break;
+                }
             }
             flock($handle, LOCK_UN);
             fclose($handle);
         }
-        return $records;
+        return $result;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function readTextContent()
+    {
+        $contents = null;
+        file_exists($this->filename)
+            && ($stream = fopen($this->filename, 'r')) !== false
+            && flock($stream, LOCK_SH)
+            && ($contents = stream_get_contents($stream)) !== false
+            && flock($stream, LOCK_UN)
+            && fclose($stream);
+        if ($contents === false) {
+            $contents = null;
+        }
+        return $contents;
+    }
+
+    /**
+     * @param string $content
+     * @return bool
+     */
+    public function storeTextContent($content)
+    {
+        return ($stream = fopen($this->filename, 'c')) !== false
+            && flock($stream, LOCK_EX)
+            && ftruncate($stream, 0)
+            && fwrite($stream, $content) !== false
+            && flock($stream, LOCK_UN)
+            && fclose($stream);
     }
 }
