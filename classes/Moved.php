@@ -212,7 +212,7 @@ class Moved
 
         $filename = $this->dataFolder() . 'data.csv';
         if ($action == 'plugin_textsave') {
-            $contents = stsl($_POST['plugin_text']);
+            $contents = $_POST['plugin_text'];
             $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
             if (($handle = fopen($filename, 'c')) !== false) {
                 flock($handle, LOCK_EX);
