@@ -26,11 +26,6 @@ class SystemCheckService
     /**
      * @var string
      */
-    private $contentFolder;
-
-    /**
-     * @var string
-     */
     private $pluginFolder;
 
     /**
@@ -42,7 +37,6 @@ class SystemCheckService
     {
         global $pth, $plugin_tx;
 
-        $this->contentFolder = "{$pth['folder']['content']}moved";
         $this->pluginFolder = "{$pth['folder']['plugins']}moved";
         $this->lang = $plugin_tx['moved'];
     }
@@ -55,8 +49,8 @@ class SystemCheckService
         return array(
             $this->checkPhpVersion('5.4.0'),
             $this->checkXhVersion('1.6.3'),
-            $this->checkWritability("$this->pluginFolder/languages/"),
-            $this->checkWritability($this->contentFolder)
+            $this->checkWritability("$this->pluginFolder/css/"),
+            $this->checkWritability("$this->pluginFolder/languages/")
         );
     }
 
