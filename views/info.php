@@ -1,7 +1,11 @@
 <h1>Moved – <?=$this->text('info')?></h1>
-<img class="moved_logo" src="<?=$this->logo()?>" alt="<?=$this->text('alt_logo')?>">
-<p>Version: <?=$this->version()?></p>
-<p>Copyright © 2013-2017 <a href="http://3-magi.net/">Christoph M. Becker</a></p>
+<img class="moved_logo" src="<?=$logo?>" alt="<?=$this->text('alt_logo')?>">
+<p>
+    Version: <?=$version?>
+</p>
+<p>
+    Copyright © 2013-2017 <a href="http://3-magi.net/">Christoph M. Becker</a>
+</p>
 <p class="moved_license">
     This program is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the Free
@@ -21,7 +25,7 @@
 </p>
 <div class="moved_syscheck">
     <h2><?php echo $this->text('syscheck_title')?></h2>
-<?php foreach ($this->checks as $check):?>
-    <p class="xh_<?php echo $this->escape($check->state)?>"><?php echo $this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
+<?php foreach ($checks as $check):?>
+    <p class="xh_<?php echo $check->state?>"><?php echo $this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
 <?php endforeach?>
 </div>

@@ -21,6 +21,8 @@
 
 namespace Moved;
 
+use Pfw\View\View;
+
 class NotFoundController
 {
     /**
@@ -59,9 +61,10 @@ class NotFoundController
                 if (!$this->isUtf8($url)) {
                     $url = $su;
                 }
-                $view = new View('gone');
-                $view->url = $url;
-                $view->render();
+                (new View('moved'))
+                    ->template('gone')
+                    ->data(['url' => $url])
+                    ->render();
             }
         } else {
             $this->statusHeader('404 Not found');
@@ -70,9 +73,10 @@ class NotFoundController
             if (!$this->isUtf8($url)) {
                 $url = $su;
             }
-            $view = new View('not-found');
-            $view->url = $url;
-            $view->render();
+            (new View('moved'))
+                ->template('not-found')
+                ->data(['url' => $url])
+                ->render();
             $this->log404();
         }
     }

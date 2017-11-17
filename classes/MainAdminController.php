@@ -21,6 +21,9 @@
 
 namespace Moved;
 
+use Pfw\View\View;
+use Pfw\View\HtmlString;
+
 class MainAdminController
 {
     /**
@@ -71,11 +74,13 @@ class MainAdminController
     {
         global $sn, $tx;
 
-        $view = new View('admin');
-        $view->csrfTokenInput = new HtmlString($this->csrfProtector->tokenInput());
-        $view->contents = $contents;
-        $view->actionUrl = "$sn?&moved";
-        $view->saveLabel = ucfirst($tx['action']['save']);
-        return $view;
+        return (new View('moved'))
+            ->template('admin')
+            ->data([
+                'csrfTokenInput' => new HtmlString($this->csrfProtector->tokenInput()),
+                'contents' => $contents,
+                'actionUrl' => "$sn?&moved",
+                'saveLabel' => ucfirst($tx['action']['save'])
+            ]);
     }
 }

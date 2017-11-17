@@ -21,6 +21,8 @@
 
 namespace Moved;
 
+use Pfw\View\View;
+
 class InfoController
 {
     /**
@@ -37,10 +39,13 @@ class InfoController
 
     public function defaultAction()
     {
-        $view = new View('info');
-        $view->checks = (new SystemCheckService)->getChecks();
-        $view->logo = "{$this->pluginFolder}moved.png";
-        $view->version = Plugin::VERSION;
-        $view->render();
+        (new View('moved'))
+            ->template('info')
+            ->data([
+                'checks' => (new SystemCheckService)->getChecks(),
+                'logo' => "{$this->pluginFolder}moved.png",
+                'version' => Plugin::VERSION
+            ])
+            ->render();
     }
 }

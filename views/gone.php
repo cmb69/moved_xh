@@ -1,1 +1,1 @@
-<p><?=$this->text('desc_gone', $this->url)?></p>
+<p><?=$this->text('desc_gone', $url)?></p>
