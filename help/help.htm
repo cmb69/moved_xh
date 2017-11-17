@@ -33,6 +33,7 @@
     <ul>
         <li><a href="#usage-redirects">Redirects</a></li>
         <li><a href="#usage-gone">Gone</a></li>
+        <li><a href="#usage_placeholders">Placeholders</a></li>
     </ul>
 </li>
 <li><a href="#limitations">Limitations</a></li>
@@ -177,6 +178,55 @@
     more needed, so add the following rule:
 </p>
 <pre>Temporary_Information</pre>
+</section>
+
+<section id="usage_placeholders">
+<h3>Placeholders</h3>
+<p>
+    The old <i>page URL</i> of the rules may contain placeholders, where a
+    <code>*</code> matches an arbitrary amount of characters and <code>?</code>
+    matches a single character.  Only the first matching rule will ever be used;
+    others will simply be ignored for the request.  Placeholder do not offer any
+    new features, but are rather meant to avoid repetitions of similar rules.
+</p>
+<h4>Example #5</h4>
+<p>
+    You have removed the pages "Temporary Information 1" and "Temporary Information 2", because they are no
+    more needed, so you could add the following rules:
+</p>
+<pre>
+Temporary_Information_1
+Temporary_Information_2
+</pre>
+<p>
+    By using placeholders, you can simplify, though:
+</p>
+<pre>Temporary_Information_?</pre>
+<p>
+    It is also possible to use whatever has been matched by a placeholder in the
+    new <i>Page URL</i> of a redirect rule (i.e. on the right hand side of the
+    equal sign).  This is done with variables of the form <code>$1</code>,
+    <code>$2</code> … <code>$9</code>, where <code>$1</code> matches the first
+    placeholder, <code>$2</code> the second, and so forth.
+</p>
+<section>
+<h4>Example #6</h4>
+<p>
+    You are restructuring your site and want to move the toplevel page "Oaks" to
+    the second level below "Trees", where "Oaks" already has three subpages. You
+    could add the following rules:
+</p>
+<pre>
+Oaks:White_Oak=Trees:Oaks:White_Oak
+Oaks:Blackjack_Oak=Trees:Oaks:Blackjack_Oak
+Oaks:Blue_Oak=Trees:Oaks:Blue_Oak
+</pre>
+<p>
+    By using a placeholder, you can simplify, though:
+</p>
+<pre>Oaks:*=Trees:Oaks:$1</pre>
+</section>
+
 </section>
 
 </section>

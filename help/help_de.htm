@@ -35,6 +35,7 @@
     <ul>
         <li><a href="#usage-redirect">Weiterleitungen</a></li>
         <li><a href="#usage-gone">Entfernt</a></li>
+        <li><a href="#usage_placeholders">Platzhalter</a></li>
     </ul>
 </li>
 <li><a href="#limitations">Beschränkungen</a></li>
@@ -186,6 +187,56 @@
     mehr gebraucht wird; also ergänzen Sie folgende Regel:
 </p>
 <pre>Vor%C3%BCbergehende_Information</pre>
+</section>
+
+<section id="usage_placeholders">
+<h3>Platzhalter</h3>
+<p>
+    Die alte <i>Seiten-URL</i> der Regeln kann Platzhalter enthalten, wobei ein
+    <code>*</code> einer beliebigen Anzahl von Zeichen und <code>?</code>
+    einem einzelnen Zeichen entspricht. Nur die erste passende Regel wird
+    jeweils verwendet; andere werden für die Anfrage einfach ignoriert.
+    Platzhalter bieten keine neuen Möglichkeiten, sondern sind einfach dazu
+    gedacht, Wiederholungen ähnlicher Regeln zu vermeiden.
+</p>
+<h4>Beispiel #5</h4>
+<p>
+    Sie haben die Seiten "Vorübergehende Information 1" und "Vorübergehende
+    Information 2" entfernt, weil Sie nicht mehr gebraucht werden; also könnten
+    Sie folgende Regeln ergänzen:
+</p>
+<pre>
+Vor%C3%BCbergehende_Information_1
+Vor%C3%BCbergehende_Information_2
+</pre>
+<p>
+    Durch die Verwendung eines Platzhalters können sie allerdings vereinfachen:
+</p>
+<pre>Vor%C3%BCbergehende_Information_?</pre>
+<p>
+    Weitherhin ist es möglich, die Zeichen, die einem Platzhalter entsprechen,
+    in der neuen <i>Seiten-URL</i> einer Weiterleitungsregel (d.h. auf der
+    rechten Seite des Gleichheitszeichens) einzusetzen. Dies erfolgt mit
+    Variablen der Form <code>$1</code>, <code>$2</code> … <code>$9</code>, wobei
+    <code>$1</code> dem ersten Platzhalter entspricht, <code>$2</code> dem
+    zweiten Platzhalter, und so weiter.
+</p>
+<section>
+<h4>Beispiel #6</h4>
+<p>
+    Sie bauen Ihre Website um und möchten die Seite "Eichen" von der obersten
+    Ebene auf die zweite Ebene unter "Bäume" verschieben, wobei "Eichen" bereits
+    drei Unterseiten hat. Sie könnten also folgende Regeln ergänzen:
+</p>
+<pre>
+Eichen:Weiß-Eiche=B%C3%A4ume:Eichen:Weiß-Eiche
+Eichen:Schwarz-Eiche=B%C3%A4ume:Eichen:Schwarz-Eiche
+Eichen:Blau-Eiche=B%C3%A4ume:Eichen:Blau-Eiche
+</pre>
+<p>
+    Durch die Verwendung eines Platzhalters können Sie allerdings vereinfachen:
+</p>
+<pre>Eichen:*=B%C3%A4ume:Eichen:$1</pre>
 </section>
 
 </section>
