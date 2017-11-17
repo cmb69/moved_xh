@@ -31,6 +31,7 @@ class DbServiceTest extends PHPUnit_Framework_TestCase
 foo=Languages
 bar=https://google.de
 baz
+*bar*=$1qux$2
 
 EOF;
 
@@ -86,7 +87,8 @@ EOF;
             ['foo', 'Languages'],
             ['bar', 'https://google.de'],
             ['baz', ''],
-            ['qux', null]
+            ['qux', null],
+            ['foobarbaz', 'fooquxbaz']
         );
     }
 }

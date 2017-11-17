@@ -56,6 +56,23 @@ class DbService
                 if ($fields[0] === $su) {
                     $result = isset($fields[1]) ? $fields[1] : '';
                     break;
+                } else {
+                    $quoted = preg_quote($fields[0], '/');
+                    $search = '/^' . str_replace(['\?', '\*'], ['(.)', '(.*)'], $quoted) . '$/';
+                    if (preg_match($search, $su, $matches)) {
+                        if (!isset($fields[1])) {
+                            $result = '';
+                        } else {
+                            $result = preg_replace_callback(
+                                '/\$(\d)/',
+                                function ($m) use ($matches) {
+                                    return $matches[$m[1]];
+                                },
+                                $fields[1]
+                            );
+                        }
+                        break;
+                    }
                 }
             }
             flock($handle, LOCK_UN);
