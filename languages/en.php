@@ -8,6 +8,6 @@ $plugin_tx['moved']['desc_gone']="Sorry. The page \"%s\" you're looking for has 
 
 $plugin_tx['moved']['alt_logo']="Dolly with Moving Boxes";
 
-$plugin_tx['moved']['info']="Info";
+$plugin_tx['moved']['label_save']="Save";
 
-?>
+$plugin_tx['moved']['info']="Info";

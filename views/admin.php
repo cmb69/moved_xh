@@ -8,7 +8,7 @@
             <textarea class="plugintextarea" name="plugin_text" cols="80" rows="25"><?=$contents?></textarea>
         </p>
         <p>
-            <button><?=$saveLabel?></button>
+            <button><?=$this->text('label_save')?></button>
         </p>
     </form>
 </div>

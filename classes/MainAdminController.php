@@ -72,15 +72,14 @@ class MainAdminController
      */
     private function prepareView($contents)
     {
-        global $sn, $tx;
+        global $sn;
 
         return (new View('moved'))
             ->template('admin')
             ->data([
                 'csrfTokenInput' => new HtmlString($this->csrfProtector->tokenInput()),
                 'contents' => $contents,
-                'actionUrl' => "$sn?&moved",
-                'saveLabel' => ucfirst($tx['action']['save'])
+                'actionUrl' => "$sn?&moved"
             ]);
     }
 }
