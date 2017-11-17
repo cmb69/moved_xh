@@ -21,6 +21,7 @@
 
 namespace Moved;
 
+use Pfw\SystemCheckService;
 use Pfw\View\View;
 
 class InfoController
@@ -42,7 +43,12 @@ class InfoController
         (new View('moved'))
             ->template('info')
             ->data([
-                'checks' => (new SystemCheckService)->getChecks(),
+                'checks' => (new SystemCheckService)
+                    ->minPhpVersion('5.4.0')
+                    ->minXhVersion('1.6.3')
+                    ->writable("{$this->pluginFolder}css/")
+                    ->writable("{$this->pluginFolder}languages/")
+                    ->getChecks(),
                 'logo' => "{$this->pluginFolder}moved.png",
                 'version' => Plugin::VERSION
             ])
