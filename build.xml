@@ -2,8 +2,6 @@
 
 <project name="Moved" default="help">
 
-    <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
-
     <fileset id="php-sources" dir=".">
         <include name="index.php"/>
         <include name="classes/*.php"/>
