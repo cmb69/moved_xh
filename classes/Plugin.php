@@ -23,7 +23,7 @@ namespace Moved;
 
 class Plugin
 {
-    const VERSION = '@MOVED_VERSION@';
+    const VERSION = '@PLUGIN_VERSION@';
 
     public function run()
     {
