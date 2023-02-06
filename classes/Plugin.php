@@ -39,26 +39,15 @@ class Plugin
     /** @return void */
     private function handleAdministration()
     {
-        global $sn, $pth, $plugin_tx, $o, $admin, $action, $_XH_csrfProtection;
+        global $o, $admin, $action;
     
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $controller = new InfoController(
-                    "{$pth['folder']['plugins']}moved/",
-                    $plugin_tx['moved'],
-                    new SystemChecker()
-                );
-                $o .= $controller->defaultAction();
+                $o .= Dic::makeInfoController()->defaultAction();
                 break;
             case 'plugin_main':
-                $controller = new MainAdminController(
-                    $sn,
-                    "{$pth['folder']['plugins']}moved/",
-                    $plugin_tx['moved'],
-                    $_XH_csrfProtection,
-                    new DbService("{$pth['folder']['content']}moved.csv")
-                );
+                $controller = Dic::makeMainAdminController();
                 if ($action == 'plugin_textsave') {
                     $act = 'saveAction';
                 } else {

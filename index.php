@@ -19,19 +19,15 @@
  * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Moved\Dic;
+
  /** @return void */
 function custom_404()
 {
-    global $pth, $plugin_tx, $su, $o;
+    global $su, $o;
 
     ob_start();
-    $controller = new Moved\NotFoundController(
-        "{$pth['folder']['plugins']}moved/",
-        $plugin_tx['moved'],
-        new Moved\DbService("{$pth['folder']['content']}moved.csv"),
-        new Moved\Logger()
-    );
-    $controller->defaultAction($su);
+    Dic::makeNotFoundController()->defaultAction($su);
     $o .= ob_get_clean();
 }
 
