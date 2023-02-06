@@ -21,26 +21,46 @@
 
 namespace Moved;
 
-use XH\CSRFProtection;
+use XH\CSRFProtection as CsrfProtector;
 
 class MainAdminController
 {
+    /** @var string */
+    private $scriptName;
+
+    /** @var string */
+    private $pluginFolder;
+
+    /** @var string */
+    private $contentFolder;
+
+    /** @var array<string,string> */
+    private $lang;
+
     /**
-     * @var CSRFProtection
+     * @var CsrfProtector
      */
     private $csrfProtector;
 
-    public function __construct()
-    {
-        global $_XH_csrfProtection;
-
-        $this->csrfProtector = $_XH_csrfProtection;
+    /** @param array<string,string> $lang */
+    public function __construct(
+        string $scriptName,
+        string $pluginFolder,
+        string $contentFolder,
+        array $lang,
+        CsrfProtector $csrfProtector
+    ) {
+        $this->scriptName = $scriptName;
+        $this->pluginFolder = $pluginFolder;
+        $this->contentFolder = $contentFolder;
+        $this->lang = $lang;
+        $this->csrfProtector = $csrfProtector;
     }
 
     /** @return void */
     public function defaultAction()
     {
-        $contents = (new DbService)->readTextContent();
+        $contents = (new DbService("{$this->contentFolder}moved.csv"))->readTextContent();
         echo $this->renderView($contents);
     }
 
@@ -50,7 +70,7 @@ class MainAdminController
         $this->csrfProtector->check();
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
-        $dbService = new DbService;
+        $dbService = new DbService("{$this->contentFolder}moved.csv");
         if ($dbService->storeTextContent($contents)) {
             $url = CMSIMPLE_URL . "?&moved&admin=plugin_main&action=plugin_text";
             header('Location: ' . $url, true, 303);
@@ -67,13 +87,11 @@ class MainAdminController
      */
     private function renderView($contents)
     {
-        global $pth, $sn, $plugin_tx;
-
-        $view = new View("{$pth['folder']['plugins']}moved/views/", $plugin_tx['moved']);
+        $view = new View("{$this->pluginFolder}views/", $this->lang);
         return $view->render('admin', [
             'csrfTokenInput' => $this->csrfProtector->tokenInput(),
             'contents' => $contents,
-            'actionUrl' => "$sn?&moved&admin=plugin_main&action=plugin_textsave",
+            'actionUrl' => "{$this->scriptName}?&moved&admin=plugin_main&action=plugin_textsave",
         ]);
     }
 }

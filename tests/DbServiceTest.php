@@ -47,13 +47,8 @@ EOF;
 
     protected function setUp(): void
     {
-        global $pth;
-
         $this->root = vfsStream::setup('root');
-        $pth = array(
-            'folder' => ['content' => vfsStream::url('root/')]
-        );
-        $this->subject = new DbService;
+        $this->subject = new DbService(vfsStream::url('root/moved.csv'));
     }
 
     public function testReadMissingContent()

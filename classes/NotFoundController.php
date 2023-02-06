@@ -28,30 +28,33 @@ class NotFoundController
      */
     private $lang;
 
+    /** @var DbService */
+    private $dbService;
+
     /** @var View */
     private $view;
 
-    public function __construct()
+    /** @param array<string,string> $lang */
+    public function __construct(string $pluginFolder, string $contentFolder, array $lang)
     {
-        global $pth, $plugin_tx;
-
-        $this->lang = $plugin_tx['moved'];
-        $this->view = new View("{$pth['folder']['plugins']}moved/views/", $this->lang);
+        $this->lang = $lang;
+        $this->dbService = new DbService("{$contentFolder}moved.csv");
+        $this->view = new View("{$pluginFolder}views/", $this->lang);
     }
 
     /** @return void */
-    public function defaultAction()
+    public function defaultAction(string $selectedUrl)
     {
-        global $su, $title;
+        global $title;
     
-        $redirect = (new DbService)->findRedirectFor($su);
+        $redirect = $this->dbService->findRedirectFor($selectedUrl);
         if (isset($redirect)) {
             if ($redirect) {
                 if (strpos($redirect, '://') !== false) {
                     $url = $redirect;
                 } else {
-                    $qs = strpos($_SERVER['QUERY_STRING'], $su) === 0
-                        ? substr($_SERVER['QUERY_STRING'], strlen($su))
+                    $qs = strpos($_SERVER['QUERY_STRING'], $selectedUrl) === 0
+                        ? substr($_SERVER['QUERY_STRING'], strlen($selectedUrl))
                         : '';
                     $url = CMSIMPLE_URL . '?' . $redirect . $qs;
                 }
@@ -60,9 +63,9 @@ class NotFoundController
             } else {
                 $this->statusHeader('410 Gone');
                 $title = $this->lang['title_gone'];
-                $url = urldecode($su);
+                $url = urldecode($selectedUrl);
                 if (!$this->isUtf8($url)) {
-                    $url = $su;
+                    $url = $selectedUrl;
                 }
                 echo $this->view->render('gone', [
                     'url' => $url,
@@ -71,14 +74,14 @@ class NotFoundController
         } else {
             $this->statusHeader('404 Not found');
             $title = $this->lang['title_notfound'];
-            $url = urldecode($su);
+            $url = urldecode($selectedUrl);
             if (!$this->isUtf8($url)) {
-                $url = $su;
+                $url = $selectedUrl;
             }
             echo $this->view->render('not-found', [
                 'url' => $url,
             ]);
-            $this->log404();
+            $this->log404($selectedUrl);
         }
     }
 
@@ -106,13 +109,11 @@ class NotFoundController
     /**
      * @return bool
      */
-    private function log404()
+    private function log404(string $selectedUrl)
     {
-        global $su;
-
         $referrer = isset($_SERVER['HTTP_REFERER'])
             ? $_SERVER['HTTP_REFERER']
             : 'unknown';
-        return XH_logMessage('warning', 'moved', 'not found', "$su from $referrer");
+        return XH_logMessage('warning', 'moved', 'not found', "$selectedUrl from $referrer");
     }
 }

@@ -39,17 +39,23 @@ class Plugin
     /** @return void */
     private function handleAdministration()
     {
-        global $o, $admin, $action;
+        global $sn, $pth, $plugin_tx, $o, $admin, $action, $_XH_csrfProtection;
     
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
                 ob_start();
-                (new InfoController)->defaultAction();
+                (new InfoController("{$pth['folder']['plugins']}moved/", $plugin_tx['moved']))->defaultAction();
                 $o .= ob_get_clean();
                 break;
             case 'plugin_main':
-                $controller = new MainAdminController;
+                $controller = new MainAdminController(
+                    $sn,
+                    "{$pth['folder']['plugins']}moved/",
+                    $pth['folder']['content'],
+                    $plugin_tx['moved'],
+                    $_XH_csrfProtection
+                );
                 if ($action == 'plugin_textsave') {
                     $act = 'saveAction';
                 } else {

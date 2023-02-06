@@ -34,21 +34,18 @@ class InfoController
     /** @var SystemChecker */
     private $systemChecker;
 
-    public function __construct()
+    /** @param array<string,string> $lang */
+    public function __construct(string $pluginFolder, array $lang)
     {
-        global $pth, $plugin_tx;
-
-        $this->pluginFolder = "{$pth['folder']['plugins']}moved/";
-        $this->lang = $plugin_tx['moved'];
+        $this->pluginFolder = $pluginFolder;
+        $this->lang = $lang;
         $this->systemChecker = new SystemChecker();
     }
 
     /** @return void */
     public function defaultAction()
     {
-        global $plugin_tx;
-
-        $view = new View("{$this->pluginFolder}views/", $plugin_tx['moved']);
+        $view = new View("{$this->pluginFolder}views/", $this->lang);
         echo $view->render('info', [
             'checks' => [
                 $this->checkPhpVersion('7.1.0'),

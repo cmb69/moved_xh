@@ -28,11 +28,9 @@ class DbService
      */
     private $filename;
 
-    public function __construct()
+    public function __construct(string $filename)
     {
-        global $pth;
-
-        $this->filename = "{$pth['folder']['content']}moved.csv";
+        $this->filename = $filename;
     }
 
     /**

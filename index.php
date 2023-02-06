@@ -22,10 +22,15 @@
  /** @return void */
 function custom_404()
 {
-    global $o;
+    global $pth, $plugin_tx, $su, $o;
 
     ob_start();
-    (new Moved\NotFoundController)->defaultAction();
+    $controller = new Moved\NotFoundController(
+        "{$pth['folder']['plugins']}moved/",
+        $pth['folder']['content'],
+        $plugin_tx['moved']
+    );
+    $controller->defaultAction($su);
     $o .= ob_get_clean();
 }
 
