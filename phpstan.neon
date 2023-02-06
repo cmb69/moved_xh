@@ -7,7 +7,5 @@ parameters:
 #  bootstrapFiles:
 #    - phpstan.php
   scanFiles:
-    - ../pfw/classes/SystemCheckService.php
-    - ../pfw/classes/Url.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php

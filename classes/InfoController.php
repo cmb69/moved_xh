@@ -21,8 +21,6 @@
 
 namespace Moved;
 
-use Pfw\SystemCheckService;
-
 class InfoController
 {
     /**
@@ -30,11 +28,19 @@ class InfoController
      */
     private $pluginFolder;
 
+    /** @var array<string,string> */
+    private $lang;
+
+    /** @var SystemChecker */
+    private $systemChecker;
+
     public function __construct()
     {
-        global $pth;
+        global $pth, $plugin_tx;
 
         $this->pluginFolder = "{$pth['folder']['plugins']}moved/";
+        $this->lang = $plugin_tx['moved'];
+        $this->systemChecker = new SystemChecker();
     }
 
     public function defaultAction()
@@ -43,14 +49,56 @@ class InfoController
 
         $view = new View("{$this->pluginFolder}views/", $plugin_tx['moved']);
         echo $view->render('info', [
-            'checks' => (new SystemCheckService)
-                ->minPhpVersion('5.4.0')
-                ->minXhVersion('1.6.3')
-                ->writable("{$this->pluginFolder}css/")
-                ->writable("{$this->pluginFolder}languages/")
-                ->getChecks(),
+            'checks' => [
+                $this->checkPhpVersion('5.4.0'),
+                $this->checkXhVersion('1.6.3'),
+                $this->checkWritability("{$this->pluginFolder}css/"),
+                $this->checkWritability("{$this->pluginFolder}languages/"),
+            ],
             'logo' => "{$this->pluginFolder}moved.png",
             'version' => Plugin::VERSION
         ]);
+    }
+
+    /**
+     * @param string $version
+     * @return array{class:string,label:string,stateLabel:string}
+     */
+    private function checkPhpVersion($version)
+    {
+        $state = $this->systemChecker->checkVersion(PHP_VERSION, $version) ? 'success' : 'fail';
+        return [
+            'class' => "xh_$state",
+            'label' => sprintf($this->lang['syscheck_phpversion'], $version),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
+    }
+
+    /**
+     * @param string $version
+     * @return array{class:string,label:string,stateLabel:string}
+     */
+    private function checkXhVersion($version)
+    {
+        $state = $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? 'success' : 'fail';
+        return [
+            'class' => "xh_$state",
+            'label' => sprintf($this->lang['syscheck_xhversion'], $version),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
+    }
+
+    /**
+     * @param string $folder
+     * @return array{class:string,label:string,stateLabel:string}
+     */
+    private function checkWritability($folder)
+    {
+        $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
+        return [
+            'class' => "xh_$state",
+            'label' => sprintf($this->lang['syscheck_writable'], $folder),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
     }
 }
