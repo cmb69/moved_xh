@@ -23,7 +23,7 @@ which can change the URL of the page and remove it from the index respectively.
 ## Requirements
 
 Moved_XH is a plugin for [CMSimple_XH](https://www.cmsimple-xh.org/).
-It requires CMSimple_XH ≥ 1.6.3, and PHP ≥ 5.4.0.
+It requires CMSimple_XH ≥ 1.7.0, and PHP ≥ 5.4.0.
 
 ## Download
 

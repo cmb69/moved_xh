@@ -25,7 +25,7 @@ können.
 ## Voraussetzungen
 
 Moved_XH ist ein Plugin für [CMSimple_XH](https://www.cmsimple-xh.org/de/).
-Es erfordert CMSimple_XH ≥ 1.6.3 und PHP ≥ 5.4.0.
+Es erfordert CMSimple_XH ≥ 1.7.0 und PHP ≥ 5.4.0.
 
 ## Download
 

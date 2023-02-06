@@ -58,7 +58,7 @@ class Plugin
                 $o .= ob_get_clean();
                 break;
             default:
-                $o .= plugin_admin_common($action, $admin, 'moved');
+                $o .= plugin_admin_common();
         }
     }
 }
