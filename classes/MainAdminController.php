@@ -42,6 +42,9 @@ class MainAdminController
      */
     private $csrfProtector;
 
+    /** @var View */
+    private $view;
+
     /** @param array<string,string> $lang */
     public function __construct(
         string $scriptName,
@@ -55,6 +58,7 @@ class MainAdminController
         $this->contentFolder = $contentFolder;
         $this->lang = $lang;
         $this->csrfProtector = $csrfProtector;
+        $this->view = new View("{$this->pluginFolder}views/", $this->lang);
     }
 
     /** @return void */
@@ -76,7 +80,7 @@ class MainAdminController
             header('Location: ' . $url, true, 303);
             exit();
         } else {
-            e('cntsave', 'file', $dbService->getFilename());
+            echo $this->view->error('error_save', $dbService->getFilename());
         }
         echo $this->renderView($contents);
     }
@@ -87,8 +91,7 @@ class MainAdminController
      */
     private function renderView($contents)
     {
-        $view = new View("{$this->pluginFolder}views/", $this->lang);
-        return $view->render('admin', [
+        return $this->view->render('admin', [
             'csrfTokenInput' => $this->csrfProtector->tokenInput(),
             'contents' => $contents,
             'actionUrl' => "{$this->scriptName}?&moved&admin=plugin_main&action=plugin_textsave",

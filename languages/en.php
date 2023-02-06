@@ -8,6 +8,8 @@ $plugin_tx['moved']['desc_gone']="Sorry. The page \"%s\" you're looking for has 
 
 $plugin_tx['moved']['label_save']="Save";
 
+$plugin_tx['moved']['error_save']="Cannot save “%s”";
+
 $plugin_tx['moved']['syscheck_fail']="failure";
 $plugin_tx['moved']['syscheck_message']="Checking that %1\$s … %2\$s";
 $plugin_tx['moved']['syscheck_phpversion']="the PHP version is at least %s";

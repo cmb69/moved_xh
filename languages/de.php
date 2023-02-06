@@ -8,6 +8,8 @@ $plugin_tx['moved']['desc_gone']="Pardon. Die Seite \"%s\", nach der Sie suchen,
 
 $plugin_tx['moved']['label_save']="Speichern";
 
+$plugin_tx['moved']['error_save']="„%s“ kann nicht gespeichert werden!";
+
 $plugin_tx['moved']['syscheck_fail']="Fehlschlag";
 $plugin_tx['moved']['syscheck_message']="Prüfe, dass %1\$s … %2\$s";
 $plugin_tx['moved']['syscheck_phpversion']="die PHP-Version mindestens %s ist";

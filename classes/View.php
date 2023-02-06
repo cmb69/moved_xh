@@ -46,6 +46,12 @@ class View
         return $this->escape(vsprintf($this->lang[$key], $args));
     }
 
+    /** @param mixed $args */
+    public function error(string $key, ...$args): string
+    {
+        return sprintf('<p class="xh_fail">%s</p>', $this->text($key, ...$args));
+    }
+
     /**
      * @param array<string,mixed> $_data
      * @return string
