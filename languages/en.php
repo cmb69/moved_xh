@@ -6,11 +6,8 @@ $plugin_tx['moved']['title_gone']="Page is gone";
 $plugin_tx['moved']['desc_notfound']="Sorry. The page \"%s\" you're looking for does not exist.";
 $plugin_tx['moved']['desc_gone']="Sorry. The page \"%s\" you're looking for has been removed.";
 
-$plugin_tx['moved']['alt_logo']="Dolly with Moving Boxes";
-
 $plugin_tx['moved']['label_save']="Save";
 
-$plugin_tx['moved']['info']="Info";
 $plugin_tx['moved']['syscheck_fail']="failure";
 $plugin_tx['moved']['syscheck_message']="Checking that %1\$s … %2\$s";
 $plugin_tx['moved']['syscheck_phpversion']="the PHP version is at least %s";
