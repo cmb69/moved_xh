@@ -43,6 +43,7 @@ class InfoController
         $this->systemChecker = new SystemChecker();
     }
 
+    /** @return void */
     public function defaultAction()
     {
         global $plugin_tx;

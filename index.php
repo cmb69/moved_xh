@@ -19,6 +19,7 @@
  * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ /** @return void */
 function custom_404()
 {
     global $o;

@@ -44,7 +44,7 @@ class DbService
     }
 
     /**
-     * @param string
+     * @param string $su
      * @return ?string
      */
     public function findRedirectFor($su)

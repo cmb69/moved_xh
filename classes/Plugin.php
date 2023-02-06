@@ -25,9 +25,10 @@ class Plugin
 {
     const VERSION = '1.0beta4';
 
+    /** @return void */
     public function run()
     {
-        if (XH_ADM) {
+        if (defined('XH_ADM') && XH_ADM) {
             XH_registerStandardPluginMenuItems(true);
             if (XH_wantsPluginAdministration('moved')) {
                 $this->handleAdministration();
@@ -35,6 +36,7 @@ class Plugin
         }
     }
 
+    /** @return void */
     private function handleAdministration()
     {
         global $o, $admin, $action;

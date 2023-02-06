@@ -24,7 +24,7 @@ namespace Moved;
 class NotFoundController
 {
     /**
-     * @var array
+     * @var array<string,string>
      */
     private $lang;
 
@@ -39,6 +39,7 @@ class NotFoundController
         $this->view = new View("{$pth['folder']['plugins']}moved/views/", $this->lang);
     }
 
+    /** @return void */
     public function defaultAction()
     {
         global $su, $title;
@@ -95,6 +96,7 @@ class NotFoundController
 
     /**
      * @param string $str
+     * @return bool
      */
     private function isUtf8($str)
     {

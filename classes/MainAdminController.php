@@ -21,15 +21,12 @@
 
 namespace Moved;
 
+use XH\CSRFProtection;
+
 class MainAdminController
 {
     /**
-     * @var string
-     */
-    private $contentFolder;
-
-    /**
-     * @var XH_CSRFProtection
+     * @var CSRFProtection
      */
     private $csrfProtector;
 
@@ -37,16 +34,17 @@ class MainAdminController
     {
         global $pth, $_XH_csrfProtection;
 
-        $this->contentFolder = $pth['folder']['content'];
         $this->csrfProtector = $_XH_csrfProtection;
     }
 
+    /** @return void */
     public function defaultAction()
     {
         $contents = (new DbService)->readTextContent();
         echo $this->renderView($contents);
     }
 
+    /** @return void */
     public function saveAction()
     {
         $this->csrfProtector->check();
