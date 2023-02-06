@@ -23,9 +23,7 @@ namespace Moved;
 
 class DbService
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $filename;
 
     public function __construct(string $filename)

@@ -35,14 +35,10 @@ baz
 
 EOF;
 
-    /**
-     * @var vfsStreamDirectory
-     */
+    /** @var vfsStreamDirectory */
     private $root;
 
-    /**
-     * @var DbService
-     */
+    /** @var DbService */
     private $subject;
 
     protected function setUp(): void

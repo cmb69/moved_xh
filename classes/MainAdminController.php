@@ -34,9 +34,7 @@ class MainAdminController
     /** @var array<string,string> */
     private $lang;
 
-    /**
-     * @var CsrfProtector
-     */
+    /** @var CsrfProtector */
     private $csrfProtector;
 
     /** @var DbService */

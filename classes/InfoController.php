@@ -23,9 +23,7 @@ namespace Moved;
 
 class InfoController
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $pluginFolder;
 
     /** @var array<string,string> */
@@ -57,9 +55,7 @@ class InfoController
         ]);
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkPhpVersion(string $version): array
     {
         $state = $this->systemChecker->checkVersion(PHP_VERSION, $version) ? 'success' : 'fail';
@@ -70,9 +66,7 @@ class InfoController
         ];
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkXhVersion(string $version): array
     {
         $state = $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? 'success' : 'fail';
@@ -83,9 +77,7 @@ class InfoController
         ];
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkWritability(string $folder): array
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';

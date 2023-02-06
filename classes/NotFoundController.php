@@ -23,9 +23,7 @@ namespace Moved;
 
 class NotFoundController
 {
-    /**
-     * @var array<string,string>
-     */
+    /** @var array<string,string> */
     private $lang;
 
     /** @var DbService */

@@ -36,9 +36,7 @@ class View
         $this->lang = $lang;
     }
 
-    /**
-     * @param mixed $args
-     */
+    /** @param mixed $args */
     public function text(string $key, ...$args): string
     {
         return $this->escape(vsprintf($this->lang[$key], $args));
@@ -50,9 +48,7 @@ class View
         return sprintf('<p class="xh_fail">%s</p>', $this->text($key, ...$args));
     }
 
-    /**
-     * @param array<string,mixed> $_data
-     */
+    /** @param array<string,mixed> $_data */
     public function render(string $_template, array $_data): string
     {
         extract($_data);
@@ -61,9 +57,7 @@ class View
         return (string) ob_get_clean();
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param mixed $value */
     public function escape($value): string
     {
         return XH_hsc($value);
