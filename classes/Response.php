@@ -29,15 +29,21 @@ class Response
     /** @var int|null */
     private $statusCode;
 
-    public function __construct(string $body, ?int $statusCode = null)
+    /** @var string|null */
+    private $title;
+
+    public function __construct(string $body, ?int $statusCode = null, ?string $title = null)
     {
         $this->body = $body;
         $this->statusCode = $statusCode;
+        $this->title = $title;
     }
 
     /** @return string|never */
     public function trigger()
     {
+        global $title;
+
         if ($this->statusCode !== null) {
             if ($this->statusCode >= 300 && $this->statusCode < 400) {
                 header("Location: {$this->body}", true, $this->statusCode);
@@ -57,6 +63,9 @@ class Response
                 assert(false); // @phpstan-ignore-line
             }
         }
+        if ($this->title !== null) {
+            $title = $this->title;
+        }
         return $this->body;
     }
 
@@ -68,5 +77,10 @@ class Response
     public function statusCode(): ?int
     {
         return $this->statusCode;
+    }
+
+    public function title(): ?string
+    {
+        return $this->title;
     }
 }

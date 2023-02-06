@@ -50,11 +50,8 @@ class NotFoundController
         $this->view = new View("{$pluginFolder}views/", $this->lang);
     }
 
-    /** @return void */
-    public function defaultAction(string $selectedUrl)
+    public function defaultAction(string $selectedUrl): Response
     {
-        global $title;
-    
         $redirect = $this->dbService->findRedirectFor($selectedUrl);
         if (isset($redirect)) {
             if ($redirect) {
@@ -66,31 +63,26 @@ class NotFoundController
                         : '';
                     $url = CMSIMPLE_URL . '?' . $redirect . $qs;
                 }
-                header('Location: ' . $url, true, 301);
-                exit;
-            } else {
-                header('HTTP/1.1 410 Gone');
-                $title = $this->lang['title_gone'];
-                $url = urldecode($selectedUrl);
-                if (!$this->isUtf8($url)) {
-                    $url = $selectedUrl;
-                }
-                echo $this->view->render('gone', [
-                    'url' => $url,
-                ]);
+                return new Response($url, 301);
             }
-        } else {
-            header('HTTP/1.1 404 Not found');
-            $title = $this->lang['title_notfound'];
             $url = urldecode($selectedUrl);
             if (!$this->isUtf8($url)) {
                 $url = $selectedUrl;
             }
-            echo $this->view->render('not-found', [
+            $body = $this->view->render('gone', [
                 'url' => $url,
             ]);
-            $this->log404($selectedUrl);
+            return new Response($body, 410, $this->lang['title_gone']);
         }
+        $url = urldecode($selectedUrl);
+        if (!$this->isUtf8($url)) {
+            $url = $selectedUrl;
+        }
+        $body = $this->view->render('not-found', [
+            'url' => $url,
+        ]);
+        $this->log404($selectedUrl);
+        return new Response($body, 404, $this->lang['title_notfound']);
     }
 
     /**
