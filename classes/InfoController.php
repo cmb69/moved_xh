@@ -53,7 +53,7 @@ class InfoController
                 $this->checkWritability("{$this->pluginFolder}languages/"),
             ],
             'logo' => "{$this->pluginFolder}moved.png",
-            'version' => Plugin::VERSION
+            'version' => MOVED_VERSION
         ]);
     }
 

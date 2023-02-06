@@ -21,6 +21,8 @@
 
 use Moved\Dic;
 
+const MOVED_VERSION = "1.0beta4";
+
  /** @return void */
 function custom_404()
 {
@@ -28,5 +30,3 @@ function custom_404()
 
     $o .= Dic::makeNotFoundController()->defaultAction($su)->trigger();
 }
-
-(new Moved\Plugin)->run();
