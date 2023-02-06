@@ -1,3 +1,15 @@
+<?php
+
+use Moved\View;
+
+/**
+ * @var View $this
+ * @var string $version
+ * @var list<array{class:string,label:string,stateLabel:string}> $checks
+ */
+
+?>
+
 <h1>Moved <?=$version?></h1>
 <div>
     <h2><?=$this->text('syscheck_title')?></h2>

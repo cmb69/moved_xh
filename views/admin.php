@@ -1,3 +1,15 @@
+<?php
+
+use Moved\View;
+
+/**
+ * @var View $this
+ * @var string $actionUrl
+ * @var string $contents
+ * @var string $csrfTokenInput
+ */
+?>
+
 <div class="moved_main">
     <h1>Moved</h1>
     <form action="<?=$actionUrl?>" method="post">
