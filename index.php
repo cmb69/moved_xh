@@ -27,8 +27,8 @@ function custom_404()
     ob_start();
     $controller = new Moved\NotFoundController(
         "{$pth['folder']['plugins']}moved/",
-        $pth['folder']['content'],
         $plugin_tx['moved'],
+        new Moved\DbService("{$pth['folder']['content']}moved.csv"),
         new Moved\Logger()
     );
     $controller->defaultAction($su);

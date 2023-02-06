@@ -40,12 +40,12 @@ class NotFoundController
     /** @param array<string,string> $lang */
     public function __construct(
         string $pluginFolder,
-        string $contentFolder,
         array $lang,
+        DbService $dbService,
         Logger $logger
     ) {
         $this->lang = $lang;
-        $this->dbService = new DbService("{$contentFolder}moved.csv");
+        $this->dbService = $dbService;
         $this->logger = $logger;
         $this->view = new View("{$pluginFolder}views/", $this->lang);
     }
