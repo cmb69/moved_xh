@@ -55,9 +55,9 @@ class Plugin
                 $controller = new MainAdminController(
                     $sn,
                     "{$pth['folder']['plugins']}moved/",
-                    $pth['folder']['content'],
                     $plugin_tx['moved'],
-                    $_XH_csrfProtection
+                    $_XH_csrfProtection,
+                    new DbService("{$pth['folder']['content']}moved.csv")
                 );
                 if ($action == 'plugin_textsave') {
                     $act = 'saveAction';

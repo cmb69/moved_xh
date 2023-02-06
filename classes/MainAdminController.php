@@ -31,9 +31,6 @@ class MainAdminController
     /** @var string */
     private $pluginFolder;
 
-    /** @var string */
-    private $contentFolder;
-
     /** @var array<string,string> */
     private $lang;
 
@@ -42,6 +39,9 @@ class MainAdminController
      */
     private $csrfProtector;
 
+    /** @var DbService */
+    private $dbService;
+
     /** @var View */
     private $view;
 
@@ -49,21 +49,21 @@ class MainAdminController
     public function __construct(
         string $scriptName,
         string $pluginFolder,
-        string $contentFolder,
         array $lang,
-        CsrfProtector $csrfProtector
+        CsrfProtector $csrfProtector,
+        DbService $dbService
     ) {
         $this->scriptName = $scriptName;
         $this->pluginFolder = $pluginFolder;
-        $this->contentFolder = $contentFolder;
         $this->lang = $lang;
         $this->csrfProtector = $csrfProtector;
+        $this->dbService = $dbService;
         $this->view = new View("{$this->pluginFolder}views/", $this->lang);
     }
 
     public function defaultAction(): Response
     {
-        $contents = (new DbService("{$this->contentFolder}moved.csv"))->readTextContent();
+        $contents = $this->dbService->readTextContent();
         return new Response($this->renderView($contents));
     }
 
@@ -72,12 +72,11 @@ class MainAdminController
         $this->csrfProtector->check();
         $contents = $_POST['plugin_text'];
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
-        $dbService = new DbService("{$this->contentFolder}moved.csv");
-        if ($dbService->storeTextContent($contents)) {
+        if ($this->dbService->storeTextContent($contents)) {
             $url = CMSIMPLE_URL . "?&moved&admin=plugin_main&action=plugin_text";
             return new Response($url, 303);
         }
-        $o = $this->view->error('error_save', $dbService->getFilename())
+        $o = $this->view->error('error_save', $this->dbService->getFilename())
             . $this->renderView($contents);
         return new Response($o);
     }
