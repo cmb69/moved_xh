@@ -26,9 +26,7 @@ function custom_404()
 {
     global $su, $o;
 
-    ob_start();
-    Dic::makeNotFoundController()->defaultAction($su);
-    $o .= ob_get_clean();
+    $o .= Dic::makeNotFoundController()->defaultAction($su)->trigger();
 }
 
 (new Moved\Plugin)->run();
