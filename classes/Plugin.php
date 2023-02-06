@@ -64,9 +64,7 @@ class Plugin
                 } else {
                     $act = 'defaultAction';
                 }
-                ob_start();
-                $controller->{$act}();
-                $o .= ob_get_clean();
+                $o .= $controller->{$act}()->trigger();
                 break;
             default:
                 $o .= plugin_admin_common();

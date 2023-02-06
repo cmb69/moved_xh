@@ -61,15 +61,13 @@ class MainAdminController
         $this->view = new View("{$this->pluginFolder}views/", $this->lang);
     }
 
-    /** @return void */
-    public function defaultAction()
+    public function defaultAction(): Response
     {
         $contents = (new DbService("{$this->contentFolder}moved.csv"))->readTextContent();
-        echo $this->renderView($contents);
+        return new Response($this->renderView($contents));
     }
 
-    /** @return void */
-    public function saveAction()
+    public function saveAction(): Response
     {
         $this->csrfProtector->check();
         $contents = $_POST['plugin_text'];
@@ -77,12 +75,11 @@ class MainAdminController
         $dbService = new DbService("{$this->contentFolder}moved.csv");
         if ($dbService->storeTextContent($contents)) {
             $url = CMSIMPLE_URL . "?&moved&admin=plugin_main&action=plugin_text";
-            header('Location: ' . $url, true, 303);
-            exit();
-        } else {
-            echo $this->view->error('error_save', $dbService->getFilename());
+            return new Response($url, 303);
         }
-        echo $this->renderView($contents);
+        $o = $this->view->error('error_save', $dbService->getFilename())
+            . $this->renderView($contents);
+        return new Response($o);
     }
 
     /**
