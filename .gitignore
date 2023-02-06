@@ -6,3 +6,4 @@ vendor
 /README.htm
 /composer.lock
 /coverage
+/.phpunit.cache

@@ -34,16 +34,14 @@
   </target>
 
   <target name="test" description="runs all developer tests">
-    <phpunit bootstrap="tests/bootstrap.php" haltonerror="true" haltonfailure="true">
-      <formatter type="plain" usefile="false"/>
-      <batchtest>
-        <fileset refid="tests"/>
-      </batchtest>
-    </phpunit>
+    <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="coverage" description="generates coverage report">
-    <exec command="phpdbg -qrr vendor/phpunit/phpunit/phpunit --configuration coverage.xml" logoutput="true"/>
+    <exec executable="phpunit" passthru="true" checkreturn="true">
+      <arg value="--coverage-html"/>
+      <arg file="coverage"/>
+    </exec>
   </target>
 
   <target name="build">
@@ -57,7 +55,7 @@
         <exclude name="README*.md"/>
         <exclude name="build.xml"/>
         <exclude name="composer.*"/>
-        <exclude name="coverage.xml"/>
+        <exclude name="phpunit.xml"/>
         <exclude name="teplad.xml"/>
       </fileset>
     </move>
