@@ -27,53 +27,53 @@ use XH\CSRFProtection as CsrfProtector;
 
 class MainAdminControllerTest extends TestCase
 {
-    public function testDefaultActionRendersEditor(): void
+    /** @var MainAdminController&MockObject */
+    private $sut;
+
+    /** @var CsrfProtector&MockObject */
+    private $csrfProtector;
+
+    /** @var DbService&MockObject */
+    private $dbService;
+
+    public function setUp(): void
     {
         $plugin_tx = XH_includeVar("./languages/en.php", 'plugin_tx');
         $lang = $plugin_tx['moved'];
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $dbService = $this->createStub(DbService::class);
-        $dbService->method('readTextContent')->willReturn("foo=bar\nbaz=qux");
-        $sut = new MainAdminController("/", "./", $lang, $csrfProtector, $dbService);
-        $response = $sut->defaultAction();
+        $this->csrfProtector = $this->createStub(CsrfProtector::class);
+        $this->dbService = $this->createStub(DbService::class);
+        $this->sut = new MainAdminController("/", "./", $lang, $this->csrfProtector, $this->dbService);
+    }
+
+    public function testDefaultActionRendersEditor(): void
+    {
+        $this->dbService->method('readTextContent')->willReturn("foo=bar\nbaz=qux");
+        $response = $this->sut->defaultAction();
         Approvals::verifyHtml($response->body());
     }
 
     public function testSaveActionPreventsCSRF(): void
     {
         $_POST = ['plugin_text' => "foo=bar\nbaz=qux"];
-        $plugin_tx = XH_includeVar("./languages/en.php", 'plugin_tx');
-        $lang = $plugin_tx['moved'];
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $csrfProtector->expects($this->once())->method('check');
-        $dbService = $this->createStub(DbService::class);
-        $dbService->method('storeTextContent')->willReturn(true);
-        $sut = new MainAdminController("/", "./", $lang, $csrfProtector, $dbService);
-        $sut->saveAction();
+        $this->csrfProtector->expects($this->once())->method('check');
+        $this->dbService->method('storeTextContent')->willReturn(true);
+        $this->sut->saveAction();
     }
 
     public function testSaveActionStoresContent(): void
     {
         $_POST = ['plugin_text' => "foo=bar\nbaz=qux"];
-        $plugin_tx = XH_includeVar("./languages/en.php", 'plugin_tx');
-        $lang = $plugin_tx['moved'];
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $dbService = $this->createStub(DbService::class);
-        $dbService->expects($this->once())->method('storeTextContent')->with("foo=bar" . PHP_EOL . "baz=qux")->willReturn(true);
-        $sut = new MainAdminController("/", "./", $lang, $csrfProtector, $dbService);
-        $sut->saveAction();
+        $this->dbService->expects($this->once())->method('storeTextContent')
+            ->with("foo=bar" . PHP_EOL . "baz=qux")
+            ->willReturn(true);
+        $this->sut->saveAction();
     }
 
     public function testSaveActionRedirectsOnSuccess(): void
     {
         $_POST = ['plugin_text' => "foo=bar\nbaz=qux"];
-        $plugin_tx = XH_includeVar("./languages/en.php", 'plugin_tx');
-        $lang = $plugin_tx['moved'];
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $dbService = $this->createStub(DbService::class);
-        $dbService->method('storeTextContent')->willReturn(true);
-        $sut = new MainAdminController("/", "./", $lang, $csrfProtector, $dbService);
-        $response = $sut->saveAction();
+        $this->dbService->method('storeTextContent')->willReturn(true);
+        $response = $this->sut->saveAction();
         $this->assertEquals("http://example.com/?&moved&admin=plugin_main&action=plugin_text", $response->body());
         $this->assertEquals(303, $response->statusCode());
     }
@@ -81,14 +81,9 @@ class MainAdminControllerTest extends TestCase
     public function testSaveActionRendersErrorOnFailure(): void
     {
         $_POST = ['plugin_text' => "foo=bar\nbaz=qux"];
-        $plugin_tx = XH_includeVar("./languages/en.php", 'plugin_tx');
-        $lang = $plugin_tx['moved'];
-        $csrfProtector = $this->createStub(CsrfProtector::class);
-        $dbService = $this->createStub(DbService::class);
-        $dbService->method('storeTextContent')->willReturn(false);
-        $dbService->method('getFilename')->willReturn("./moved.csv");
-        $sut = new MainAdminController("/", "./", $lang, $csrfProtector, $dbService);
-        $response = $sut->saveAction();
+        $this->dbService->method('storeTextContent')->willReturn(false);
+        $this->dbService->method('getFilename')->willReturn("./moved.csv");
+        $response = $this->sut->saveAction();
         Approvals::verifyHtml($response->body());
     }
 }
