@@ -15,10 +15,10 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 ?>
 
-<h1>Moved <?=$version?></h1>
+<h1>Moved <?=$this->esc($version)?></h1>
 <div>
   <h2><?=$this->text('syscheck_title')?></h2>
 <?php foreach ($checks as $check):?>
-  <p class="<?=$check['class']?>"><?=$this->text('syscheck_message', $check['label'], $check['stateLabel'])?></p>
+  <p class="<?=$this->esc($check['class'])?>"><?=$this->text('syscheck_message', $check['label'], $check['stateLabel'])?></p>
 <?php endforeach?>
 </div>

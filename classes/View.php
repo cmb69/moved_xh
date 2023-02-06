@@ -39,7 +39,7 @@ class View
     /** @param mixed $args */
     public function text(string $key, ...$args): string
     {
-        return $this->escape(vsprintf($this->lang[$key], $args));
+        return $this->esc(vsprintf($this->lang[$key], $args));
     }
 
     /** @param mixed $args */
@@ -57,9 +57,15 @@ class View
         return (string) ob_get_clean();
     }
 
-    /** @param mixed $value */
-    public function escape($value): string
+    /** @param scalar $scalar */
+    public function esc($scalar): string
     {
-        return XH_hsc($value);
+        return XH_hsc((string) $scalar);
+    }
+
+    /** @param scalar $scalar */
+    public function raw($scalar): string
+    {
+        return (string) $scalar;
     }
 }
