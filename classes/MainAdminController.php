@@ -32,7 +32,7 @@ class MainAdminController
 
     public function __construct()
     {
-        global $pth, $_XH_csrfProtection;
+        global $_XH_csrfProtection;
 
         $this->csrfProtector = $_XH_csrfProtection;
     }
