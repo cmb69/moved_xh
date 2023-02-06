@@ -55,36 +55,36 @@ class NotFoundController
     public function defaultAction(string $selectedUrl): Response
     {
         $redirect = $this->dbService->findRedirectFor($selectedUrl);
-        if (isset($redirect)) {
-            if ($redirect) {
-                if (strpos($redirect, '://') !== false) {
-                    $url = $redirect;
-                } else {
-                    $qs = strpos($_SERVER['QUERY_STRING'], $selectedUrl) === 0
-                        ? substr($_SERVER['QUERY_STRING'], strlen($selectedUrl))
-                        : '';
-                    $url = CMSIMPLE_URL . '?' . $redirect . $qs;
-                }
-                return new Response($url, 301);
-            }
+        if (!isset($redirect)) {
             $url = urldecode($selectedUrl);
             if (!$this->isUtf8($url)) {
                 $url = $selectedUrl;
             }
-            $body = $this->view->render('gone', [
+            $body = $this->view->render('not-found', [
                 'url' => $url,
             ]);
-            return new Response($body, 410, $this->lang['title_gone']);
+            $this->log404($selectedUrl);
+            return new Response($body, 404, $this->lang['title_notfound']);
+        }
+        if ($redirect) {
+            if (strpos($redirect, '://') !== false) {
+                $url = $redirect;
+            } else {
+                $qs = strpos($_SERVER['QUERY_STRING'], $selectedUrl) === 0
+                    ? substr($_SERVER['QUERY_STRING'], strlen($selectedUrl))
+                    : '';
+                $url = CMSIMPLE_URL . '?' . $redirect . $qs;
+            }
+            return new Response($url, 301);
         }
         $url = urldecode($selectedUrl);
         if (!$this->isUtf8($url)) {
             $url = $selectedUrl;
         }
-        $body = $this->view->render('not-found', [
+        $body = $this->view->render('gone', [
             'url' => $url,
         ]);
-        $this->log404($selectedUrl);
-        return new Response($body, 404, $this->lang['title_notfound']);
+        return new Response($body, 410, $this->lang['title_gone']);
     }
 
     private function isUtf8(string $str): bool
