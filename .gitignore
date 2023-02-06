@@ -5,3 +5,4 @@ tests/coverage
 vendor
 /README.htm
 /composer.lock
+/coverage
