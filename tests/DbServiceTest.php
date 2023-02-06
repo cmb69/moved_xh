@@ -25,6 +25,8 @@ use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
+use Moved\Infra\DbService;
+
 class DbServiceTest extends TestCase
 {
     const CONTENT = <<<EOF

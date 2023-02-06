@@ -21,6 +21,8 @@
 
 namespace Moved;
 
+use Moved\Infra\SystemChecker;
+
 class InfoController
 {
     /** @var string */

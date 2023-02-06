@@ -24,6 +24,7 @@ namespace Moved;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use XH\CSRFProtection as CsrfProtector;
+use Moved\Infra\DbService;
 
 class MainAdminControllerTest extends TestCase
 {

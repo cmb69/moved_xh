@@ -22,6 +22,8 @@
 namespace Moved;
 
 use XH\CSRFProtection as CsrfProtector;
+use Moved\Infra\DbService;
+use Moved\Infra\Response;
 
 class MainAdminController
 {

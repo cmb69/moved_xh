@@ -24,6 +24,9 @@ namespace Moved;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 
+use Moved\Infra\DbService;
+use Moved\Infra\Logger;
+
 class NotFoundontrollerTest extends TestCase
 {
     /** @var NotFoundController */

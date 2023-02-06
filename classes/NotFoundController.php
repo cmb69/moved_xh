@@ -21,6 +21,10 @@
 
 namespace Moved;
 
+use Moved\Infra\DbService;
+use Moved\Infra\Logger;
+use Moved\Infra\Response;
+
 class NotFoundController
 {
     /** @var array<string,string> */

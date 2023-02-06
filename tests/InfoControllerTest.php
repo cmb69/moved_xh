@@ -24,6 +24,8 @@ namespace Moved;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 
+use Moved\Infra\SystemChecker;
+
 class InfoControllerTest extends TestCase
 {
     public function testDefaultActionRendersPluginInfo(): void

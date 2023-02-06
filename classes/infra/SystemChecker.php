@@ -19,7 +19,7 @@
  * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Moved;
+namespace Moved\Infra;
 
 class SystemChecker
 {

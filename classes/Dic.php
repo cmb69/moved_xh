@@ -21,6 +21,10 @@
 
 namespace Moved;
 
+use Moved\Infra\DbService;
+use Moved\Infra\Logger;
+use Moved\Infra\SystemChecker;
+
 class Dic
 {
     public static function makeNotFoundController(): NotFoundController
