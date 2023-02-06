@@ -37,11 +37,9 @@ class View
     }
 
     /**
-     * @param string $key
      * @param mixed $args
-     * @return string
      */
-    public function text($key, ...$args)
+    public function text(string $key, ...$args): string
     {
         return $this->escape(vsprintf($this->lang[$key], $args));
     }
@@ -54,9 +52,8 @@ class View
 
     /**
      * @param array<string,mixed> $_data
-     * @return string
      */
-    public function render(string $_template, array $_data)
+    public function render(string $_template, array $_data): string
     {
         extract($_data);
         ob_start();
@@ -66,9 +63,8 @@ class View
 
     /**
      * @param mixed $value
-     * @return mixed
      */
-    public function escape($value)
+    public function escape($value): string
     {
         return XH_hsc($value);
     }

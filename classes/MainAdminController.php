@@ -81,11 +81,7 @@ class MainAdminController
         return new Response($o);
     }
 
-    /**
-     * @param string $contents
-     * @return string
-     */
-    private function renderView($contents)
+    private function renderView(string $contents): string
     {
         return $this->view->render('admin', [
             'csrfTokenInput' => $this->csrfProtector->tokenInput(),

@@ -85,19 +85,12 @@ class NotFoundController
         return new Response($body, 404, $this->lang['title_notfound']);
     }
 
-    /**
-     * @param string $str
-     * @return bool
-     */
-    private function isUtf8($str)
+    private function isUtf8(string $str): bool
     {
         return preg_match('/^.{1}/us', $str) == 1;
     }
 
-    /**
-     * @return bool
-     */
-    private function log404(string $selectedUrl)
+    private function log404(string $selectedUrl): bool
     {
         $referrer = isset($_SERVER['HTTP_REFERER'])
             ? $_SERVER['HTTP_REFERER']

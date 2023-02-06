@@ -33,19 +33,12 @@ class DbService
         $this->filename = $filename;
     }
 
-    /**
-     * @return string
-     */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
 
-    /**
-     * @param string $su
-     * @return ?string
-     */
-    public function findRedirectFor($su)
+    public function findRedirectFor(string $su): ?string
     {
         $result = null;
         if (($handle = fopen($this->filename, 'r')) !== false) {
@@ -79,10 +72,7 @@ class DbService
         return $result;
     }
 
-    /**
-     * @return ?string
-     */
-    public function readTextContent()
+    public function readTextContent(): ?string
     {
         $contents = null;
         file_exists($this->filename)
@@ -97,11 +87,7 @@ class DbService
         return $contents;
     }
 
-    /**
-     * @param string $content
-     * @return bool
-     */
-    public function storeTextContent($content)
+    public function storeTextContent(string $content): bool
     {
         return ($stream = fopen($this->filename, 'c')) !== false
             && flock($stream, LOCK_EX)

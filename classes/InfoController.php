@@ -58,10 +58,9 @@ class InfoController
     }
 
     /**
-     * @param string $version
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkPhpVersion($version)
+    private function checkPhpVersion(string $version): array
     {
         $state = $this->systemChecker->checkVersion(PHP_VERSION, $version) ? 'success' : 'fail';
         return [
@@ -72,10 +71,9 @@ class InfoController
     }
 
     /**
-     * @param string $version
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkXhVersion($version)
+    private function checkXhVersion(string $version): array
     {
         $state = $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? 'success' : 'fail';
         return [
@@ -86,10 +84,9 @@ class InfoController
     }
 
     /**
-     * @param string $folder
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkWritability($folder)
+    private function checkWritability(string $folder): array
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
         return [

@@ -64,19 +64,15 @@ EOF;
 
     /**
      * @dataProvider findRedirectForData
-     * @param string $su
      * @param mixed $expected
      */
-    public function testFindRedirectFor($su, $expected)
+    public function testFindRedirectFor(string $su, $expected)
     {
         $this->subject->storeTextContent(self::CONTENT);
         $this->assertSame($expected, $this->subject->findRedirectFor($su));
     }
 
-    /**
-     * @return array
-     */
-    public function findRedirectForData()
+    public function findRedirectForData(): array
     {
         return array(
             ['foo', 'Languages'],
