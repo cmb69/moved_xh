@@ -2,15 +2,6 @@
 
 <project name="Moved" default="help">
 
-  <fileset id="php-sources" dir=".">
-    <include name="classes/*.php"/>
-    <include name="index.php"/>
-  </fileset>
-
-  <fileset id="tests" dir="tests">
-    <include name="*Test.php"/>
-  </fileset>
-
   <target name="help" description="lists available targets">
     <exec command="phing -l" outputProperty="help"/>
     <echo>${help}</echo>
