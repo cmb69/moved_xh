@@ -21,10 +21,6 @@
 
 namespace Moved;
 
-use Pfw\Url;
-use Pfw\View\View;
-use Pfw\View\HtmlString;
-
 class MainAdminController
 {
     /**
@@ -48,7 +44,7 @@ class MainAdminController
     public function defaultAction()
     {
         $contents = (new DbService)->readTextContent();
-        $this->prepareView($contents)->render();
+        echo $this->renderView($contents);
     }
 
     public function saveAction()
@@ -58,27 +54,28 @@ class MainAdminController
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
         $dbService = new DbService;
         if ($dbService->storeTextContent($contents)) {
-            $url = Url::getCurrent()->with('action', 'plugin_text');
-            header('Location: ' . $url->getAbsolute(), true, 303);
+            $url = CMSIMPLE_URL . "?&moved&admin=plugin_main&action=plugin_text";
+            header('Location: ' . $url, true, 303);
             exit();
         } else {
             e('cntsave', 'file', $dbService->getFilename());
         }
-        $this->prepareView($contents)->render();
+        echo $this->renderView($contents);
     }
 
     /**
      * @param string $contents
-     * @return View
+     * @return string
      */
-    private function prepareView($contents)
+    private function renderView($contents)
     {
-        return (new View('moved'))
-            ->template('admin')
-            ->data([
-                'csrfTokenInput' => new HtmlString($this->csrfProtector->tokenInput()),
-                'contents' => $contents,
-                'actionUrl' => Url::getCurrent()->with('action', 'plugin_textsave')
-            ]);
+        global $pth, $sn, $plugin_tx;
+
+        $view = new View("{$pth['folder']['plugins']}moved/views/", $plugin_tx['moved']);
+        return $view->render('admin', [
+            'csrfTokenInput' => $this->csrfProtector->tokenInput(),
+            'contents' => $contents,
+            'actionUrl' => "$sn?&moved&admin=plugin_main&action=plugin_textsave",
+        ]);
     }
 }

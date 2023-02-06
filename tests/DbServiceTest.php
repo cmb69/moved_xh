@@ -21,11 +21,11 @@
 
 namespace Moved;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
-class DbServiceTest extends PHPUnit_Framework_TestCase
+class DbServiceTest extends TestCase
 {
     const CONTENT = <<<EOF
 foo=Languages
@@ -45,7 +45,7 @@ EOF;
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth;
 

@@ -2,6 +2,82 @@
 
 <project name="Moved" default="help">
 
-    <import file="../pfw/build.xml"/>
+  <fileset id="php-sources" dir=".">
+    <include name="classes/*.php"/>
+    <include name="index.php"/>
+  </fileset>
+
+  <fileset id="tests" dir="tests">
+    <include name="*Test.php"/>
+  </fileset>
+
+  <target name="help" description="lists available targets">
+    <exec command="phing -l" outputProperty="help"/>
+    <echo>${help}</echo>
+  </target>
+
+  <target name="sniff" description="checks adherence to the coding standard">
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg value="--standard=PSR2"/>
+      <arg line="--runtime-set ignore_warnings_on_exit true"/>
+      <arg line="--extensions=php"/>
+      <arg file="classes"/>
+      <arg file="tests"/>
+      <arg file="index.php"/>
+    </exec>
+  </target>
+
+  <target name="stan" description="runs static analyzer">
+    <exec executable="phpstan" passthru="true" checkreturn="true"/>
+  </target>
+
+  <target name="mess" description="detects code flaws">
+    <exec executable="phpmd" passthru="true" checkreturn="true">
+      <arg line="classes,tests,index.php ansi codesize,unusedcode --ignore-violations-on-exit"/>
+    </exec>
+  </target>
+
+  <target name="test" description="runs all developer tests">
+    <exec executable="phpunit" passthru="true" checkreturn="true"/>
+  </target>
+
+  <target name="coverage" description="generates coverage report">
+    <exec executable="phpunit" passthru="true" checkreturn="true">
+      <arg value="--coverage-html"/>
+      <arg file="coverage"/>
+    </exec>
+  </target>
+
+  <target name="gen-help" description="builds help.htm from README.md">
+    <exec executable="pandoc" passthru="true" checkreturn="true">
+      <arg line="-s --eol=lf --template=help/template.htm -Vlang=en -Vpagetitle=&quot;User Manual&quot; -o help/help.htm README.md -t html"/>
+    </exec>
+    <exec executable="pandoc" passthru="true" checkreturn="true">
+      <arg line="-s --eol=lf --template=help/template.htm -Vlang=de -Vpagetitle=&quot;Benutzerhandbuch&quot; -o help/help_de.htm README_de.md -t html"/>
+    </exec>
+  </target>
+
+  <target name="build">
+    <fail unless="version" message="version is not defined!"/>
+    <exec command="git archive -o export.zip HEAD" checkreturn="true"/>
+    <unzip file="export.zip" todir="export"/>
+    <delete file="export.zip"/>
+    <move todir="dist">
+      <fileset dir="export">
+        <exclude name="help/template.htm"/>
+        <exclude name="tests/**"/>
+        <exclude name="README*.md"/>
+        <exclude name="build.xml"/>
+        <exclude name="composer.*"/>
+        <exclude name="phpunit.xml"/>
+        <exclude name="teplad.xml"/>
+      </fileset>
+    </move>
+    <delete dir="export"/>
+    <!-- <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/> -->
+    <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
+    <zip destfile="Moved_XH-${version}.zip" basedir="dist" prefix="moved/"/>
+    <delete dir="dist"/>
+  </target>
 
 </project>
