@@ -185,7 +185,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Moved_XH.  If not, see <https://www.gnu.org/licenses/>.
 
-© 2013-2017 Christoph M. Becker
+© 2013-2023 Christoph M. Becker
 
 ## Credits
 
