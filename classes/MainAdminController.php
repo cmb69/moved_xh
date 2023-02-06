@@ -21,8 +21,6 @@
 
 namespace Moved;
 
-use Pfw\Url;
-
 class MainAdminController
 {
     /**
@@ -56,8 +54,8 @@ class MainAdminController
         $contents = preg_replace('/\r\n|\r|\n/', PHP_EOL, $contents);
         $dbService = new DbService;
         if ($dbService->storeTextContent($contents)) {
-            $url = Url::getCurrent()->with('action', 'plugin_text');
-            header('Location: ' . $url->getAbsolute(), true, 303);
+            $url = CMSIMPLE_URL . "?&moved&admin=plugin_main&action=plugin_text";
+            header('Location: ' . $url, true, 303);
             exit();
         } else {
             e('cntsave', 'file', $dbService->getFilename());
@@ -71,13 +69,13 @@ class MainAdminController
      */
     private function renderView($contents)
     {
-        global $pth, $plugin_tx;
+        global $pth, $sn, $plugin_tx;
 
         $view = new View("{$pth['folder']['plugins']}moved/views/", $plugin_tx['moved']);
         return $view->render('admin', [
             'csrfTokenInput' => $this->csrfProtector->tokenInput(),
             'contents' => $contents,
-            'actionUrl' => Url::getCurrent()->with('action', 'plugin_textsave')
+            'actionUrl' => "$sn?&moved&admin=plugin_main&action=plugin_textsave",
         ]);
     }
 }
