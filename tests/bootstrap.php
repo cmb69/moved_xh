@@ -8,7 +8,9 @@ require_once "../../cmsimple/functions.php";
 
 require_once "./classes/DbService.php";
 require_once "./classes/InfoController.php";
+require_once "./classes/Logger.php";
 require_once "./classes/MainAdminController.php";
+require_once "./classes/NotFoundController.php";
 require_once "./classes/Plugin.php";
 require_once "./classes/Response.php";
 require_once "./classes/SystemChecker.php";
