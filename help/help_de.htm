@@ -1,296 +1,113 @@
-﻿<!DOCTYPE html>
-<html lang="de">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Moved_XH – Handbuch</title>
-<link rel="stylesheet" type="text/css" href="../../pfw/help/stylesheet.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Moved_XH – Benutzerhandbuch</title>
+  <style type="text/css">
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.5;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        background: #ffffe1;
+        max-width: 32em;
+    }
+    p {
+        text-align: justify;
+    }
+    pre {
+        color: black;
+        background: #ffe;
+        overflow: auto;
+        padding: 0.2em 0.5em;
+        border: 1px solid silver;
+    }
+  </style>
 </head>
-
 <body>
-
-<article>
-<h1>Moved_XH – Handbuch</h1>
-<img src="../moved.png" alt="Sackkarre mit Umzugskartons" style="float:left; margin: 0.5em 1.5em 0.5em 0">
-<p>
-    Moved_XH ermöglicht die Behandlung von Seiten, die umbenannt wurden. Direkte
-    Links zu solchen Seiten ergeben normalerweise einen 404 Not found (nicht
-    gefunden) Fehler, aber Moved_XH macht es möglich eingehende Anfragen auf
-    eine andere Seite weiter zu leiten, oder die Seite als entfernt zu
-    kennzeichnen. Es wird entsprechende Information zurück geliefert, die Bots
-    über die Änderung informiert, was besonders wichtig bezüglich Suchmaschinen
-    ist, die dann die URL der Seite ändern bzw. sie aus dem Index entfernen
-    können.
-</p>
-
-<nav id="nav">
-<h2>Inhaltverzeichnis</h2>
+<h1 id="moved_xh">Moved_XH</h1>
+<p>Moved_XH ermöglicht die Behandlung von Seiten, die umbenannt wurden. Direkte Links zu solchen Seiten ergeben normalerweise einen 404 Not found (nicht gefunden) Fehler, aber Moved_XH macht es möglich eingehende Anfragen auf eine andere Seite weiter zu leiten, oder die Seite als entfernt zu kennzeichnen. Es wird entsprechende Information zurück geliefert, die Bots über die Änderung informiert, was besonders wichtig bezüglich Suchmaschinen ist, die dann die URL der Seite ändern bzw. sie aus dem Index entfernen können.</p>
 <ul>
-<li><a href="#notice">Wichtiger Hinweis</a></li>
-<li><a href="#requirements">Vorraussetzungen</a></li>
+<li><a href="#voraussetzungen">Voraussetzungen</a></li>
+<li><a href="#download">Download</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#settings">Einstellungen</a></li>
-<li>
-    <a href="#usage">Verwendung</a>
-    <ul>
-        <li><a href="#usage-redirect">Weiterleitungen</a></li>
-        <li><a href="#usage-gone">Entfernt</a></li>
-        <li><a href="#usage_placeholders">Platzhalter</a></li>
-    </ul>
-</li>
-<li><a href="#limitations">Beschränkungen</a></li>
-<li><a href="#license">Lizenz</a></li>
-<li><a href="#credits">Danksagung</a></li>
+<li><a href="#einstellungen">Einstellungen</a></li>
+<li><a href="#verwendung">Verwendung</a>
+<ul>
+<li><a href="#weiterleitungen">Weiterleitungen</a></li>
+<li><a href="#entfernt">Entfernt</a></li>
+<li><a href="#platzhalter">Platzhalter</a></li>
+</ul></li>
+<li><a href="#einschränkungen">Einschränkungen</a></li>
+<li><a href="#problembehebung">Problembehebung</a></li>
+<li><a href="#lizenz">Lizenz</a></li>
+<li><a href="#danksagung">Danksagung</a></li>
 </ul>
-</nav>
-
-<section id="notice">
-<h2>Wichtiger Hinweis</h2>
-<p class="important">
-    Moved_XH konnte bislang noch keinen ausführlichen Tests in diversen
-    Umgebungen unterzogen werden. Es handelt sich also um eine so genannte
-    Beta-Version. Vorsicht bei der Verwendung!
-</p>
-</section>
-
-<section id="requirements">
-<h2>Vorraussetzungen</h2>
-<p>
-    Moved_XH erfordert CMSimple_XH ≥ 1.6.3, <a
-    href="http://3-magi.net/de/?CMSimple_XH/Pfw_XH">Pfw_XH</a> ≥ 0.2.0 und PHP ≥
-    5.4.0.
-</p>
-</section>
-
-<section id="installation">
-<h2>Installation</h2>
-<p>
-    Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im
-    <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
-    CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.
-</p>
-<ol>
-<li class="important">
-    Sichern Sie die Daten auf Ihrem Server.
-</li>
-<li>
-    Entpacken Sie die ZIP-Datei auf Ihrem Computer.
-</li>
-<li>
-    Laden Sie das gesamte Verzeichnis <code>moved/</code> auf Ihren Server in
-    das CMSimple_XH Plugin Verzeichnis hoch.
-</li>
-<li>
-    Vergeben Sie Schreibrechte für die Unterverzeichnisse <code>css/</code> und
-    <code>languages/</code>.
-</li>
-<li class="important">
-    Navigieren Sie zu <i>Plugins</i> → <i>Moved</i>, und prüfen Sie, ob alle
-    Voraussetzungen für den einwandfreien Betrieb erfüllt sind.
-</li>
+<h2 id="voraussetzungen">Voraussetzungen</h2>
+<p>Moved_XH ist ein Plugin für <a href="https://www.cmsimple-xh.org/de/">CMSimple_XH</a>. Es erfordert CMSimple_XH ≥ 1.6.3 und PHP ≥ 5.4.0.</p>
+<h2 id="download">Download</h2>
+<p>Das <a href="https://github.com/cmb69/moved_xh/releases/latest">aktuelle Release</a> kann von Github herunter geladen werden.</p>
+<h2 id="installation">Installation</h2>
+<p>The Installation erfolgt wie bei vielen anderen CMSimple_XH Plugins auch. Im <a href="https://wiki.cmsimple-xh.org/de/?fuer-anwender/arbeiten-mit-dem-cms/plugins">CMSimple_XH Wiki</a> finden Sie weitere Informationen.</p>
+<ol type="1">
+<li><strong>Sichern Sie die Daten auf Ihrem Server.</strong></li>
+<li>Entpacken Sie die ZIP-Datei auf Ihrem Computer.</li>
+<li>Laden Sie das gesamte Verzeichnis <code>moved/</code> auf Ihren Server in das <code>plugins/</code> Verzeichnis von CMSimple_XH hoch.</li>
+<li>Vergeben Sie Schreibrechte für die Unterverzeichnisse <code>css/</code> und <code>languages/</code>.</li>
+<li>Navigieren Sie zu <code>Plugins</code> → <code>Moved</code>, und prüfen Sie, ob alle Voraussetzungen für den einwandfreien Betrieb erfüllt sind.</li>
 </ol>
-</section>
-
-<section id="settings">
-<h2>Einstellungen</h2>
-<p>
-    Die Konfiguration des Plugins erfolgt wie bei vielen anderen
-    CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Navigieren
-    Sie zu <i>Plugins</i> → <i>Moved</i>.
-</p>
-<!--
-<p>
-    Sie können die Original-Einstellungen von Moved_XH in der
-    <i>Konfiguration</i> ändern. Beim Überfahren der Hilfe-Icons mit der Maus
-    werden Hinweise zu den Einstellungen angezeigt.
-</p>
--->
-<p>
-    Die Lokalisierung wird unter <i>Sprache</i> vorgenommen. Sie können die
-    Zeichenketten in Ihre eigene Sprache übersetzen, falls keine entsprechende
-    Sprachdatei zur Verfügung steht, oder sie entsprechend Ihren Anforderungen
-    anpassen.
-</p>
-<p>
-    Das Aussehen von Moved_XH kann unter <i>Stylesheet</i> angepasst werden.
-</p>
-</section>
-
-<section id="usage">
-<h2>Verwendung</h2>
-<p>
-    Moved_XH speichert seine Daten separat für jede Sprache der CMSimple_XH
-    Installation in einer Datei <code>moved.csv</code> im jeweiligen
-    <code>content/</code> Ordner. Eingehende Anfragen zu Seiten, die nicht
-    existieren und für die keine Regel in <code>moved.csv</code> angegeben
-    wurde, werden in der Protokolldatei von CMSimple_XH protokolliert. Die
-    Beschreibung des Protokolleintrags enthält die angefragte Seite und den
-    Referrer, falls bekannt.
-</p>
-<p>
-    Die Regeln können in der Plugin-Administration unter <i>Einstellungen</i>
-    bearbeitet werden. Jede Zeile der Datei stellt eine Regel dar. Regeln
-    bestehen aus einer bzw. zwei so genannten <i>Seiten-URL</i>s. Technisch
-    ausgedrückt ist eine <i>Seiten-URL</i> der Name des ersten Parameters des
-    Query-Strings, d.h. alles zwischen dem Fragezeichen (<code>?</code>) und dem
-    ersten Kaufmanns-Und (<code>&amp;</code>) bzw. dem Ende der URL, wenn darin
-    kein Kaufmanns-Und vorkommt. Es wird empfohlen die <i>Seiten-URL</i>s aus
-    der Adressleiste des Browsers zu kopieren anstatt sie manuell einzugeben, da
-    es einige Überraschungen gibt. Zum Beispiel ist die <i>Seiten-URL</i> der
-    erfundenen Seite <a
-    href="http://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergn&uuml;gen</a>
-    <code>Fahrvergn%C3%BCgen</code>, und nicht <code>Fahrvergnügen</code> wie
-    man erwarten könnte.
-</p>
+<h2 id="einstellungen">Einstellungen</h2>
+<p>Die Konfiguration des Plugins erfolgt wie bei vielen anderen CMSimple_XH Plugins auch im Administrationsbereich der Homepage. Wählen Sie <code>Plugins</code> → <code>Moved</code>.</p>
+<p>Die Lokalisierung wird unter <code>Sprache</code> vorgenommen. Sie können die Zeichenketten in Ihre eigene Sprache übersetzen, falls keine entsprechende Sprachdatei zur Verfügung steht, oder sie entsprechend Ihren Anforderungen anpassen.</p>
+<p>Das Aussehen von Moved_XH kann unter <code>Stylesheet</code> angepasst werden.</p>
+<h2 id="verwendung">Verwendung</h2>
+<p>Moved_XH speichert seine Daten separat für jede Sprache der CMSimple_XH Installation in einer Datei <code>moved.csv</code> im jeweiligen <code>content/</code> Ordner. Eingehende Anfragen zu Seiten, die nicht existieren und für die keine Regel in <code>moved.csv</code> angegeben wurde, werden in der Protokolldatei von CMSimple_XH protokolliert. Die Beschreibung des Protokolleintrags enthält die angefragte Seite und den Referrer, falls bekannt.</p>
+<p>Die Regeln können in der Plugin-Administration unter <code>Einstellungen</code> bearbeitet werden. Jede Zeile der Datei stellt eine Regel dar. Regeln bestehen aus einer bzw. zwei so genannten <em>Seiten-URL</em>s. Technisch ausgedrückt ist eine <em>Seiten-URL</em> der Name des ersten Parameters des Query-Strings, d.h. alles zwischen dem Fragezeichen (<code>?</code>) und dem ersten Kaufmanns-Und (<code>&amp;</code>) bzw. dem Ende der URL, wenn darin kein Kaufmanns-Und vorkommt. Es wird empfohlen die <em>Seiten-URL</em>s aus der Adressleiste des Browsers zu kopieren anstatt sie manuell einzugeben, da es einige Überraschungen gibt. Zum Beispiel ist die <em>Seiten-URL</em> der erfundenen Seite <a href="https://www.example.com/?Fahrvergn%C3%BCgen">Fahrvergnügen</a> <code>Fahrvergn%C3%BCgen</code>, und nicht <code>Fahrvergnügen</code> wie man erwarten könnte.</p>
 <p>Es gibt zwei verschiedene Regeltypen:</p>
-
-<section id="usage-redirect">
-<h3>Weiterleitungen</h3>
-<p>
-    Weiterleitungs-Regeln leiten eingehende Anfragen für eine alte
-    <i>Seiten-URL</i> auf eine neue <i>Seiten-URL</i> oder eine externe URL
-    (diese muss vollständig qualifiziert sein, d.h. mit der Angabe des
-    Protokolls, z.B. <code>http://</code>, beginnen) um. Beide URLs werden durch
-    ein Gleichheitszeichen (<code>=</code>) getrennt.
-</p>
-<h4>Beispiel Nr. 1</h4>
-<p>
-    Sie bauen Ihre Website um und möchten die Seite "Eichen" von der obersten
-    Ebene auf die zweite Ebene unter "Bäume" verschieben; also ergänzen Sie
-    folgende Regel:
-</p>
-<pre>Eichen=B%C3%A4ume:Eichen</pre>
-<h4>Beispiel Nr. 2</h4>
-<p>
-    Sie haben die Seite "Eichen" in eine andere CMSimple_XH installation
-    verschoben; also ergänzen Sie folgende Regel:
-</p>
-<pre>Eichen=http://www.example.com/baeume/?Eichen</pre>
-<h4>Beispiel Nr. 3</h4>
-<p>
-    Sie haben ein Upgrade von einer <i>ISO-8859-1</i> kodierten CMSimple Version
-    auf eine <i>UTF-8</i> kodierte CMSimple_XH Installation durchgeführt, und
-    Sie haben eine Seite "Fahrvergnügen"; also ergänzen Sie folgende Regel:
-</p>
-<pre>Fahrverg%FCgen=Fahrvergn%C3%BCgen</pre>
-</section>
-
-<section id="usage-gone">
-<h3>Entfernt</h3>
-<p>
-    Entfernt-Regeln informieren Besucher, dass eine Seite nicht mehr existiert.
-    Sie bestehen aus der <i>Seiten-URL</i> der entfernten Seite.
-</p>
-<h4>Beispiel Nr. 4</h4>
-<p>
-    Sie haben die Seite "Vorübergehende Information" entfernt, weil Sie nicht
-    mehr gebraucht wird; also ergänzen Sie folgende Regel:
-</p>
-<pre>Vor%C3%BCbergehende_Information</pre>
-</section>
-
-<section id="usage_placeholders">
-<h3>Platzhalter</h3>
-<p>
-    Die alte <i>Seiten-URL</i> der Regeln kann Platzhalter enthalten, wobei ein
-    <code>*</code> einer beliebigen Anzahl von Zeichen und <code>?</code>
-    einem einzelnen Zeichen entspricht. Nur die erste passende Regel wird
-    jeweils verwendet; andere werden für die Anfrage einfach ignoriert.
-    Platzhalter bieten keine neuen Möglichkeiten, sondern sind einfach dazu
-    gedacht, Wiederholungen ähnlicher Regeln zu vermeiden.
-</p>
-<h4>Beispiel #5</h4>
-<p>
-    Sie haben die Seiten "Vorübergehende Information 1" und "Vorübergehende
-    Information 2" entfernt, weil Sie nicht mehr gebraucht werden; also könnten
-    Sie folgende Regeln ergänzen:
-</p>
-<pre>
-Vor%C3%BCbergehende_Information_1
-Vor%C3%BCbergehende_Information_2
-</pre>
-<p>
-    Durch die Verwendung eines Platzhalters können sie allerdings vereinfachen:
-</p>
-<pre>Vor%C3%BCbergehende_Information_?</pre>
-<p>
-    Weitherhin ist es möglich, die Zeichen, die einem Platzhalter entsprechen,
-    in der neuen <i>Seiten-URL</i> einer Weiterleitungsregel (d.h. auf der
-    rechten Seite des Gleichheitszeichens) einzusetzen. Dies erfolgt mit
-    Variablen der Form <code>$1</code>, <code>$2</code> … <code>$9</code>, wobei
-    <code>$1</code> dem ersten Platzhalter entspricht, <code>$2</code> dem
-    zweiten Platzhalter, und so weiter.
-</p>
-<section>
-<h4>Beispiel #6</h4>
-<p>
-    Sie bauen Ihre Website um und möchten die Seite "Eichen" von der obersten
-    Ebene auf die zweite Ebene unter "Bäume" verschieben, wobei "Eichen" bereits
-    drei Unterseiten hat. Sie könnten also folgende Regeln ergänzen:
-</p>
-<pre>
-Eichen:Weiß-Eiche=B%C3%A4ume:Eichen:Weiß-Eiche
+<h3 id="weiterleitungen">Weiterleitungen</h3>
+<p>Weiterleitungs-Regeln leiten eingehende Anfragen für eine alte <em>Seiten-URL</em> auf eine neue <em>Seiten-URL</em> oder eine externe URL (diese muss vollständig qualifiziert sein, d.h. mit der Angabe des Protokolls, z.B. <code>https://</code>, beginnen) um. Beide URLs werden durch ein Gleichheitszeichen (<code>=</code>) getrennt.</p>
+<p>Einige Beispiele:</p>
+<p>Sie bauen Ihre Website um und möchten die Seite <em>Eichen</em> von der obersten Ebene auf die zweite Ebene unter <em>Bäume</em> verschieben; also ergänzen Sie folgende Regel:</p>
+<pre><code>Eichen=B%C3%A4ume:Eichen</code></pre>
+<p>Sie haben die Seite <em>Eichen</em> in eine andere CMSimple_XH Installation verschoben; also ergänzen Sie folgende Regel:</p>
+<pre><code>Eichen=http://www.example.com/baeume/?Eichen</code></pre>
+<p>Sie haben ein Upgrade von einer <em>ISO-8859-1</em> kodierten CMSimple Version auf eine <em>UTF-8</em> kodierte CMSimple_XH Installation durchgeführt, und Sie haben eine Seite “Fahrvergnügen”; also ergänzen Sie folgende Regel:</p>
+<pre><code>Fahrverg%FCgen=Fahrvergn%C3%BCgen</code></pre>
+<h3 id="entfernt">Entfernt</h3>
+<p>Entfernt-Regeln informieren Besucher, dass eine Seite nicht mehr existiert. Sie bestehen aus der <em>Seiten-URL</em> der entfernten Seite.</p>
+<p>Zum Beispiel haben Sie die Seite <em>Vorübergehende Information</em> entfernt, weil Sie nicht mehr gebraucht wird; also ergänzen Sie folgende Regel:</p>
+<pre><code>Vor%C3%BCbergehende_Information</code></pre>
+<h3 id="platzhalter">Platzhalter</h3>
+<p>Die alte <em>Seiten-URL</em> der Regeln kann Platzhalter enthalten, wobei ein <code>*</code> einer beliebigen Anzahl von Zeichen und <code>?</code> einem einzelnen Zeichen entspricht. Nur die erste passende Regel wird jeweils verwendet; andere werden für die Anfrage einfach ignoriert. Platzhalter bieten keine neuen Möglichkeiten, sondern sind einfach dazu gedacht, Wiederholungen ähnlicher Regeln zu vermeiden. Zum Beispiel:</p>
+<p>Sie haben die Seiten “Vorübergehende Information 1” und “Vorübergehende Information 2” entfernt, weil Sie nicht mehr gebraucht werden; also könnten Sie folgende Regeln ergänzen:</p>
+<pre><code>Vor%C3%BCbergehende_Information_1
+Vor%C3%BCbergehende_Information_2</code></pre>
+<p>Durch die Verwendung eines Platzhalters können sie allerdings vereinfachen:</p>
+<pre><code>Vor%C3%BCbergehende_Information_?</code></pre>
+<p>Weitherhin ist es möglich, die Zeichen, die einem Platzhalter entsprechen, in der neuen <em>Seiten-URL</em> einer Weiterleitungsregel (d.h. auf der rechten Seite des Gleichheitszeichens) einzusetzen. Dies erfolgt mit Variablen der Form <code>$1</code>, <code>$2</code> … <code>$9</code>, wobei <code>$1</code> dem ersten Platzhalter entspricht, <code>$2</code> dem zweiten Platzhalter, und so weiter.</p>
+<p>Wenn Sie, beispielsweise, Ihre Website umbauen und die Seite <em>Eichen</em> von der obersten Ebene auf die zweite Ebene unter <em>Bäume</em> verschieben möchten, wobei <em>Eichen</em> bereits drei Unterseiten hat. Sie könnten also folgende Regeln ergänzen:</p>
+<pre><code>Eichen:Weiß-Eiche=B%C3%A4ume:Eichen:Weiß-Eiche
 Eichen:Schwarz-Eiche=B%C3%A4ume:Eichen:Schwarz-Eiche
-Eichen:Blau-Eiche=B%C3%A4ume:Eichen:Blau-Eiche
-</pre>
-<p>
-    Durch die Verwendung eines Platzhalters können Sie allerdings vereinfachen:
-</p>
-<pre>Eichen:*=B%C3%A4ume:Eichen:$1</pre>
-</section>
-
-</section>
-
-<section id="limitations">
-<h2>Beschränkungen</h2>
-<p>
-    Moved_XH verwendet den <a
-    href="http://www.cmsimple-xh.org/wiki/doku.php/de:tips_and_tricks#eigene_404_fehler-seite"><code>custom_404()</code>
-    Hook</a>, so dass es nicht funktioniert, wenn der Hook bereits definiert
-    ist. In diesem Fall erhalten Sie ein leeres Browserfenster, wenn Sie Ihre
-    Website aufrufen. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen
-    den bestehenden <code>custom_404()</code> Hook.
-</p>
-<p>
-    Die Regeln von Moved_XH funktionieren nicht, wenn Sie in die CMSimple_XH
-    Installation eingeloggt sind, da dann die <code>custom_404()</code>
-    Hook-Funktion von CMSimple_XH nicht aufgerufen wird. Wenn Sie die Regeln
-    testen wollen ohne sich zunächst auszuloggen, dann müssen Sie einen zweiten
-    Browser verwenden.
-</p>
-</section>
-
-<section id="license">
-<h2>Lizenz</h2>
-<p>
-    Moved_XH kann unter Einhaltung der <a
-    href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.
-</p>
-<p>Copyright © 2013-2017 Christoph M. Becker</p>
-</section>
-
-<section id="credits">
-<h2>Danksagung</h2>
-<p>
-    Das Plugin-Logo wurde von <a href="http://www.mymovingreviews.com/">World
-    Media Group LLC</a> entworfen. Vielen Dank für die Veröffentlichung unter
-    einer liberalen Lizenz.
-</p>
-<p>
-    Vielen Dank an die Community im <a
-    href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps,
-    Anregungen und das Testen.
-</p>
-<p>
-    Zu guter letzt vielen Dank an <a href="http://www.harteg.dk/">Peter
-    Harteg</a> und alle Entwickler von <a
-    href="http://www.cmsimple-xh.org/">CMSimple_XH</a>, ohne die dieses
-    fantastische CMS nicht existieren würde.
-</p>
-</section>
-
-</article>
-
+Eichen:Blau-Eiche=B%C3%A4ume:Eichen:Blau-Eiche</code></pre>
+<p>Durch die Verwendung eines Platzhalters können Sie allerdings vereinfachen:</p>
+<pre><code>Eichen:*=B%C3%A4ume:Eichen:$1</code></pre>
+<h2 id="einschränkungen">Einschränkungen</h2>
+<p>Moved_XH verwendet den <a href="https://wiki.cmsimple-xh.org/de/?tipps-und-tricks/eigene-404-seite"><code>custom_404()</code> Hook</a>, so dass es nicht funktioniert, wenn der Hook bereits definiert ist. In diesem Fall erhalten Sie ein leeres Browserfenster, wenn Sie Ihre Website aufrufen. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen den bestehenden <code>custom_404()</code> Hook.</p>
+<p>Die Regeln von Moved_XH funktionieren nicht, wenn Sie in die CMSimple_XH Installation eingeloggt sind, da dann die <code>custom_404()</code> Hook-Funktion von CMSimple_XH nicht aufgerufen wird. Wenn Sie die Regeln testen wollen ohne sich zunächst auszuloggen, dann müssen Sie einen zweiten Browser verwenden.</p>
+<h2 id="problembehebung">Problembehebung</h2>
+<p>Melden Sie Programmfehler und stellen Sie Supportanfragen entweder auf <a href="https://github.com/cmb69/moved_xh/issues">Github</a> oder im <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>
+<h2 id="lizenz">Lizenz</h2>
+<p>Moved_XH ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.</p>
+<p>Die Veröffentlichung von Moved_XH erfolgt in der Hoffnung, dass es Ihnen von Nutzen sein wird, aber <em>ohne irgendeine Garantie</em>, sogar ohne die implizite Garantie der <em>Marktreife</em> oder der <em>Verwendbarkeit für einen bestimmten Zweck</em>. Details finden Sie in der GNU General Public License.</p>
+<p>Sie sollten ein Exemplar der GNU General Public License zusammen mit Moved_XH erhalten haben. Falls nicht, siehe <a href="https://www.gnu.org/licenses/" class="uri">https://www.gnu.org/licenses/</a>.</p>
+<p>© 2013-2017 Christoph M. Becker</p>
+<h2 id="danksagung">Danksagung</h2>
+<p>Das Plugin-Logo wurde von <a href="https://www.mymovingreviews.com/">World Media Group LLC</a> entworfen. Vielen Dank für die Veröffentlichung unter einer liberalen Lizenz.</p>
+<p>Vielen Dank an die Community im <a href="https://www.cmsimpleforum.com/">CMSimple_XH Forum</a> für Tipps, Anregungen und das Testen.</p>
+<p>Und zu guter letzt vielen Dank an <a href="http://www.harteg.dk/">Peter Harteg</a>, den „Vater“ von CMSimple, und allen Entwicklern von <a href="https://www.cmsimple-xh.org/de/">CMSimple_XH</a> ohne die es dieses phantastische CMS nicht gäbe.</p>
 </body>
-
 </html>
