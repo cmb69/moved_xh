@@ -44,14 +44,12 @@ class Plugin
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                ob_start();
                 $controller = new InfoController(
                     "{$pth['folder']['plugins']}moved/",
                     $plugin_tx['moved'],
                     new SystemChecker()
                 );
-                $controller->defaultAction();
-                $o .= ob_get_clean();
+                $o .= $controller->defaultAction();
                 break;
             case 'plugin_main':
                 $controller = new MainAdminController(

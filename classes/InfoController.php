@@ -42,11 +42,10 @@ class InfoController
         $this->systemChecker = $systemChecker;
     }
 
-    /** @return void */
-    public function defaultAction()
+    public function defaultAction(): string
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
-        echo $view->render('info', [
+        return $view->render('info', [
             'checks' => [
                 $this->checkPhpVersion('7.1.0'),
                 $this->checkXhVersion('1.7.0'),
