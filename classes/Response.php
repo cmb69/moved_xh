@@ -59,4 +59,14 @@ class Response
         }
         return $this->body;
     }
+
+    public function body(): string
+    {
+        return $this->body;
+    }
+
+    public function statusCode(): ?int
+    {
+        return $this->statusCode;
+    }
 }
