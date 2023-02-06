@@ -21,8 +21,6 @@
 
 namespace Moved;
 
-use Pfw\View\View;
-
 class NotFoundController
 {
     /**
@@ -30,11 +28,15 @@ class NotFoundController
      */
     private $lang;
 
+    /** @var View */
+    private $view;
+
     public function __construct()
     {
-        global $plugin_tx;
+        global $pth, $plugin_tx;
 
         $this->lang = $plugin_tx['moved'];
+        $this->view = new View("{$pth['folder']['plugins']}moved/views/", $this->lang);
     }
 
     public function defaultAction()
@@ -61,10 +63,9 @@ class NotFoundController
                 if (!$this->isUtf8($url)) {
                     $url = $su;
                 }
-                (new View('moved'))
-                    ->template('gone')
-                    ->data(['url' => $url])
-                    ->render();
+                echo $this->view->render('gone', [
+                    'url' => $url,
+                ]);
             }
         } else {
             $this->statusHeader('404 Not found');
@@ -73,10 +74,9 @@ class NotFoundController
             if (!$this->isUtf8($url)) {
                 $url = $su;
             }
-            (new View('moved'))
-                ->template('not-found')
-                ->data(['url' => $url])
-                ->render();
+            echo $this->view->render('not-found', [
+                'url' => $url,
+            ]);
             $this->log404();
         }
     }
