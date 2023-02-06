@@ -51,7 +51,7 @@ class InfoController
         $view = new View("{$this->pluginFolder}views/", $plugin_tx['moved']);
         echo $view->render('info', [
             'checks' => [
-                $this->checkPhpVersion('5.4.0'),
+                $this->checkPhpVersion('7.1.0'),
                 $this->checkXhVersion('1.7.0'),
                 $this->checkWritability("{$this->pluginFolder}css/"),
                 $this->checkWritability("{$this->pluginFolder}languages/"),
