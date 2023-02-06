@@ -31,14 +31,22 @@ class NotFoundController
     /** @var DbService */
     private $dbService;
 
+    /** @var Logger */
+    private $logger;
+
     /** @var View */
     private $view;
 
     /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, string $contentFolder, array $lang)
-    {
+    public function __construct(
+        string $pluginFolder,
+        string $contentFolder,
+        array $lang,
+        Logger $logger
+    ) {
         $this->lang = $lang;
         $this->dbService = new DbService("{$contentFolder}moved.csv");
+        $this->logger = $logger;
         $this->view = new View("{$pluginFolder}views/", $this->lang);
     }
 
@@ -102,6 +110,6 @@ class NotFoundController
         $referrer = isset($_SERVER['HTTP_REFERER'])
             ? $_SERVER['HTTP_REFERER']
             : 'unknown';
-        return XH_logMessage('warning', 'moved', 'not found', "$selectedUrl from $referrer");
+        return $this->logger->logNotFound($selectedUrl, $referrer);
     }
 }

@@ -19,20 +19,12 @@
  * along with Moved_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /** @return void */
-function custom_404()
+namespace Moved;
+
+class Logger
 {
-    global $pth, $plugin_tx, $su, $o;
-
-    ob_start();
-    $controller = new Moved\NotFoundController(
-        "{$pth['folder']['plugins']}moved/",
-        $pth['folder']['content'],
-        $plugin_tx['moved'],
-        new Moved\Logger()
-    );
-    $controller->defaultAction($su);
-    $o .= ob_get_clean();
+    public function logNotFound(string $selectedUrl, string $referrer): bool
+    {
+        return XH_logMessage('warning', 'moved', 'not found', "$selectedUrl from $referrer");
+    }
 }
-
-(new Moved\Plugin)->run();
