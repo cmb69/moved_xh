@@ -35,11 +35,11 @@ class InfoController
     private $systemChecker;
 
     /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, array $lang)
+    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
-        $this->systemChecker = new SystemChecker();
+        $this->systemChecker = $systemChecker;
     }
 
     /** @return void */

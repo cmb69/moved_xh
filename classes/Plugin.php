@@ -45,7 +45,12 @@ class Plugin
         switch ($admin) {
             case '':
                 ob_start();
-                (new InfoController("{$pth['folder']['plugins']}moved/", $plugin_tx['moved']))->defaultAction();
+                $controller = new InfoController(
+                    "{$pth['folder']['plugins']}moved/",
+                    $plugin_tx['moved'],
+                    new SystemChecker()
+                );
+                $controller->defaultAction();
                 $o .= ob_get_clean();
                 break;
             case 'plugin_main':
