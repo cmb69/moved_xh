@@ -1,0 +1,15 @@
+parameters:
+  level: 0
+  paths:
+    - classes/
+#    - views/
+    - index.php
+#  bootstrapFiles:
+#    - phpstan.php
+  scanFiles:
+    - ../pfw/classes/View/HtmlString.php
+    - ../pfw/classes/View/View.php
+    - ../pfw/classes/SystemCheckService.php
+    - ../pfw/classes/Url.php
+    - ../../cmsimple/adminfuncs.php
+    - ../../cmsimple/functions.php
