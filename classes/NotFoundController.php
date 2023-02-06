@@ -61,7 +61,7 @@ class NotFoundController
                 header('Location: ' . $url, true, 301);
                 exit;
             } else {
-                $this->statusHeader('410 Gone');
+                header('HTTP/1.1 410 Gone');
                 $title = $this->lang['title_gone'];
                 $url = urldecode($selectedUrl);
                 if (!$this->isUtf8($url)) {
@@ -72,7 +72,7 @@ class NotFoundController
                 ]);
             }
         } else {
-            $this->statusHeader('404 Not found');
+            header('HTTP/1.1 404 Not found');
             $title = $this->lang['title_notfound'];
             $url = urldecode($selectedUrl);
             if (!$this->isUtf8($url)) {
@@ -83,18 +83,6 @@ class NotFoundController
             ]);
             $this->log404($selectedUrl);
         }
-    }
-
-    /**
-     * @param string $status
-     * @return void
-     */
-    private function statusHeader($status)
-    {
-        global $cgi, $iis;
-
-        $header = ($cgi || $iis ? 'Status: ' : 'HTTP/1.1 ') . $status;
-        header($header);
     }
 
     /**
