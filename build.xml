@@ -28,10 +28,9 @@
   </target>
 
   <target name="mess" description="detects code flaws">
-    <phpmd rulesets="codesize,unusedcode">
-      <fileset refid="php-sources"/>
-      <fileset refid="unit-tests"/>
-    </phpmd>
+    <exec executable="phpmd" passthru="true" checkreturn="true">
+      <arg line="classes,tests,index.php ansi codesize,unusedcode --ignore-violations-on-exit"/>
+    </exec>
   </target>
 
   <target name="unit-tests" description="runs all unit tests">
