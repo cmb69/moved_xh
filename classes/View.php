@@ -72,10 +72,4 @@ class View
     {
         return XH_hsc($value);
     }
-
-    /** @param mixed $value */
-    public function json($value): string
-    {
-        return (string) json_encode($value, JSON_HEX_APOS | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }
 }
