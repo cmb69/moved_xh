@@ -21,7 +21,7 @@
 
 use Moved\Dic;
 
-const MOVED_VERSION = "1.0beta4";
+const MOVED_VERSION = "1.0";
 
 if (!function_exists('custom_404')) {
     /** @return void */

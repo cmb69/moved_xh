@@ -45,11 +45,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Moved_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021.01.23</date_update>
+  <date_update>2023.02.07</date_update>
   <!-- version of Plugin -->
-  <version>1.0beta4</version>
+  <version>1.0</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2017.11.17</date_version>
+  <date_version>2023.02.07</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -57,12 +57,12 @@
   <!-- Template Categories, i.e. cssonly,onepage. -->
   <!-- You can currently define your own tags. These are displayed, but not filtered. -->
   <!-- All available categories can be found on the website. -->
-  <tags>system</tags>
+  <tags>seo,system</tags>
   <!-- full URLs with http(s) -->
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/moved_xh/releases/1.0beta4</download_url>
+    <download_url>https://github.com/cmb69/moved_xh/releases/1.0</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
     <coder_url>https://3-magi.net</coder_url>
@@ -86,7 +86,7 @@
       but Moved_XH makes it possible to redirect incoming requests to another page or to flag them as gone.
       Appropriate information is returned that informs bots about the change,
       what is particularly important regarding search engines,
-      which can change the URL of the page resp. remove it from the index.
+      which can change the URL of the page and remove it from the index respectively.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
