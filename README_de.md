@@ -63,9 +63,9 @@ Das Aussehen von Moved_XH kann unter `Stylesheet` angepasst werden.
 ## Verwendung
 
 Moved_XH speichert seine Daten separat für jede Sprache der CMSimple_XH
-Installation in einer Datei `moved.csv` im jeweiligen
+Installation in einer Datei `moved.txt` im jeweiligen
 `content/` Ordner. Eingehende Anfragen zu Seiten, die nicht
-existieren und für die keine Regel in `moved.csv` angegeben
+existieren und für die keine Regel in `moved.txt` angegeben
 wurde, werden in der Protokolldatei von CMSimple_XH protokolliert. Die
 Beschreibung des Protokolleintrags enthält die angefragte Seite und den
 Referrer, falls bekannt.

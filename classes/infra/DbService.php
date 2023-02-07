@@ -41,33 +41,42 @@ class DbService
         $result = null;
         if (($handle = fopen($this->filename, 'r')) !== false) {
             flock($handle, LOCK_SH);
-            while (($fields = fgetcsv($handle, 4096, '=')) !== false) {
-                if ($fields[0] === $su) {
-                    $result = isset($fields[1]) ? $fields[1] : '';
+            while (($line = fgets($handle)) !== false) {
+                $result = $this->findRedirectForInLine($su, rtrim($line, "\r\n"));
+                if ($result !== null) {
                     break;
-                } else {
-                    $quoted = preg_quote($fields[0], '/');
-                    $search = '/^' . str_replace(['\?', '\*'], ['(.)', '(.*)'], $quoted) . '$/';
-                    if (preg_match($search, $su, $matches)) {
-                        if (!isset($fields[1])) {
-                            $result = '';
-                        } else {
-                            $result = preg_replace_callback(
-                                '/\$(\d)/',
-                                function ($m) use ($matches) {
-                                    return $matches[$m[1]];
-                                },
-                                $fields[1]
-                            );
-                        }
-                        break;
-                    }
                 }
             }
             flock($handle, LOCK_UN);
             fclose($handle);
         }
         return $result;
+    }
+
+    private function findRedirectForInLine(string $su, string $line): ?string
+    {
+        $fields = explode("=", $line, 2);
+        if ($fields[0] === $su) {
+            return isset($fields[1]) ? $fields[1] : '';
+        } else {
+            $quoted = preg_quote($fields[0], '/');
+            $search = '/^' . str_replace(['\?', '\*'], ['(.)', '(.*)'], $quoted) . '$/';
+            if (preg_match($search, $su, $matches)) {
+                if (!isset($fields[1])) {
+                    $result = '';
+                } else {
+                    $result = preg_replace_callback(
+                        '/\$(\d)/',
+                        function ($m) use ($matches) {
+                            return $matches[$m[1]];
+                        },
+                        $fields[1]
+                    );
+                }
+                return $result;
+            }
+        }
+        return null;
     }
 
     public function readTextContent(): ?string

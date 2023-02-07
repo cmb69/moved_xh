@@ -67,6 +67,6 @@ class Dic
     {
         global $pth;
 
-        return new DbService("{$pth['folder']['content']}moved.csv");
+        return new DbService("{$pth['folder']['content']}moved.txt");
     }
 }

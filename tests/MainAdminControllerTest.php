@@ -83,7 +83,7 @@ class MainAdminControllerTest extends TestCase
     {
         $_POST = ['plugin_text' => "foo=bar\nbaz=qux"];
         $this->dbService->method('storeTextContent')->willReturn(false);
-        $this->dbService->method('getFilename')->willReturn("./moved.csv");
+        $this->dbService->method('getFilename')->willReturn("./moved.txt");
         $response = $this->sut->saveAction();
         Approvals::verifyHtml($response->body());
     }

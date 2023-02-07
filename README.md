@@ -58,9 +58,9 @@ The look of Moved_XH can be customized under `Stylesheet`.
 ## Usage
 
 Moved_XH stores its data separately for each language of the CMSimple_XH
-installation in a file `moved.csv` in the respective `content/` folder.
+installation in a file `moved.txt` in the respective `content/` folder.
 Incoming requests to pages that do not exist and have no rule
-in `moved.csv` are logged in the log file of CMSimple_XH.
+in `moved.txt` are logged in the log file of CMSimple_XH.
 The description of the log entry contains the requested page and
 the referrer, if known.
 
