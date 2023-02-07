@@ -54,7 +54,7 @@ class Response
                         header("HTTP/1.1 404 Not found");
                         break;
                     case 410:
-                        header("HTTP/1.1 Gone");
+                        header("HTTP/1.1 410 Gone");
                         break;
                     default:
                         assert(false); // @phpstan-ignore-line
