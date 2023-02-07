@@ -23,10 +23,12 @@ use Moved\Dic;
 
 const MOVED_VERSION = "1.0beta4";
 
- /** @return void */
-function custom_404()
-{
-    global $su, $o;
+if (!function_exists('custom_404')) {
+    /** @return void */
+    function custom_404()
+    {
+        global $su, $o;
 
-    $o .= Dic::makeNotFoundController()->defaultAction($su)->trigger();
+        $o .= Dic::makeNotFoundController()->defaultAction($su)->trigger();
+    }
 }

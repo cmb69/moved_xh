@@ -35,7 +35,8 @@ class InfoControllerTest extends TestCase
         $systemChecker = $this->createStub(SystemChecker::class);
         $systemChecker->method('checkVersion')->willReturn(true);
         $systemChecker->method('checkWritability')->willReturn(true);
-        $sut = new InfoController("./", $lang, $systemChecker);
+        $systemChecker->method('checkCustom404')->willReturn("plugins/moved/index.php");
+        $sut = new InfoController("./", "./", $lang, $systemChecker);
         $response = $sut->defaultAction();
         Approvals::verifyHtml($response);
     }

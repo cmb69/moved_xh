@@ -21,6 +21,8 @@
 
 namespace Moved\Infra;
 
+use ReflectionFunction;
+
 class SystemChecker
 {
     public function checkVersion(string $actual, string $minimum): bool
@@ -31,5 +33,15 @@ class SystemChecker
     public function checkWritability(string $path): bool
     {
         return is_writable($path);
+    }
+
+    public function checkCustom404(string $baseFolder): string
+    {
+        $rf = new ReflectionFunction('custom_404');
+        $filename = $rf->getFileName();
+        assert($filename !== false);
+        $filename = substr($filename, strlen((string) realpath($baseFolder)) + 1);
+        $filename = str_replace("\\", "/", $filename);
+        return $filename;
     }
 }

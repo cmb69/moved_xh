@@ -166,8 +166,8 @@ Durch die Verwendung eines Platzhalters können Sie allerdings vereinfachen:
 Moved_XH verwendet den
 [`custom_404()` Hook](https://wiki.cmsimple-xh.org/de/?tipps-und-tricks/eigene-404-seite),
 so dass es nicht funktioniert, wenn der Hook bereits definiert
-ist. In diesem Fall erhalten Sie ein leeres Browserfenster, wenn Sie Ihre
-Website aufrufen. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen
+ist. Die System-Prüfung meldet ob es ein Problem gibt, und in welcher Datei der
+`custom_404()` Hook definiert ist. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen
 den bestehenden `custom_404()` Hook.
 
 Die Regeln von Moved_XH funktionieren nicht, wenn Sie in die CMSimple_XH

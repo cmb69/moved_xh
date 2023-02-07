@@ -96,7 +96,7 @@ Oaks:Blue_Oak=Trees:Oaks:Blue_Oak</code></pre>
 <p>By using a placeholder, you can simplify, though:</p>
 <pre><code>Oaks:*=Trees:Oaks:$1</code></pre>
 <h2 id="limitations">Limitations</h2>
-<p>Moved_XH uses the <a href="https://wiki.cmsimple-xh.org/?tips-and-tricks/custom-404-page&amp;search=custom+404"><code>custom_404()</code> hook</a>, so it does not work if the hook is alread defined. In this case you will get a blank browser window when you browse to your website. Either uninstall Moved_XH or remove the existing <code>custom_404()</code> hook.</p>
+<p>Moved_XH uses the <a href="https://wiki.cmsimple-xh.org/?tips-and-tricks/custom-404-page&amp;search=custom+404"><code>custom_404()</code> hook</a>, so it does not work if the hook is already defined. The system check reports whether there is a problem, and in which file the <code>custom_404()</code> hook is defined. Either uninstall Moved_XH or remove the existing <code>custom_404()</code> hook.</p>
 <p>Moved_XH’s rules do not work when you are logged in to the CMSimple_XH installation, as the <code>custom_404()</code> hook funktion is not called by CMSimple_XH in this case. If you want to test the rules without logging out, you have to use a second browser.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>Report bugs and ask for support either on <a href="https://github.com/cmb69/moved_xh/issues">Github</a> or in the <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>

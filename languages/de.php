@@ -10,6 +10,7 @@ $plugin_tx['moved']['label_save']="Speichern";
 
 $plugin_tx['moved']['error_save']="„%s“ kann nicht gespeichert werden!";
 
+$plugin_tx['moved']['syscheck_custom_404']="das der 404-Handler in '%s' verwendbar ist";
 $plugin_tx['moved']['syscheck_fail']="Fehlschlag";
 $plugin_tx['moved']['syscheck_message']="Prüfe, dass %1\$s … %2\$s";
 $plugin_tx['moved']['syscheck_phpversion']="die PHP-Version mindestens %s ist";

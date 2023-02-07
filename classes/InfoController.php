@@ -26,6 +26,9 @@ use Moved\Infra\SystemChecker;
 class InfoController
 {
     /** @var string */
+    private $baseFolder;
+
+    /** @var string */
     private $pluginFolder;
 
     /** @var array<string,string> */
@@ -35,8 +38,9 @@ class InfoController
     private $systemChecker;
 
     /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker)
+    public function __construct(string $baseFolder, string $pluginFolder, array $lang, SystemChecker $systemChecker)
     {
+        $this->baseFolder = $baseFolder;
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->systemChecker = $systemChecker;
@@ -51,6 +55,7 @@ class InfoController
                 $this->checkXhVersion('1.7.0'),
                 $this->checkWritability("{$this->pluginFolder}css/"),
                 $this->checkWritability("{$this->pluginFolder}languages/"),
+                $this->checkCustom404(),
             ],
             'logo' => "{$this->pluginFolder}moved.png",
             'version' => MOVED_VERSION
@@ -86,6 +91,18 @@ class InfoController
         return [
             'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_writable'], $folder),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
+    }
+
+    /** @return array{class:string,label:string,stateLabel:string} */
+    private function checkCustom404(): array
+    {
+        $filename = $this->systemChecker->checkCustom404($this->baseFolder);
+        $state = $filename === "plugins/moved/index.php" ? 'success' : 'fail';
+        return [
+            'class' => "xh_$state",
+            'label' => sprintf($this->lang['syscheck_custom_404'], "{$this->baseFolder}{$filename}"),
             'stateLabel' => $this->lang["syscheck_$state"],
         ];
     }

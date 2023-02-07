@@ -96,7 +96,7 @@ Eichen:Blau-Eiche=B%C3%A4ume:Eichen:Blau-Eiche</code></pre>
 <p>Durch die Verwendung eines Platzhalters können Sie allerdings vereinfachen:</p>
 <pre><code>Eichen:*=B%C3%A4ume:Eichen:$1</code></pre>
 <h2 id="einschränkungen">Einschränkungen</h2>
-<p>Moved_XH verwendet den <a href="https://wiki.cmsimple-xh.org/de/?tipps-und-tricks/eigene-404-seite"><code>custom_404()</code> Hook</a>, so dass es nicht funktioniert, wenn der Hook bereits definiert ist. In diesem Fall erhalten Sie ein leeres Browserfenster, wenn Sie Ihre Website aufrufen. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen den bestehenden <code>custom_404()</code> Hook.</p>
+<p>Moved_XH verwendet den <a href="https://wiki.cmsimple-xh.org/de/?tipps-und-tricks/eigene-404-seite"><code>custom_404()</code> Hook</a>, so dass es nicht funktioniert, wenn der Hook bereits definiert ist. Die System-Prüfung meldet ob es ein Problem gibt, und in welcher Datei der <code>custom_404()</code> Hook definiert ist. Entweder deinstallieren Sie Moved_XH, oder Sie entfernen den bestehenden <code>custom_404()</code> Hook.</p>
 <p>Die Regeln von Moved_XH funktionieren nicht, wenn Sie in die CMSimple_XH Installation eingeloggt sind, da dann die <code>custom_404()</code> Hook-Funktion von CMSimple_XH nicht aufgerufen wird. Wenn Sie die Regeln testen wollen ohne sich zunächst auszuloggen, dann müssen Sie einen zweiten Browser verwenden.</p>
 <h2 id="problembehebung">Problembehebung</h2>
 <p>Melden Sie Programmfehler und stellen Sie Supportanfragen entweder auf <a href="https://github.com/cmb69/moved_xh/issues">Github</a> oder im <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>

@@ -57,6 +57,7 @@ class Dic
         global $pth, $plugin_tx;
 
         return new InfoController(
+            $pth['folder']['base'],
             "{$pth['folder']['plugins']}moved/",
             $plugin_tx['moved'],
             new SystemChecker()

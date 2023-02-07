@@ -156,8 +156,8 @@ By using a placeholder, you can simplify, though:
 
 Moved_XH uses the
 [`custom_404()` hook](https://wiki.cmsimple-xh.org/?tips-and-tricks/custom-404-page&search=custom+404),
-so it does not work if the hook is alread defined. In this
-case you will get a blank browser window when you browse to your website.
+so it does not work if the hook is already defined. The system check reports
+whether there is a problem, and in which file the `custom_404()` hook is defined.
 Either uninstall Moved_XH or remove the existing `custom_404()` hook.
 
 Moved_XH's rules do not work when you are logged in to the CMSimple_XH
