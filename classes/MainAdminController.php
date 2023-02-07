@@ -64,6 +64,10 @@ class MainAdminController
     public function defaultAction(): Response
     {
         $contents = $this->dbService->readTextContent();
+        if ($contents === null) {
+            // ignore read failure, and pretend this is the first edit
+            $contents = "";
+        }
         return new Response($this->renderView($contents));
     }
 
